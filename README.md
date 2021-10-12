@@ -8,4 +8,3 @@ Beatmap collection sharing website for osu!
 
 Iterations 
   - Iteration1
-  - Iteration2
