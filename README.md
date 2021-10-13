@@ -1,7 +1,6 @@
 # beattosetto
 Beatmap collection sharing website for osu!
 
----
 ## Website link
 https://beatsets.info/  
 
