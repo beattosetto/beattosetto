@@ -1,4 +1,4 @@
-# beattosetto-Project
+# beattosetto
 Beatmap collection sharing website for osu!
 
 ---
