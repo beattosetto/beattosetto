@@ -20,4 +20,4 @@ jobs:
           source myprojectenv/bin/activate
           python manage.py migrate
           python manage.py collectstatic --noinput --clear
-          echo ${{ secrets.PASSWORD }} | sudo systemctl restart gunicorn.socket gunicorn.service
+          echo ${{ secrets.PASSWORD }} | sudo -S -k systemctl restart gunicorn.socket gunicorn.service
