@@ -1,4 +1,8 @@
 # beattosetto
+
+[![Continuous Integrations](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml/badge.svg)](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml)
+[![codecov](https://codecov.io/gh/beattosetto/beattosetto/branch/main/graph/badge.svg?token=52ELB7G2ES)](https://codecov.io/gh/beattosetto/beattosetto)
+
 Beatmap collection sharing website for osu!
 
 ## Website link
