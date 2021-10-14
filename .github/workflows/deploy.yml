@@ -1,0 +1,23 @@
+name: Deploy Changes to Server
+on: 
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Executing remote SSH commands
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: |
+          cd beattosetto
+          git pull
+          source myprojectenv/bin/activate
+          python manage.py migrate
+          python manage.py collectstatic --noinput --clear
+          echo ${{ secrets.PASSWORD }} | sudo systemctl restart gunicorn.socket gunicorn.service
