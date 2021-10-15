@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/68165621/137478767-fca46881-d6a1-4966-aa54-d139f80bbacf.png" width="250px" height="250px">
+
 # beattosetto
 
 [![Continuous Integrations](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml/badge.svg)](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml)
