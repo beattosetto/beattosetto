@@ -18,6 +18,7 @@ jobs:
           cd beattosetto
           git pull
           source myprojectenv/bin/activate
+          pip install --upgrade --force-reinstall -r requirements.txt
           python manage.py migrate
           python manage.py collectstatic --noinput --clear
           echo ${{ secrets.PASSWORD }} | sudo -S -k systemctl restart gunicorn.socket gunicorn.service
