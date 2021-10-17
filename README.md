@@ -4,6 +4,7 @@
 
 [![Continuous Integrations](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml/badge.svg)](https://github.com/beattosetto/beattosetto/actions/workflows/django.yml)
 [![Deploy Changes to Server](https://github.com/beattosetto/beattosetto/actions/workflows/deploy.yml/badge.svg)](https://github.com/beattosetto/beattosetto/actions/workflows/deploy.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/beattosetto/beattosetto/badge)](https://www.codefactor.io/repository/github/beattosetto/beattosetto)
 [![codecov](https://codecov.io/gh/beattosetto/beattosetto/branch/main/graph/badge.svg?token=52ELB7G2ES)](https://codecov.io/gh/beattosetto/beattosetto)
 
 Beatmap collection sharing website for osu!
