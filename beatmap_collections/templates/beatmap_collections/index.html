@@ -13,14 +13,38 @@
   <link rel="stylesheet" href="{% static "css/index.css" %}">
   <title>Welcome to beattosetto!</title>
 
-<body>
+<body class="bg-dark text-light">
 
-<div class="position-absolute top-50 start-50 translate-middle">
-  <p class="text-center"><iframe width="560" height="315" src="https://www.youtube.com/embed/3SCBYUE_X1U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
-    <p class="round-font text-center fs-1" style="color: #ff66aa; font-weight: 1000;">Welcome to beattosetto!</p>
-  <p class="round-font text-center fs-1">If you can see this that's mean the deployment works!</p>
-  <p class="round-font text-center fs-1">And the GitHub Actions that you set to auto deploy is work too!</p>
-</div>
+<main>
+    <section class="py-4 container">
+        <h1 class="display-1 text-center">Beattosetto</h1>
+        <p class="lead text-center">Your favorite beatmaps collections are here. </p>
+    </section>
+    <section class="py-4 container">
+        <h2 class="display-2 text-center">Collections</h2>
+        <!-- TODO: Retrieve collections from the database -->
+        <div class="row g-4 py-4">
+            <div class="col-lg-6">
+                <div class="card mb-3 bg-dark text-light border border-primary collection-card">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="https://via.placeholder.com/600/240000" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col">
+                      <ul class="card-body list-group p-0">
+                          <li class="list-group-item border-bottom-primary bg-transparent text-light">Mock beatmap</li>
+                          <li class="list-group-item border-bottom-primary bg-transparent text-light">Mock beatmap</li>
+                          <li class="list-group-item border-bottom-primary bg-transparent text-light">Mock beatmap</li>
+                          <li class="list-group-item border-bottom-primary bg-transparent text-light">Mock beatmap</li>
+                          <li class="list-group-item border-bottom-primary bg-transparent text-light">Mock beatmap</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
