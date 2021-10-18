@@ -62,7 +62,7 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
 
 #### Acceptance criteria
 1. Users can login & logout with Django & osu! accounts
-2. Home page show the list of collections
+2. Home page show the list of collections but not apply amy styling to the list
 3. Database model is ready for further development
 4. Users can create the collection to website
 
