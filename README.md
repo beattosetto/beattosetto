@@ -46,12 +46,25 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
   <p>
 
 #### Goal
-
+1. Implementing design in figma to template
+2. Create login page
+3. Implement the login system
+4. Create database model from the UML diagram
+5. Create view for the homepage 
+6. Create collection page 
 
 #### Features
+1. Login page
+2. Register page
+3. Home page
+4. Database model
+5. Create collections
 
 #### Acceptance criteria
-
+1. Users can login & logout with Django & osu! accounts
+2. Home page show the list of collections
+3. Database model is ready for further development
+4. Users can create the collection to website
 
 </p>
   </details>
