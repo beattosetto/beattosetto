@@ -40,3 +40,18 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
 
 </p>
   </details>
+
+<details>
+  <summary> ITERATION 2 </summary>
+  <p>
+
+#### Goal
+
+
+#### Features
+
+#### Acceptance criteria
+
+
+</p>
+  </details>
