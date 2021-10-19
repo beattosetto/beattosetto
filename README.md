@@ -18,53 +18,5 @@ A website that allows users to post their collection of osu! beatmap set and let
 You can compare beatmap set collection to playlist and beatmap set to a song.
 
 ## Development plan
-<details>
-  <summary> ITERATION 1 </summary>
-  <p>
-
-#### Goal
-1. Design mock up  
-2. Create models UML  
-3. Setup development and deployment environment  
-4. Complete project proposal
-5. Create project wiki & README.md
-
-#### Features
-1. UI mock up
-2. UML diagram for database model
-
-#### Acceptance criteria
-1. Models and diagrams are ready to use on iteration 2
-2. The project is ready for development and deployment
-3. Wiki & README.md are easy to read 
-
-</p>
-  </details>
-
-<details>
-  <summary> ITERATION 2 </summary>
-  <p>
-
-#### Goal
-1. Implementing design in figma to template
-2. Create login page
-3. Implement the login system
-4. Create database model from the UML diagram
-5. Create view for the homepage 
-6. Create collection page 
-
-#### Features
-1. Login page
-2. Register page
-3. Home page
-4. Database model
-5. Create collections
-
-#### Acceptance criteria
-1. Users can login & logout with Django & osu! accounts
-2. Home page show the list of collections but not apply amy styling to the list
-3. Database model is ready for further development
-4. Users can create the collection to website
-
-</p>
-  </details>
+- [Iteration 1 plan](../../wiki/Iteration-1-plan)   
+- [Iteration 2 plan](../../wiki/Iteration-2-plan)   
