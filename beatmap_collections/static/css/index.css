@@ -31,3 +31,8 @@
     border-radius: .25rem;
     content: "";
 }
+
+.bg-primary {
+    /* Bootstrap does not use CS */
+    background-color: var(--bs-primary) !important;
+}
