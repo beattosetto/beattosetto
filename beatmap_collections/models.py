@@ -82,19 +82,19 @@ class Beatmap(models.Model):
         beatmap_id: An identification number of this beatmap.
         beatmapset_id: An identification number of the beatmap set that this beatmap is in.
         bpm: The number of beats per minute this beatmap offers.
-        count_normal: # TODO: Fill in a description for count_normal
-        count_slider: # TODO: Fill in a description for count_slider
-        count_spinner: # TODO: Fill in a description for count_spinner
+        count_normal: The number of total normal note in the beatmap.
+        count_slider: The number of total normal slider or the long note in the beatmap.
+        count_spinner: The number of total spinner in the beatmap.
         difficultyrating: The difficulty of this beatmap. It is represented as a star rating (SR).
-        diff_approach: # TODO: Fill in a description for diff_approach
-        diff_drain: # TODO: Fill in a description for diff_drain
-        diff_overall: # TODO: Fill in a description for diff_overall
-        diff_size: # TODO: Fill in a description for diff_size
-        max_combo: # TODO: Fill in a description for max_combo
+        diff_approach: The approach rate (AR) value of the beatmap.
+        diff_drain: The Health drain (HP) value of the beatmap.
+        diff_overall: The Overall difficulty (OD) value of the beatmap.
+        diff_size: The Circle size value (CS) of the beatmap. This value mainly use in the beatmap in osu! mode.
+        max_combo: The maximum combo a user can reach playing this beatmap.
         playcount: The number of times this beatmap is played.
         favourite_count: The number of people who added this beatmap is added as one of their favourites.
         total_length: The total length of this beatmap (its playtime).
-        mode: # TODO: Fill in a description for mode
+        mode: The mode ID of the beatmap.
         title: The name of this beatmap.
         artist: This beatmap's music composer.
         source: The source for this beatmap's song.
@@ -108,12 +108,12 @@ class Beatmap(models.Model):
                     5) 0 Pending
                     6) -1 WIP
                     7) -2 Graveyard
-        version: The version of this beatmap.
+        version: The version or the difficulty name of this beatmap.
         url: The direct link to this beatmap.
         beatmap_card: The cover art of this beatmap.
         beatmap_list: The thumbnail of this beatmap.
-        tags: This beatmap's tag(s).
-        description: The description of this beatmap.
+        tags: This beatmap's tag(s). If it have more than 1 tag it will separate with space.
+        description: The description of this beatmap that users write it when adding the beatmap.
         create_date: The creation date of this beatmap.
         owner_approved: The collection approval status of this beatmap. Changes to true if the owner of the requested
                         collection approves the request to add this beatmap.
