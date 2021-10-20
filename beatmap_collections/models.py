@@ -22,7 +22,7 @@ class Collection(models.Model):
 
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=250, blank=True)
     tags = models.TextField(default=None, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now_add=True)
@@ -162,6 +162,6 @@ class Beatmap(models.Model):
     total_length = models.IntegerField(default=0)
     mode = models.IntegerField(default=0)
     creator_id = models.IntegerField(default=0)
-    tags = models.CharField(max_length=100)
+    tags = models.CharField(max_length=100, blank=True)
 
-    collection = models.ManyToManyField(Collection)
+    collection = models.ManyToManyField(Collection, blank=True)
