@@ -18,5 +18,5 @@ A website that allows users to post their collection of osu! beatmap set and let
 You can compare beatmap set collection to playlist and beatmap set to a song.
 
 ## Development plan
-- [Iteration 1 plan](../../wiki/Iteration-1-plan)   
-- [Iteration 2 plan](../../wiki/Iteration-2-plan)   
+- [Iteration 1](../../wiki/Iteration-1-plan)   
+- [Iteration 2](../../wiki/Iteration-2-plan)   
