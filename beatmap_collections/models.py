@@ -68,7 +68,7 @@ class RatingLog(models.Model):
         create_date: The date when this rating was made.
     """
 
-    collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     user_rating = models.IntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
