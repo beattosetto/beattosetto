@@ -13,7 +13,7 @@ class Collection(models.Model):
 
     Attributes:
         name: The name of this collection
-        author: The name of this collection's creator.
+        author: The user who created this collection.
         description: The description of this collection.
         tags: This collection's tag(s).
         create_date: The creation date of this collection.
@@ -21,7 +21,7 @@ class Collection(models.Model):
     """
 
     name = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     description = models.CharField(max_length=250)
     tags = models.TextField(default=None, blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
