@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 
 
-FALLBACK_USER_KEY = "peppyInwZaa727"
+FALLBACK_USER_KEY = "peppywangInwZaa727"
 
 
 class Collection(models.Model):
