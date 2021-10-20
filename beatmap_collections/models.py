@@ -164,4 +164,4 @@ class Beatmap(models.Model):
     creator_id = models.IntegerField(default=0)
     tags = models.CharField(max_length=100, blank=True)
 
-    collection = models.ManyToManyField(Collection, blank=True)
+    collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
