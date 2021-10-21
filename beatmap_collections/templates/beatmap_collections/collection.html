@@ -15,6 +15,24 @@
         </div>
     </div>
 </div>
+<div class="container">
+  <div class="row">
+     {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success"%}
+                <div class="alert alert-success">
+                    <i class="fas fa-check"></i> {{ message }}
+                </div>
+            {% endif %}
+            {% if message.tags == "error"%}
+                <div class="alert alert-danger">
+                    <i class="fas fa-times"></i> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
 <main class="bg-dark text-light">
     <form class="py-4 container">
         <h1 class="display-5">Collection Information</h1>

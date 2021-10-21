@@ -8,11 +8,29 @@
 {% block content %}
 <main class="text-light">
     <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-home.jpg" %});">
-        <img class="d-block mx-auto mb-4" id="home-logo" src="{% static 'logo/beattosetto-icon-white.svg' %}" alt="Beattosetto Logo" height="65" data-aos="zoom-in" data-aos-duration="600">
-        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700">Welcome to beattosetto!</h1>
+        <img class="d-block mx-auto mb-4" id="home-logo" src="{% static 'logo/beattosetto-icon-white.svg' %}" alt="Beattosetto Logo" height="65" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
+        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Welcome to beattosetto!</h1>
         <div class="col-lg-4 mx-auto">
-          <p class="lead mb-4" id="home-description" data-aos="fade-up" data-aos-duration="800">Beatmap collection sharing website for osu!</p>
+          <p class="lead mb-4" id="home-description" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">Beatmap collection sharing website for osu!</p>
         </div>
+  </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
   </div>
     <section class="py-4 container">
         <h2 class="display-2 text-center">Collections</h2>
