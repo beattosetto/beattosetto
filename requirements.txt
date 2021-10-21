@@ -3,3 +3,4 @@ python-decouple
 gunicorn
 psycopg2-binary
 coverage
+pillow
