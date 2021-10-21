@@ -1,0 +1,33 @@
+{% extends "beatmap_collections/base_generic.html" %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% load crispy_forms_tags %}
+{% load static %}
+  {% block css %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+  {% endblock %}
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-sm-4 hidden-md-down position-relative" style="background-color: #2d2d2d; color: white;">
+        <div class="container position-absolute top-50 start-50 translate-middle col-8">
+            <h1>Login</h1>
+            <p></p>
+            <form method="POST">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <p></p>
+              <button type="submit" class="btn btn-beattosetto hvr-sweep-to-right">Submit</button>
+            </form>
+             <div style="line-height: 5">
+            <p>Don't have an account? <a <a href="{% url 'register' %}" class="text-decoration-none spacing-hover">Register</a></p>
+             </div>
+        </div>
+      </div>
+         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="background-image: url('{% static "img/819506.jpeg" %}')"></div>
+
+    </div>
+{% endblock %}

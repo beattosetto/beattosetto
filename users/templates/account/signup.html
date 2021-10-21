@@ -1,0 +1,40 @@
+{% extends "beatmap_collections/base_generic.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+
+<!doctype html>
+    {% block css %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+    {% endblock %}
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+  {% block content %}
+  <div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-sm-4 hidden-md-down position-relative" style="background-color: #2d2d2d; color: white;">
+        <div class="container position-absolute top-50 start-50 translate-middle col-8">
+            <h1>Register</h1>
+            <p></p>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                  <p></p>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-beattosetto hvr-sweep-to-right">Submit</button>
+                </div>
+                <p></p>
+            </form>
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-primary btn-beattosetto2">Login with osu! account</button>
+            </div>
+             <div style="line-height:5">
+                <p>Already have an account? <a href="{% url 'account_login' %}" class="text-decoration-none spacing-hover">Login</a></p>
+             </div>
+        </div>
+      </div>
+         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="background-image: url('{% static "img/819506.jpeg" %}')"></div>
+    </div>
+{% endblock %}
