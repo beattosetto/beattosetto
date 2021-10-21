@@ -3,9 +3,30 @@
     Override Bootstrap variable
     This is the only way to theme Bootstrap without SCSS dependencies.
     */
-    --bs-primary: #FF549F;
+    --bs-primary: #FF66AA;
+    --bs-primary-dark: #FF268c;
+    --bg-color: rgb(33, 37, 41);
+    --bg-color-trans: rgba(33, 37, 41, .8);
     --default-font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --bs-font-sans-serif: 'Comfortaa', var(--default-font-family-sans-serif);
+    --transition-time: 0.2s;
+}
+
+* {
+    /* Change all transition to make every animation move smoothly */
+    transition: var(--transition-time);
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+a {
+    color: var(--bs-primary);
+}
+
+a:hover {
+    color: var(--bs-primary-dark);
 }
 
 .border-primary {
@@ -13,6 +34,237 @@
     border-color: var(--bs-primary) !important;
 }
 
+/*Header and footer styling*/
+
+#header {
+    background-color: rgba(74,74,74,0);
+    transition: var(--transition-time);
+    z-index: 2;
+}
+
+footer {
+    color: white;
+    background-color: #4a4a4a;
+}
+
+.github-footer {
+    color: #fff;
+}
+
+.github-footer:hover {
+    color: #ff66aa;
+}
+
+.nav-text {
+    color: #ff63ac;
+    font-size: 20px;
+    transition: var(--transition-time)
+}
+
+.nav-text:hover {
+    letter-spacing: 2px;
+}
+
+.hero, .hero-profile {
+    height:30vh;
+    min-height:400px;
+    background-size: cover;
+    margin:0!important;
+    padding:12vh!important;
+    transition: var(--transition-time)
+}
+
+.blur-bg {
+    backdrop-filter: blur(5px);
+}
+
+.dropdown-menu {
+    background-color: #5f5f5f;
+}
+
+.dropdown-item:hover {
+    background-color: #8f8f8f;
+}
+
+.dropdown-pfp::after {
+    content:none;
+}
+
+@media (max-width: 1009px) {
+    #mobile-header {
+        opacity: 100%!important;
+    }
+
+    #desktop-header {
+        opacity: 0;
+    }
+}
+
+#mobile-header {
+    opacity: 0;
+    z-index: 1;
+    transition: var(--transition-time);
+    min-height: 68px;
+    height: 8%;
+    background-color: rgba(74, 74, 74, 0);
+}
+
+#mobile-logo {
+    transition: var(--transition-time);
+}
+
+#navbarToggleExternalContent {
+    margin-top: 77px;
+    background-color: rgba(74, 74, 74, .8);
+    backdrop-filter: blur(5px);
+}
+
+.list-group-item {
+    border: 0;
+    background-color: rgba(74, 74, 74, .8);
+}
+
+.list-group {
+    background-color: rgba(74, 74, 74, 0);
+}
+
+.list-group-item:hover {
+    border: 0;
+    background-color: rgba(74, 74, 74, .3);
+}
+
+.mobile-header-text {
+    color: white;
+}
+
+#arrow-profile-menu {
+    transition: var(--transition-time);
+}
+
+#profile-picture, #header-logo{
+    transition: var(--transition-time);
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    background-color: #4a4a4a;
+}
+
+.modal-body {
+    color: white;
+}
+
+.discord-hover:hover {
+    cursor: pointer;
+}
+
+#signout-button:hover {
+    cursor: pointer;
+}
+
+button.btn-close {
+    filter: invert(1);
+}
+
+.text-box {
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--bg-color);
+}
+
+button.accordion-button,
+button.accordion-button:focus,
+button.accordion-button:not(.collapsed) {
+    color: white;
+}
+
+button.accordion-button.collapsed,
+button.accordion-button:not(.collapsed) {
+    background-color: #4a4a4a;
+    border-color: white;
+}
+
+button.accordion-button:focus {
+    background-color: #6f6f6f;
+    border-color: #6f6f6f;
+}
+
+.accordion-body {
+    background-color: #4a4a4a;
+}
+
+.accordion-button::after {
+    filter: invert(1);
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: invert(0.4);
+}
+
+#profile-menu {
+    background-color: rgba(74, 74, 74, .8);
+    color: white;
+}
+
+#nav-listing {
+    font-weight: 1000;
+}
+
+#nav-listing:hover {
+    color: var(--bs-primary-dark);
+}
+
+a.dropdown-item {
+    color: white;
+}
+
+.dropdown-menu {
+    background-color: #5f5f5f;
+}
+
+.dropdown-item:hover {
+    background-color: #8f8f8f;
+}
+
+.dropdown-pfp::after {
+    content:none;
+}
+
+/*Styling class used in JS*/
+
+.hidden {
+    opacity: 0;
+}
+
+.show {
+    opacity: 100%;
+}
+
+.rotate {
+    rotation: 180deg;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+
+.icon-menu {
+    color: #ffb3d4;
+}
+
+/* This is used to override the color of fontawesome icon */
+
+.fa-times {
+    color: #842029;
+}
+
+.fa-check {
+    color: #0f5132;
+}
+
+/*Collection card styling*/
 
 .collection-card {
     position: relative;
