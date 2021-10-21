@@ -19,7 +19,7 @@ body {
 {
     background-color: var(--bs-primary)!important;
     color: white!important;
-    border-color: #FF66aa!important;
+    border-color: var(--bs-primary)!important;
 }
 
 .btn-beattosetto2
@@ -29,5 +29,5 @@ body {
     border-color: gray!important;
 }
 .spacing-hover {
-    color: #FF66aa!important;
+    color: var(--bs-primary)!important;
 }
