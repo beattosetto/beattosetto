@@ -4,3 +4,4 @@ gunicorn
 psycopg2-binary
 coverage
 pillow
+rurusetto-allauth
