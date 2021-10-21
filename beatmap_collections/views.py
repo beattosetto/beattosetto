@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from .models import *
 
 
 def home(request):
-    return render(request, 'beatmap_collections/index.html')
+    collections = Collection.objects.all()
+    context = {"collections": collections}
+    return render(request, 'beatmap_collections/index.html', context)
 
 
 def login_page(request):

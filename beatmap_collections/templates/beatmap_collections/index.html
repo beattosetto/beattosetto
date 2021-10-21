@@ -13,20 +13,21 @@
     <section class="py-4 container">
         <h2 class="display-2 text-center">Collections</h2>
         <!-- TODO: Retrieve collections from the database -->
+        {% for collection in collections %}
         <div class="row g-4 py-4">
             <div class="col-lg-6">
                 <div class="card mb-3 bg-dark text-light border border-primary collection-card">
                   <div class="row g-0">
                     <div class="col-md-4">
-                      <img src="https://via.placeholder.com/600/240000" class="img-fluid rounded-start" alt="...">
+                      <img src={{ collection.collection_list }}>
                     </div>
                     <div class="col">
                       <div class="card-body">
-                          <h2 class="card-title text-primary">Beatmap Title</h2>
-                          <p class="card-content lead">made by Test User</p>
-                          <p class="card-text">10 beatmaps</p>
+                          <h2 class="card-title text-primary">{{ collection.name }}</h2>
+                          <p class="card-content lead">made by {{ collection.author.username }}</p>
+                          <p class="card-text">{{ collections.beatmap_count }} beatmaps</p>
                           <p class="card-text">
-                              <span class="badge rounded-pill bg-primary">Tag</span>
+                              <span class="badge rounded-pill bg-primary">{{ collection.tags }}</span>
                           </p>
                       </div>
                     </div>
@@ -34,6 +35,7 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
     </section>
 </main>
 {% endblock %}
