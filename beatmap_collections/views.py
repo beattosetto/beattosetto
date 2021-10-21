@@ -12,5 +12,6 @@ def login_page(request):
 def register_page(request):
     return render(request, 'beatmap_collections/register.html')
 
+
 def collection_page(request):
     return render(request, 'beatmap_collections/collection.html')
