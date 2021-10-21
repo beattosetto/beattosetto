@@ -232,6 +232,11 @@ a.dropdown-item {
     content:none;
 }
 
+.modal-title {
+    color: white;
+    font-weight: 1000;
+}
+
 /* Some element class that we made it specificly */
 
 .btn-beattosetto
