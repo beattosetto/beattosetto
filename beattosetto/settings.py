@@ -178,6 +178,8 @@ SOCIALACCOUNT_PROVIDERS = {
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'account_login'
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 # Django crispy forms settings
 # https://django-crispy-forms.readthedocs.io/en/latest/index.html
 
