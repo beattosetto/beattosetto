@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <defs>
+    <clipPath id="clip-Custom_Size_2">
+      <rect width="1000" height="1000"/>
+    </clipPath>
+  </defs>
+  <g id="Custom_Size_2" data-name="Custom Size – 2" clip-path="url(#clip-Custom_Size_2)">
+    <g id="Ellipse_11" data-name="Ellipse 11" transform="translate(138.577 159.5)" fill="none" stroke="#f6a" stroke-width="12">
+      <ellipse cx="62" cy="61.5" rx="62" ry="61.5" stroke="none"/>
+      <ellipse cx="62" cy="61.5" rx="56" ry="55.5" fill="none"/>
+    </g>
+    <g id="Ellipse_12" data-name="Ellipse 12" transform="translate(138.577 345.5)" fill="none" stroke="#f6a" stroke-width="12">
+      <ellipse cx="62" cy="61.5" rx="62" ry="61.5" stroke="none"/>
+      <ellipse cx="62" cy="61.5" rx="56" ry="55.5" fill="none"/>
+    </g>
+    <g id="Ellipse_13" data-name="Ellipse 13" transform="translate(138.577 531.5)" fill="none" stroke="#f6a" stroke-width="12">
+      <ellipse cx="62" cy="61.5" rx="62" ry="61.5" stroke="none"/>
+      <ellipse cx="62" cy="61.5" rx="56" ry="55.5" fill="none"/>
+    </g>
+    <g id="Ellipse_14" data-name="Ellipse 14" transform="translate(138.577 717.5)" fill="none" stroke="#f6a" stroke-width="12">
+      <ellipse cx="62" cy="61.5" rx="62" ry="61.5" stroke="none"/>
+      <ellipse cx="62" cy="61.5" rx="56" ry="55.5" fill="none"/>
+    </g>
+    <line id="Line_5" data-name="Line 5" x2="502.346" transform="translate(359.077 220)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="78"/>
+    <line id="Line_6" data-name="Line 6" x2="502.346" transform="translate(359.077 407)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="78"/>
+    <line id="Line_7" data-name="Line 7" x2="502.346" transform="translate(359.077 594)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="78"/>
+    <line id="Line_8" data-name="Line 8" x2="502.346" transform="translate(359.077 781)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="78"/>
+    <circle id="Ellipse_19" data-name="Ellipse 19" cx="37.5" cy="37.5" r="37.5" transform="translate(163.577 182.5)" fill="#f6a"/>
+    <line id="Line_9" data-name="Line 9" y2="73" transform="translate(201.077 370.5)" fill="none" stroke="#f6a" stroke-width="12"/>
+    <circle id="Ellipse_22" data-name="Ellipse 22" cx="11.5" cy="11.5" r="11.5" transform="translate(177.577 558.5)" fill="#f6a"/>
+    <circle id="Ellipse_23" data-name="Ellipse 23" cx="11.5" cy="11.5" r="11.5" transform="translate(209.577 581.5)" fill="#f6a"/>
+    <circle id="Ellipse_24" data-name="Ellipse 24" cx="11.5" cy="11.5" r="11.5" transform="translate(177.577 604.5)" fill="#f6a"/>
+    <line id="Line_10" data-name="Line 10" y2="68" transform="translate(200.577 745)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="10"/>
+    <line id="Line_11" data-name="Line 11" y2="37" transform="translate(222.577 760.5)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="10"/>
+    <line id="Line_12" data-name="Line 12" y2="37" transform="translate(178.577 759.5)" fill="none" stroke="#f6a" stroke-linecap="round" stroke-width="10"/>
+    <g id="Ellipse_25" data-name="Ellipse 25" transform="translate(161.077 365.75)" fill="none" stroke="#f6a" stroke-width="12">
+      <circle cx="40" cy="40" r="40" stroke="none"/>
+      <circle cx="40" cy="40" r="34" fill="none"/>
+    </g>
+  </g>
+</svg>
