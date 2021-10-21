@@ -12,21 +12,18 @@
     <div class="row justify-content-center h-100">
       <div class="col-sm-4 hidden-md-down position-relative">
         <div class="container position-absolute top-50 start-50 translate-middle col-8">
+           <p></p>
             {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
                 <i class="fas fa-check"></i> {{ message }}
               </div>
             {% endfor %}
-            {% endif %}
-          <h1>Login Failed</h1>
+          {% endif %}
+          <h1>Log In Cancelled</h1>
           <p></p>
           {% url 'account_login' as login_url %}
-            <p>An error occurred while attempting to login via your osu! account.</p>
-            <p></p>
-          <a href="{% url 'account_login' %}" class="text-decoration-none spacing-hover">Back to login page</a>
-          <p></p>
-          <a href="{% url 'home' %}" class="text-decoration-none spacing-hover">Return to homepage</a>
+            <p>You decided to cancel logging in to Beattosetto using your osu! account. If this was a mistake, please <a class="text-decoration-none" href="{{ login_url }}">sign in again</a>.</p>
         </div>
       </div>
       <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="background-image: url('{% static "img/819506.jpeg" %}')"></div>
