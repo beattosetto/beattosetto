@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.osu',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -157,7 +158,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# osu! OAuth support by rurusetto-allauth
+# osu! OAuth support by rurusetto-allauth settings
 # https://pypi.org/project/rurusetto-allauth/
 
 SITE_ID = 1
@@ -175,5 +176,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Django crispy forms settings
+# https://django-crispy-forms.readthedocs.io/en/latest/index.html
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
