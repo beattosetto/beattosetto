@@ -1,0 +1,10 @@
+[run]
+# measure branch coverage
+branch = True
+# don't test the Python standard library
+cover_pylib = False
+# omit uninteresting files
+omit =
+    beatmap_collections/migrations/*
+    beattosetto/*
+    manage.py
