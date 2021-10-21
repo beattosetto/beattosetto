@@ -157,9 +157,8 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # osu! OAuth support by rurusetto-allauth
-#  https://pypi.org/project/rurusetto-allauth/
+# https://pypi.org/project/rurusetto-allauth/
 
 SITE_ID = 1
 
@@ -174,3 +173,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+# Django crispy forms settings
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
