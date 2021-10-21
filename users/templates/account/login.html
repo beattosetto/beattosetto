@@ -20,11 +20,18 @@
               {% csrf_token %}
               {{ form|crispy }}
               <p></p>
-              <button type="submit" class="btn btn-beattosetto hvr-sweep-to-right">Submit</button>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-beattosetto hvr-sweep-to-right">Submit</button>
+              </div>
+              <p></p>
+              <div class="d-grid gap-2">
+                <a class="btn btn-secondary btn-beattosetto2 socialaccount_provider osu text-decoration-none" href="/accounts/osu/login/?process=">Login with osu! account</a>
+              </div>
             </form>
              <div style="line-height: 5">
-            <p>Don't have an account? <a <a href="{% url 'register' %}" class="text-decoration-none spacing-hover">Register</a></p>
+                <p>Don't have an account? <a href="{% url 'account_signup' %}" class="text-decoration-none spacing-hover">Register</a></p>
              </div>
+                <p><a href="{% url 'home' %}" class="text-decoration-none spacing-hover">Back to home</a></p>
         </div>
       </div>
          <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="background-image: url('{% static "img/819506.jpeg" %}')"></div>
