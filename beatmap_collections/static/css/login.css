@@ -1,0 +1,33 @@
+html,
+body {
+    height: 100%!important;
+}
+
+.right-bg {
+    background-size: cover;
+    background-position: center;
+}
+
+.form {
+    line-height: 10;
+}
+
+.login-form {
+    line-height: 1;
+}
+.btn-beattosetto
+{
+    background-color: var(--bs-primary)!important;
+    color: white!important;
+    border-color: var(--bs-primary)!important;
+}
+
+.btn-beattosetto2
+{
+    background-color: gray!important;
+    color: white!important;
+    border-color: gray!important;
+}
+.spacing-hover {
+    color: var(--bs-primary)!important;
+}
