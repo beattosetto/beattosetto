@@ -232,6 +232,15 @@ a.dropdown-item {
     content:none;
 }
 
+/* Some element class that we made it specificly */
+
+.btn-beattosetto
+{
+    background-color: var(--bs-primary)!important;
+    color: white!important;
+    border-color: var(--bs-primary)!important;
+}
+
 /*Styling class used in JS*/
 
 .hidden {

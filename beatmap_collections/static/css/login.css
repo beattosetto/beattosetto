@@ -15,12 +15,6 @@ body {
 .login-form {
     line-height: 1;
 }
-.btn-beattosetto
-{
-    background-color: var(--bs-primary)!important;
-    color: white!important;
-    border-color: var(--bs-primary)!important;
-}
 
 .btn-beattosetto2
 {
