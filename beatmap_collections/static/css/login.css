@@ -17,7 +17,7 @@ body {
 }
 .btn-beattosetto
 {
-    background-color: #FF66aa!important;
+    background-color: var(--bs-primary)!important;
     color: white!important;
     border-color: #FF66aa!important;
 }
