@@ -1,0 +1,39 @@
+{% extends "beatmap_collections/base_generic.html" %}
+{% load static %}
+    {% block title %}
+  <title>Create collection</title>
+   {% endblock %}
+
+{% block content %}
+<main class="bg-dark text-light">
+    <form class="py-4 container">
+        <h1 class="display-5">Create collection</h1>
+        <br />
+        <div class="row g-3 align-items-center">
+  <div class="col-12 col-lg-4">
+    <label for="inputTitle" class="col-form-label">Title</label>
+  </div>
+  <div class="col-12 col-lg-8">
+    <input type="text" id="inputTitle" class="form-control" placeholder="Beatmap Title Here">
+  </div>
+  <div class="col-12 col-lg-4">
+    <label for="inputDescription" class="col-form-label">Description</label>
+  </div>
+  <div class="col-12 col-lg-8">
+    <textarea rows="5" id="inputDescription" class="form-control" placeholder="Write your message here">
+    </textarea>
+  </div>
+  <p></p>
+  <br />
+        <label for="inputBeatmap" class="display-6">Beatmaps</label>
+        <br />
+  <div class="col-4">
+      <input type="text" id="inputBeatmap" class="form-control" placeholder="Insert beatmap ID.">
+      </div>
+
+             <div class="col-4"><button type="button" class="btn btn-primary btn-beattosetto">Add</button></div>
+  <button type="button" class="btn btn-success btn-beattosetto">Save</button>
+</div>
+
+</main>
+{% endblock %}
