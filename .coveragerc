@@ -6,4 +6,5 @@ cover_pylib = False
 # omit uninteresting files
 omit =
     beatmap_collections/migrations/*
+    beattosetto/*
     manage.py
