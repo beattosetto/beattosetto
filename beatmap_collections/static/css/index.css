@@ -71,7 +71,8 @@ footer {
     background-size: cover;
     margin:0!important;
     padding:12vh!important;
-    transition: var(--transition-time)
+    transition: var(--transition-time);
+    color: white;
 }
 
 .blur-bg {
