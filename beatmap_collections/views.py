@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import *
 
 
@@ -23,11 +24,10 @@ def register_page(request):
     return render(request, 'beatmap_collections/register.html')
 
 
+@login_required
 def collection_page(request):
     """Collection creation page. Logged in users can create a new beatmap collection here."""
-    if request.user.is_authenticated:
-        return render(request, 'beatmap_collections/collection.html')
-    return HttpResponseRedirect(reverse('home'))
+    return render(request, 'beatmap_collections/collection.html')
 
 
 def save_collection(request):
