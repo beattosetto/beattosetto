@@ -21,7 +21,7 @@ class Collection(models.Model):
         edit_date: The date that this collection was last modified.
     """
 
-    collection_list = models.ImageField(default="https://via.placeholder.com/600/240000", upload_to='collection_list',
+    collection_list = models.ImageField(default="collection_list/placeholder.png", upload_to='collection_list',
                                         validators=[FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg',
                                                                                                'jpeg', 'bmp', 'svg',
                                                                                                'webp'])])
