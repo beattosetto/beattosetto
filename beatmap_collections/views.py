@@ -30,7 +30,9 @@ def collection_page(request):
 
 def save_collection(request):
     """Save a collection to the database."""
-    name, description = request.POST['inputTitle'], request.POST['inputDescription']
-    collection_object = Collection(name=name, description=description)
-    collection_object.save()
-    return HttpResponseRedirect(reverse('home'))
+    if request.POST['inputTitle']:
+        name, description = request.POST['inputTitle'], request.POST['inputDescription']
+        collection_object = Collection(name=name, description=description)
+        collection_object.save()
+        return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('new_collection'))
