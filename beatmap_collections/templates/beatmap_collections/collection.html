@@ -9,32 +9,30 @@
     <form class="py-4 container" action="{% url 'save_collection' %}" method="post">
         {% csrf_token %}
         <h1 class="display-5">Create collection</h1>
-        <br />
+        <br/>
         <div class="row g-3 align-items-center">
-  <div class="col-12 col-lg-4">
-    <label for="inputTitle" class="col-form-label">Title</label>
-  </div>
-  <div class="col-12 col-lg-8">
-    <input type="text" id="inputTitle" name="inputTitle" class="form-control" placeholder="Beatmap Title Here">
-  </div>
-  <div class="col-12 col-lg-4">
-    <label for="inputDescription" class="col-form-label">Description</label>
-  </div>
-  <div class="col-12 col-lg-8">
-    <textarea rows="5" id="inputDescription" name="inputDescription" class="form-control" placeholder="Write your message here">
-    </textarea>
-  </div>
-  <p></p>
-  <br />
-        <label for="inputBeatmap" class="display-6">Beatmaps</label>
-        <br />
-  <div class="col-4">
-      <input type="number" id="inputBeatmap" class="form-control" placeholder="Insert beatmap ID.">
-      </div>
-
-             <div class="col-4"><button type="button" class="btn btn-primary">Add</button></div>
-  <button type="submit" class="btn btn-success">Create</button>
-</div>
-</form>
+            <div class="col-12 col-lg-4">
+                <label for="inputTitle" class="col-form-label">Title</label>
+            </div>
+            <div class="col-12 col-lg-8">
+                <input type="text" id="inputTitle" name="inputTitle" class="form-control" placeholder="Beatmap Title Here">
+            </div>
+            <div class="col-12 col-lg-4">
+                <label for="inputDescription" class="col-form-label">Description</label>
+            </div>
+            <div class="col-12 col-lg-8">
+                <textarea rows="5" id="inputDescription" name="inputDescription" class="form-control" placeholder="Write your message here"></textarea>
+            </div>
+            <p></p>
+            <br/>
+            <label for="inputBeatmap" class="display-6">Beatmaps</label>
+            <br/>
+            <div class="col-4">
+                <input type="number" id="inputBeatmap" class="form-control" placeholder="Insert beatmap ID.">
+            </div>
+            <div class="col-4"><button type="button" class="btn btn-primary">Add</button></div>
+            <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </form>
 </main>
 {% endblock %}

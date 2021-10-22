@@ -13,8 +13,8 @@
     <section class="py-4 container">
         <h2 class="display-2 text-center">Collections</h2>
         <!-- TODO: Retrieve collections from the database -->
-        {% for collection in collections %}
         <div class="row g-4 py-4">
+        {% for collection in collections %}
             <div class="col-lg-6">
                 <div class="card mb-3 bg-dark text-light border border-primary collection-card">
                   <div class="row g-0">
@@ -34,8 +34,8 @@
                   </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
+        </div>
     </section>
 </main>
 {% endblock %}
