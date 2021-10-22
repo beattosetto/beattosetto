@@ -4,7 +4,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 
-FALLBACK_USER_KEY = "peppywangInwZaa727"
+FALLBACK_USER_KEY = 1
 
 
 class Collection(models.Model):
@@ -29,7 +29,7 @@ class Collection(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     description = models.CharField(max_length=250, blank=True)
     beatmap_count = models.IntegerField(default=0)
-    tags = models.TextField(default=None, blank=True)
+    tags = models.TextField(default="Pending", blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now_add=True)
 
