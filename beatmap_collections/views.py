@@ -38,4 +38,4 @@ def save_collection(request):
         collection_object = Collection(name=name, description=description)
         collection_object.save()
         return redirect('/')
-    return redirect('/error/new/')
+    return redirect('/new/error/')
