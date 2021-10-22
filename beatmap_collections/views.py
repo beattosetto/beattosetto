@@ -26,7 +26,7 @@ def register_page(request):
 @login_required
 def create_collection_page(request, error=""):
     """Collection creation page. Logged in users can create a new beatmap collection here."""
-    if error == "error":
+    if error:
         messages.error(request, "Required fields were empty.")
     return render(request, 'beatmap_collections/collection.html')
 
