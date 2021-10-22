@@ -37,5 +37,5 @@ def save_collection(request):
         name, description = request.POST['inputTitle'], request.POST['inputDescription']
         collection_object = Collection(name=name, description=description)
         collection_object.save()
-        return redirect('/')
+        return redirect('home')
     return redirect('/new/error/')
