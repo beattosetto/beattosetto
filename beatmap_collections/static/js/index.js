@@ -99,7 +99,6 @@ function onResize() {
 
     if (document.getElementById("navbarToggleExternalContent").classList.contains('show') && document.documentElement.clientWidth >= 1010) {
         document.getElementById("navbarToggleExternalContent").classList.remove('show');
-        console.log("removed")
         resizeOnOpenMobileMenu = true;
     }
 
