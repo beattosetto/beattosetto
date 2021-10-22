@@ -25,7 +25,9 @@ def register_page(request):
 
 def collection_page(request):
     """Collection creation page. Users can create a new beatmap collection here."""
-    return render(request, 'beatmap_collections/collection.html')
+    if request.user.is_authenticated:
+        return render(request, 'beatmap_collections/collection.html')
+    return HttpResponseRedirect(reverse('home'))
 
 
 def save_collection(request):
