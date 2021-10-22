@@ -1,6 +1,8 @@
 """Views of beatmap collection app."""
 
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import *
 
 
@@ -24,3 +26,11 @@ def register_page(request):
 def collection_page(request):
     """Collection creation page. Users can create a new beatmap collection here."""
     return render(request, 'beatmap_collections/collection.html')
+
+
+def save_collection(request):
+    """Save a collection to the database."""
+    name, description = request.POST['inputTitle'], request.POST['inputDescription']
+    collection_object = Collection(name=name, description=description)
+    collection_object.save()
+    return HttpResponseRedirect(reverse('home'))
