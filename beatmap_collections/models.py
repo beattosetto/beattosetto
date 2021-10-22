@@ -33,6 +33,10 @@ class Collection(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        """Return the name of the Collection model."""
+        return self.name
+
 
 class Comment(models.Model):
     """This model represents a comment made to a collection. It contains the metadata of the comment.
