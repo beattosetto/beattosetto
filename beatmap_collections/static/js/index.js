@@ -29,9 +29,6 @@ function scrollFunction() {
             }
             header.classList.add('blur-bg')
             navListing.style.fontSize = "18px"
-            navInstall.style.fontSize = "18px"
-            navStatus.style.fontSize = "18px"
-            navChangelog.style.fontSize = "18px"
         } else {
             profilePicture.style.height = "48px";
             profilePicture.style.width = "48px";
@@ -39,9 +36,6 @@ function scrollFunction() {
             header.style.backgroundColor = "rgba(74,74,74,0)"
             header.classList.remove('blur-bg')
             navListing.style.fontSize = "20px"
-            navInstall.style.fontSize = "20px"
-            navStatus.style.fontSize = "20px"
-            navChangelog.style.fontSize = "20px"
         }
     } else {
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
@@ -79,10 +73,6 @@ function onResize() {
         profilePicture.style.zIndex = "2"
         headerLogo.style.zIndex = "2"
         navListing.classList.remove('disabled')
-        navInstall.classList.remove('disabled')
-        navStatus.classList.remove('disabled')
-        navChangelog.classList.remove('disabled')
-        profilePicture.classList.remove('disabled')
         headerLogo.classList.remove('disabled')
     } else {
         header.classList.add('hidden')
@@ -92,14 +82,8 @@ function onResize() {
         profilePicture.style.zIndex = "0"
         headerLogo.style.zIndex = "0"
         navListing.classList.add('disabled')
-        navInstall.classList.add('disabled')
-        navStatus.classList.add('disabled')
-        navChangelog.classList.add('disabled')
         profilePicture.classList.add('disabled')
         headerLogo.classList.add('disabled')
-    }
-    if (document.documentElement.clientWidth >= 1010 && header.classList.contains('hidden')) {
-        header.classList.remove('hidden');
     }
 
     if ((document.documentElement.clientWidth < 1010 && header.style.backgroundColor === "rgba(74,74,74,0.8)") ||
@@ -115,6 +99,7 @@ function onResize() {
 
     if (document.getElementById("navbarToggleExternalContent").classList.contains('show') && document.documentElement.clientWidth >= 1010) {
         document.getElementById("navbarToggleExternalContent").classList.remove('show');
+        console.log("removed")
         resizeOnOpenMobileMenu = true;
     }
 
