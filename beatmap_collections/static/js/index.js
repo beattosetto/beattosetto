@@ -6,10 +6,6 @@ let header = document.getElementById("header")
 let profilePicture = document.getElementById("profile-picture")
 let headerLogo = document.getElementById("header-logo")
 let navListing = document.getElementById("nav-listing")
-let navInstall = document.getElementById("nav-install")
-let navStatus = document.getElementById("nav-status")
-let navChangelog = document.getElementById("nav-changelog")
-
 let mobileHeader = document.getElementById("mobile-header")
 let mobileLogo = document.getElementById("mobile-logo")
 let arrowProfileMenu = document.getElementById("arrow-profile-menu")
@@ -22,11 +18,7 @@ function scrollFunction() {
             profilePicture.style.height = "32px";
             profilePicture.style.width = "32px";
             headerLogo.style.height = "50px";
-            if (document.body.classList.contains("light")) {
-                header.style.backgroundColor = "rgba(255,255,255,.8)";
-            } else {
-                header.style.backgroundColor = "rgba(74,74,74,.8)";
-            }
+            header.style.backgroundColor = "rgba(74,74,74,.8)";
             header.classList.add('blur-bg')
             navListing.style.fontSize = "18px"
         } else {
@@ -44,11 +36,7 @@ function scrollFunction() {
             mobileLogo.style.marginTop = "-5px";
             mobileLogo.style.marginLeft = "-5px";
             mobileLogo.style.height = "45px";
-            if (document.body.classList.contains("light")) {
-                mobileHeader.style.backgroundColor = "rgba(255,255,255,.8)";
-            } else {
-                mobileHeader.style.backgroundColor = "rgba(74,74,74,.8)";
-            }
+            mobileHeader.style.backgroundColor = "rgba(74,74,74,.8)";
             mobileHeader.classList.add('blur-bg');
             document.getElementById("navbarToggleExternalContent").style.marginTop = "68px";
         } else {
