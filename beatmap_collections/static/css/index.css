@@ -220,18 +220,6 @@ a.dropdown-item {
     color: white;
 }
 
-.dropdown-menu {
-    background-color: #5f5f5f;
-}
-
-.dropdown-item:hover {
-    background-color: #8f8f8f;
-}
-
-.dropdown-pfp::after {
-    content:none;
-}
-
 .modal-title {
     color: white;
     font-weight: 1000;
