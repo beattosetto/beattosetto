@@ -3,9 +3,15 @@
     {% block title %}
   <title>Create collection</title>
    {% endblock %}
-
 {% block content %}
 <main class="bg-dark text-light">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="error message" style="padding-left: 120px; padding-top: 30px; color: red">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <form class="py-4 container" action="{% url 'save_collection' %}" method="post">
         {% csrf_token %}
         <h1 class="display-5">Create collection</h1>

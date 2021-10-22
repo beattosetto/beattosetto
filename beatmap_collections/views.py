@@ -1,8 +1,8 @@
 """Views of beatmap collection app."""
 
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import *
 
 
@@ -24,8 +24,10 @@ def register_page(request):
 
 
 @login_required
-def create_collection_page(request):
+def create_collection_page(request, error=""):
     """Collection creation page. Logged in users can create a new beatmap collection here."""
+    if error == "error":
+        messages.error(request, "Required fields were empty.")
     return render(request, 'beatmap_collections/collection.html')
 
 
@@ -35,5 +37,5 @@ def save_collection(request):
         name, description = request.POST['inputTitle'], request.POST['inputDescription']
         collection_object = Collection(name=name, description=description)
         collection_object.save()
-        return redirect(reverse('home'))
-    return redirect(reverse('new_collection'))
+        return redirect('/')
+    return redirect('/error/new/')
