@@ -14,12 +14,12 @@ jobs:
         python-version: [3.9]
 
     steps:
-    - name: Make envfile
-      uses: SpicyPizza/create-envfile@v1
-      with:
-        envkey_DEBUG: true
-        envkey_ALLOWED_HOSTS: "127.0.0.1"
-        file_name: .env
+    - name: Create .env File
+      run: |
+        touch .env
+        echo DEBUG=True >> .env
+        echo ALLOWED_HOSTS=127.0.0.1,localhost >> .env
+        cat .env
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
