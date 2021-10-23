@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.http import HttpRequest
 from .models import *
 from .forms import *
 
@@ -24,19 +24,26 @@ class CreateCollectionViewTests(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
-class CreateCollectionFormTest(TestCase):
-    """Tests for the create collection form."""
+class CollectionCreationTest(TestCase):
+    """Tests for the create collection by form and its value after create."""
 
-    def test_form_not_valid_missing_field(self):
-        """Test the collection """
-
-        user = User.objects.create(username="Surinboy")
-        user.set_password('PomPenDekDee')
-        user.save()
-
+    def test_form_valid_with_image_missing(self):
+        """Test the create collection form is valid despite the collection image field is missing."""
         collection_form_data = {'collection_list': '',
                                 'name': 'Test',
                                 'description': 'This is test'}
         collection_form = CreateCollectionForm(collection_form_data)
+        self.assertTrue(collection_form.is_valid())
 
+    def test_form_invalid(self):
+        """Test the create collection form is invalid if required field is missing."""
+        collection_form_data = {'collection_list': 'collection_list/placeholder.png',
+                                'name': '',
+                                'description': "It's missing!"}
+        collection_form = CreateCollectionForm(collection_form_data)
+        self.assertFalse(collection_form.is_valid())
+        collection_form_data = {'collection_list': 'collection_list/placeholder.png',
+                                'name': 'Missing',
+                                'description': ''}
+        collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
