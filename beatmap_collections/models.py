@@ -4,28 +4,38 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 
-
-FALLBACK_USER_KEY = "peppywangInwZaa727"
+FALLBACK_USER_KEY = 1
 
 
 class Collection(models.Model):
     """This model represents a collection. It contains the metadata of the collection.
 
     Attributes:
+        collection_list: The thumbnail of this collection
         name: The name of this collection
         author: The user who created this collection.
         description: The description of this collection.
+        beatmap_count: The number of beatmaps contained in this collection.
         tags: This collection's tag(s).
         create_date: The creation date of this collection.
         edit_date: The date that this collection was last modified.
     """
 
+    collection_list = models.ImageField(default="collection_list/placeholder.png", upload_to='collection_list',
+                                        validators=[FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg',
+                                                                                               'jpeg', 'bmp', 'svg',
+                                                                                               'webp'])])
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     description = models.CharField(max_length=250, blank=True)
-    tags = models.TextField(default=None, blank=True)
+    beatmap_count = models.IntegerField(default=0)
+    tags = models.TextField(default="Pending", blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
-    edit_date = models.DateTimeField(auto_now_add=True)
+    edit_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """Return the name of the Collection model."""
+        return self.name
 
 
 class Comment(models.Model):
