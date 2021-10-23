@@ -17,8 +17,8 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1
       with:
-        envkey_DEBUG: True
-        envkey_ALLOWED_HOSTS: 127.0.0.1,localhost
+        envkey_DEBUG: true
+        envkey_ALLOWED_HOSTS: "127.0.0.1"
         file_name: .env
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
