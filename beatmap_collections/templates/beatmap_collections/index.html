@@ -1,15 +1,40 @@
-{% extends "beatmap_collections/base_generic.html" %}
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
     {% block title %}
   <title>Welcome to beattosetto!</title>
    {% endblock %}
 
 
 {% block content %}
-<main class="bg-dark text-light">
-    <section class="py-4 container">
-        <h1 class="display-1 text-center">Welcome to beattosetto</h1>
-        <p class="lead text-center">Beatmap collection sharing website for osu!</p>
-    </section>
+<main class="text-light">
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-home.jpg" %});">
+        <img class="d-block mx-auto mb-4" id="home-logo" src="{% static 'logo/beattosetto-icon-white.svg' %}" alt="Beattosetto Logo" height="65" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
+        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Welcome to beattosetto!</h1>
+        <div class="col-lg-4 mx-auto">
+          <p class="lead mb-4" id="home-description" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">Beatmap collection sharing website for osu!</p>
+        </div>
+  </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+  <div class="container">
+        <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Make a new collection</a></p>
+    </div>
     <section class="py-4 container">
         <h2 class="display-2 text-center">Collections</h2>
         <!-- TODO: Retrieve collections from the database -->
@@ -36,4 +61,6 @@
         </div>
     </section>
 </main>
+
+
 {% endblock %}

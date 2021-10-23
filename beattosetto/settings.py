@@ -34,12 +34,19 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default="localhost")
 
 INSTALLED_APPS = [
     'beatmap_collections.apps.BeatmapCollectionsConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.osu',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +57,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 ROOT_URLCONF = 'beattosetto.urls'
@@ -145,3 +157,30 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# osu! OAuth support by rurusetto-allauth settings
+# https://pypi.org/project/rurusetto-allauth/
+
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'osu': {
+        'SCOPE': [
+            'identify'
+        ],
+        'APP': {
+            'client_id': config('OSU_OAUTH_CLIENT_ID', default=""),
+            'secret': config('OSU_OAUTH_CLIENT_SECRET', default=""),
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'account_login'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Django crispy forms settings
+# https://django-crispy-forms.readthedocs.io/en/latest/index.html
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
