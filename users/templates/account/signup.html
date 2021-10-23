@@ -1,0 +1,42 @@
+{% extends "beatmap_collections/base_generic.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+
+<!doctype html>
+    {% block css %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+    {% endblock %}
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+  {% block content %}
+  <div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-sm-4 hidden-md-down position-relative" style="color: white;">
+        <div class="container position-absolute top-50 start-50 translate-middle col-8">
+            <h1>Register</h1>
+            <p></p>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                  <p></p>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-beattosetto hvr-sweep-to-right">Submit</button>
+                </div>
+                <p></p>
+            </form>
+            <div class="d-grid gap-2">
+                <a class="btn btn-secondary btn-beattosetto2 socialaccount_provider osu text-decoration-none" href="/accounts/osu/login/?process=">Login with osu! account</a>
+            </div>
+             <div style="line-height:3">
+                <p>Already have an account? <a href="{% url 'account_login' %}" class="text-decoration-none spacing-hover">Login</a></p>
+             </div>
+                <p><a href="{% url 'home' %}" class="text-decoration-none spacing-hover">Back to home</a></p>
+        </div>
+      </div>
+         <div class="col-sm-8" style="background-image: url('{% static "img/register-cover.png" %}')"></div>
+    </div>
+  </div>
+{% endblock %}
