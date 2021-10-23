@@ -21,7 +21,7 @@ class CreateCollectionViewTests(TestCase):
         # Test logged out.
         self.client.logout()
         response = self.client.get('/new/')
-        self.assertRedirects(response, '/login/?next=/new/')
+        self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
 class CreateCollectionFormTest(TestCase):
