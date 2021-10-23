@@ -234,6 +234,10 @@ a.dropdown-item {
     border-color: var(--bs-primary)!important;
 }
 
+.form-error {
+    color: red!important;
+}
+
 /*Styling class used in JS*/
 
 .hidden {
