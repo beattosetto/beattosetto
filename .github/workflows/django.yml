@@ -6,8 +6,17 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  create-envfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_DEBUG: True
+          envkey_ALLOWED_HOSTS: 127.0.0.1,localhost
+          file_name: .env
 
+  build:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
