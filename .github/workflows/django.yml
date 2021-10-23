@@ -16,10 +16,12 @@ jobs:
     steps:
     - name: Create .env File
       run: |
+        cd /home/runner/work/beattosetto/beattosetto/
         touch .env
         echo DEBUG=True >> .env
         echo ALLOWED_HOSTS=127.0.0.1,localhost >> .env
         cat .env
+        cd ..
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
