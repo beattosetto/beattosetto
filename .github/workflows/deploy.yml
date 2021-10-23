@@ -1,5 +1,5 @@
 name: Deploy Changes to Server
-on: 
+on:
   push:
     branches: [ main ]
 
