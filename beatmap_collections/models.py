@@ -178,7 +178,7 @@ class Beatmap(models.Model):
 
 
 class Profile(models.Model):
-    """This model represents a user's profile.
+    """This model represents a user's profile. It stores the metadata of a user.
 
     Attributes:
         profile_picture: The profile picture of the user.
