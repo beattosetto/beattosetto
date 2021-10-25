@@ -129,9 +129,6 @@ class Beatmap(models.Model):
                         collection approves the request to add this beatmap.
         collection: The collection that this beatmap is included.
     """
-
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
-
     beatmap_id = models.IntegerField(default=75)
     beatmapset_id = models.IntegerField(default=1)
 
@@ -150,11 +147,6 @@ class Beatmap(models.Model):
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
     beatmap_list = models.ImageField(default='default_beatmap_thumbnail.jpeg', upload_to='beatmap_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
-
-    description = models.TextField(default=None, blank=True)
-
-    create_date = models.DateTimeField(auto_now_add=True)
-    owner_approved = models.BooleanField(default=False)
 
     # New attributes starts here.
     count_normal = models.IntegerField(default=0)
@@ -175,6 +167,30 @@ class Beatmap(models.Model):
     tags = models.CharField(max_length=100, blank=True)
 
     collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
+
+
+class BeatmapEntry(models.Model):
+    """This model acts as a pointer to a beatmap.
+
+    Attributes:
+        collection: The collection that the model BeatmapEntry is pointing to is in.
+        beatmap: The beatmap that BeatmapEntry is pointing to.
+        author: The user who suggested this beatmap.
+        comment: The comment to why the beatmap should be added.
+        add_date: The date when the beatmap was added to the collection.
+    """
+
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
+    comment = models.CharField(max_length=250)
+    add_date = models.DateTimeField(auto_now_add=True)
+
+    # Fields originally from Beatmap model.
+    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    description = models.TextField(default=None, blank=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    owner_approved = models.BooleanField(default=False)
+
 
 
 class Profile(models.Model):
