@@ -185,6 +185,6 @@ class Profile(models.Model):
         user: The user that this profile belongs to.
     """
 
-    profile_picture = models.ImageField(default='collection_list/placeholder.png', upload_to='user_list', validators=[
+    profile_picture = models.ImageField(default='user_list/placeholder.png', upload_to='user_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
     user = models.ForeignKey(User, on_delete=models.CASCADE)
