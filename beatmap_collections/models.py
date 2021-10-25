@@ -187,4 +187,4 @@ class Profile(models.Model):
 
     profile_picture = models.ImageField(default='collection_list/placeholder.png', upload_to='user_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
