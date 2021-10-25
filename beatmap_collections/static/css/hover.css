@@ -191,10 +191,10 @@
     transition: 0.2s;
 }
 .spacing-hover:hover {
-    letter-spacing: 2px;
+    letter-spacing: 0.6px;
 }
 .spacing-hover-short:hover {
-    letter-spacing: 1px;
+    letter-spacing: 0.6px;
 }
 .spacing-hover-short-2:hover {
     letter-spacing: 0.5px;
