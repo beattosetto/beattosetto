@@ -182,7 +182,7 @@ class Profile(models.Model):
 
     Attributes:
         profile_picture: The profile picture of the user.
-        user: User object.
+        user: The user that this profile belongs to.
     """
 
     profile_picture = models.ImageField(default='collection_list/placeholder.png', upload_to='user_list', validators=[
