@@ -175,16 +175,3 @@ class Beatmap(models.Model):
     tags = models.CharField(max_length=100, blank=True)
 
     collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
-
-
-class Profile(models.Model):
-    """This model represents a user's profile. It stores the metadata of a user.
-
-    Attributes:
-        profile_picture: The profile picture of the user.
-        user: The user that this profile belongs to.
-    """
-
-    profile_picture = models.ImageField(default='user_list/placeholder.png', upload_to='user_list', validators=[
-        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
