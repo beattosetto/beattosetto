@@ -48,7 +48,7 @@
                     </div>
                     <div class="col" style="background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
                       <div class="card-body collection-background">
-                          <h2 class="card-title text-primary">{{ collection.name }}</h2>
+                          <a href="{% url 'collection_title' %}"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
                           <p class="card-content lead">made by {{ collection.author.username }}</p>
                           <p class="card-text">{{ collection.beatmap_count }} beatmaps</p>
                           <span class="badge rounded-pill bg-primary">Tag</span>
