@@ -122,6 +122,9 @@ class Beatmap(models.Model):
         beatmap_card: The cover art of this beatmap.
         beatmap_list: The thumbnail of this beatmap.
         tags: This beatmap's tag(s). If it have more than 1 tag it will separate with space.
+        submit_date: The date this beatmap was submitted.
+        approved_date: The date this beatmap was ranked.
+        last_update: The date this beatmap was last updated. May be after approved_date if map was unranked and reranked.
         collection: The collection that this beatmap is included.
     """
     beatmap_id = models.IntegerField(default=75)
@@ -161,6 +164,10 @@ class Beatmap(models.Model):
     creator_id = models.IntegerField(default=0)
     tags = models.CharField(max_length=100, blank=True)
 
+    submit_date = models.DateTimeField(auto_now_add=True)
+    approved_date = models.DateTimeField(auto_now_add=True)
+    last_update = models.DateTimeField(auto_now_add=True)
+
     collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
 
 
@@ -175,7 +182,6 @@ class BeatmapEntry(models.Model):
         add_date: The date when the beatmap was added to the collection.
         user: The User who posted this beatmap.
         description: The description of this beatmap that users write it when adding the beatmap.
-        create_date: The creation date of this beatmap.
         owner_approved: The collection approval status of this beatmap. Changes to true if the owner of the requested
                         collection approves the request to add this beatmap.
     """
@@ -189,5 +195,4 @@ class BeatmapEntry(models.Model):
     # Fields originally from Beatmap model.
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="user")
     description = models.TextField(default=None, blank=True)
-    create_date = models.DateTimeField(auto_now_add=True)
     owner_approved = models.BooleanField(default=False)
