@@ -29,3 +29,7 @@ def create_collection(request):
         'form': form,
     }
     return render(request, 'beatmap_collections/create_collection.html', context)
+
+
+def collection_page(request):
+    return render(request, 'beatmap_collections/collection_page.html')

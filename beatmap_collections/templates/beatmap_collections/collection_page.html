@@ -1,0 +1,56 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+    {% block title %}
+  <title>Collection title</title>
+   {% endblock %}
+{% block content %}
+<main class="bg-dark text-light">
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-home.jpg" %});">
+        <img class="d-block mx-auto mb-4 rounded-circle" id="home-logo" src="{% static "img/hero-create-collection.jpg"%}" alt="Beattosetto Logo" height="80" width="80" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
+        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">James Garden</h1>
+        <div class="col-lg-4 mx-auto">
+          <p class="lead mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">Made by Panuwat Kongkaew</p>
+          <p class="lead mb-4" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">Beatmap that Panuwat Kongkaew you can play with James.</p>
+        </div>
+  </div>
+
+<section class="py-1 container">
+<div class="row g-4 py-4">
+    <div class="col-lg-6">
+        <div class="card mb-3 bg-dark text-light border border-primary collection-card">
+          <div class="row g-0">
+            <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/dummies.png"%}); background-size: cover; background-position: center;">
+            </div>
+            <div class="col" style="background-image: url({% static "img/dummies.png"%}); background-size: cover; background-position: center;">
+              <div class="card-body collection-background">
+                  <h2 class="card-title text-primary">born to be Surin BoyZ</h2>
+                  <p class="card-content lead">made by I'm Surin</p>
+                  <p class="card-text">Blablabla</p>
+                  <p class="card-text">Blablabla</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<form class="py-4 container">
+        <h2 class="col-12 col-lg-4">Comments</h2>
+        <br />
+        <div class="row g-3 align-items-center">
+  <div class="col-12 col-lg-4">
+  </div>
+        </div>
+    </form>
+
+<div class="col-12 col-lg-12">
+    <textarea rows="5" id="inputDescription" class="form-control" placeholder="Write your message here">
+    </textarea>
+  </div>
+  <p></p>
+  <div class="col-8"><button type="button" class="btn btn-success hvr-sweep-to-right-success">Comment</button></div>
+</div>
+</section>
+    <br />
+</main>
+{% endblock %}
