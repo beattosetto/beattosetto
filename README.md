@@ -19,4 +19,5 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
 
 ## Development plan
 - [Iteration 1](../../wiki/Iteration-1)   
-- [Iteration 2](../../wiki/Iteration-2)   
+- [Iteration 2](../../wiki/Iteration-2)
+- [Iteration 3](../../wiki/Iteration-3)   
