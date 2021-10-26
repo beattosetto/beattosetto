@@ -8,7 +8,7 @@
     --bg-color: rgb(33, 37, 41);
     --bg-color-trans: rgba(33, 37, 41, .8);
     --default-font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    --bs-font-sans-serif: 'Comfortaa', var(--default-font-family-sans-serif);
+    --bs-font-sans-serif: "Comfortaa", "Mali", "Noto Sans JP", var(--default-font-family-sans-serif);
     --transition-time: 0.2s;
 }
 
@@ -294,6 +294,10 @@ a.disabled {
     z-index: -1;
     border-radius: .25rem;
     content: "";
+}
+
+.collection-card .description {
+    max-lines: 3;
 }
 
 .bg-primary {

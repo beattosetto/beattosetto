@@ -199,6 +199,12 @@
 .spacing-hover-short-2:hover {
     letter-spacing: 0.5px;
 }
+.blank-hover {
+    transition: 0.2s;
+}
+.blank-hover:hover {
+    letter-spacing: 0.6px;
+}
 
 /* Icon Bounce */
 .hvr-icon-bounce {
