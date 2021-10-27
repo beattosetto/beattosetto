@@ -2,10 +2,8 @@ import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
-from django.utils import timezone
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
-from dateutil import parser
 
 
 def create_beatmap(beatmap_id):
