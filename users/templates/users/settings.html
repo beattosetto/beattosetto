@@ -1,0 +1,56 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+    {% block title %}
+  <title>Settings</title>
+   {% endblock %}
+{% block content %}
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-create-collection.jpg" %});">
+    <div class="container align-middle">
+        <div class="row">
+            <p></p>
+            <p></p>
+            <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Settings</h1></div>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's setting up your cool profile! {{ cool_description }}</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+     {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success"%}
+                <div class="alert alert-success">
+                    <i class="fas fa-check"></i> {{ message }}
+                </div>
+            {% endif %}
+            {% if message.tags == "error"%}
+                <div class="alert alert-danger">
+                    <i class="fas fa-times"></i> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+<main class="text-light">
+    <form class="py-4 container" method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <h2>Profile Settings</h2>
+        <br/>
+        <div class="row g-3 align-items-center">
+            <div class="fieldWrapper">
+                <div class="mb-3 row">
+                    <label for="id_profile_picture" class="col-form-label col-lg-3">{{ profile_form.profile_picture.label_tag }}</label>
+                    <div class="col-lg-9">
+                        <p>Current profile image: <img alt="{{ user.username }}'s profile image" src="{{ user.profile.profile_picture.url }}" width="200px" height="200px"></p>
+                        <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture" class="form-control">
+                        <p class="form-error">{{ profile_form.profile_picture.errors }}</p>
+                        <p class="text-muted">Your cool profile image.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
+    </form>
+</main>
+{% endblock %}
