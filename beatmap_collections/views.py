@@ -41,4 +41,3 @@ def add_beatmap(request):
   
 def edit_collection(request):
     return render(request, 'beatmap_collections/edit_collection.html')
-
