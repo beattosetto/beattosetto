@@ -57,7 +57,7 @@ def edit_collection(request, collection_id):
                 form.instance.author = request.user
                 form.save()
                 messages.success(request, 'Edit collection complete!')
-                return redirect("home")
+                return redirect("collection", collection_id)
         else:
             form = CreateCollectionForm(instance=collection)
         context = {
