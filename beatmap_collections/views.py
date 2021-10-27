@@ -37,6 +37,7 @@ def collection_page(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
     context = {
         'collection': collection,
+        'all_beatmap': BeatmapEntry.objects.filter(collection=collection),
     }
     return render(request, 'beatmap_collections/collection_page.html', context)
 
