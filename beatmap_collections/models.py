@@ -197,13 +197,11 @@ class BeatmapEntry(models.Model):
                         collection approves the request to add this beatmap.
     """
 
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="author")
     comment = models.CharField(max_length=250)
     add_date = models.DateTimeField(auto_now_add=True)
 
     # Fields originally from Beatmap model.
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="user")
-    description = models.TextField(default=None, blank=True)
     owner_approved = models.BooleanField(default=False)
