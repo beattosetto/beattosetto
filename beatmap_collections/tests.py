@@ -19,7 +19,7 @@ class CreateCollectionViewTests(TestCase):
 
         # Test logged in.
         self.client.login(username='GordonFreeman', password='12345')
-        response = self.client.get('/new/')
+        response = self.client.get('/new/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed('beatmap_collections/create_collection.html')
         # Test logged out.
