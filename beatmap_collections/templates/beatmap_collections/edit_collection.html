@@ -4,13 +4,13 @@
   <title>Edit collection | beattosetto</title>
    {% endblock %}
 {% block content %}
-    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-create-collection.jpg" %});">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-edit-collection.jpg" %});">
         <div class="container align-middle">
             <div class="row">
                 <p></p>
                 <p></p>
                 <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Edit collection</h1></div>
-                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">You are currently edit "James Garden" collection.</p>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">You are currently edit "{{ collection.name }}" collection.</p>
             </div>
         </div>
     </div>
@@ -51,6 +51,6 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Create</button>
+        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
     </form>
 {% endblock %}
