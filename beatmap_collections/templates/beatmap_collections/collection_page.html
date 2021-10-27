@@ -3,9 +3,12 @@
     {% block title %}
   <title>{{ collection.name }} | beattosetto</title>
    {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static "css/progres-bar.css" %}">
+{% endblock %}
 {% block content %}
 <main class="bg-dark text-light">
-    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url('{{ collection.collection_list.url }}');">
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url('{{ collection.collection_list.url }}'); background-position: center;">
         <img class="d-block mx-auto mb-4 rounded-circle" id="home-logo" src="{{ collection.collection_list.url }}" alt="{{ collection.name }} Logo" height="80" width="80" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
         <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ collection.name }}</h1>
         <div class="col-lg-4 mx-auto">
@@ -53,4 +56,14 @@
 </section>
     <br />
 </main>
+{% endblock %}
+
+{% block js %}
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="{% static "js/player.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+        $('.mediPlayer').mediaPlayer();
+    });
+    </script>
 {% endblock %}
