@@ -63,7 +63,7 @@ def add_beatmap(request, collection_id):
             beatmap_entry.save()
             beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
             messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
-            return redirect("home")
+            return redirect('collection', collection_id=collection_id)
     else:
         form = AddBeatmapForm()
     context = {
