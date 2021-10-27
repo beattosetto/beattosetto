@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
+from PIL import Image
 
 
 class Profile(models.Model):
@@ -14,3 +15,15 @@ class Profile(models.Model):
     profile_picture = models.ImageField(default='user_list/placeholder.png', upload_to='user_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """Returns the string representation of the profile."""
+        return f"{self.user.username} Profile"
+
+    def save(self, *args, **kwargs):
+        """Overrides the save method to resize the profile picture."""
+        super().save(*args, **kwargs)
+        profile_image = Image.open(self.profile_picture.path)
+        if profile_image.height > 300 or profile_image.width > 300:
+            profile_image.thumbnail((300, 300))
+            profile_image.save(self.profile_picture.path)

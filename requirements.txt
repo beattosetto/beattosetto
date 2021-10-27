@@ -6,3 +6,4 @@ coverage
 pillow
 rurusetto-allauth
 django-crispy-forms
+random-username

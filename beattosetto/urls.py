@@ -21,7 +21,8 @@ from beattosetto.settings import DEBUG
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include('beatmap_collections.urls'))
+    path('', include('beatmap_collections.urls')),
+    path('', include('users.urls'))
 ]
 
 if DEBUG:

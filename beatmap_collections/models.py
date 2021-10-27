@@ -3,6 +3,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
+from PIL import Image
 
 FALLBACK_USER_KEY = 1
 
@@ -36,6 +37,14 @@ class Collection(models.Model):
     def __str__(self):
         """Return the name of the Collection model."""
         return self.name
+
+    def save(self, *args, **kwargs):
+        """Overrides the save method to optimize the collection_list picture size."""
+        super().save(*args, **kwargs)
+        cover_image = Image.open(self.collection_list.path)
+        if cover_image.height > 1080 or cover_image.width > 1920:
+            cover_image.thumbnail((1920, 1080))
+            cover_image.save(self.collection_list.path)
 
 
 class Comment(models.Model):
