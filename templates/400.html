@@ -1,5 +1,9 @@
 {% extends "base_error.html" %}
 
+{% block title %}
+    <title>400 Bad Request</title>
+{% endblock %}
+
 {% block error_message %}
     <h1 class="display-1 text-primary">400 Bad Request</h1>
     <p>It looks like the request you sent is invalid.</p>
