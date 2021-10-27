@@ -1,67 +1,43 @@
-{% extends "beatmap_collections/base_generic.html" %}
+{% extends "beatmap_collections/base.html" %}
 {% load static %}
     {% block title %}
   <title>Edit collection</title>
    {% endblock %}
 {% block content %}
-<main class="bg-dark text-light">
-    <form class="py-4 container">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-create-collection.jpg" %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Edit collection</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">You are currently edit "James Garden" collection.</p>
+            </div>
+        </div>
+    </div>
+    <form class="py-4 container text-white">
         <h1 class="display-5">Edit collection</h1>
         <br />
         <div class="row g-3 align-items-center">
-  <div class="col-12 col-lg-4">
-    <label for="inputTitle" class="col-form-label">Title</label>
-  </div>
-  <div class="col-12 col-lg-8">
-    <input type="text" id="inputTitle" class="form-control" placeholder="Beatmap Title Here">
-  </div>
-  <div class="col-12 col-lg-4">
-    <label for="inputDescription" class="col-form-label">Description</label>
-  </div>
-  <div class="col-12 col-lg-8">
-    <textarea rows="5" id="inputDescription" class="form-control" placeholder="Write your message here">
-    </textarea>
-  </div>
-  <p></p>
-  <br />
-        <label for="inputBeatmap" class="display-6">Beatmaps</label>
-        <br />
-  <div class="col-4">
-      <input type="number" id="inputBeatmap" class="form-control" placeholder="Placeholder">
-      </div>
-             <div class="col-4"><button type="button" class="btn btn-primary">Add</button></div>
-            </div>
-<section class="py-1 container">
-<div class="row g-4 py-4">
-    <div class="col-lg-6">
-        <div class="card mb-3 bg-dark text-light border border-primary collection-card">
-          <div class="row g-0">
-            <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/dummies.png"%}); background-size: cover; background-position: center;">
-            </div>
-            <div class="col" style="background-image: url({% static "img/dummies.png"%}); background-size: cover; background-position: center;">
-              <div class="card-body collection-background">
-                  <h2 class="card-title text-primary">born to be Surin BoyZ</h2>
-                  <p class="card-content lead">made by I'm Surin</p>
-                  <p class="card-text">Blablabla</p>
-                  <p class="card-text">Blablabla</p>
-              </div>
-
+          <div class="col-12 col-lg-4">
+            <label for="inputTitle" class="col-form-label">Title</label>
+          </div>
+          <div class="col-12 col-lg-8">
+            <input type="text" id="inputTitle" class="form-control" placeholder="Beatmap Title Here">
+          </div>
+          <div class="col-12 col-lg-4">
+            <label for="inputDescription" class="col-form-label">Description</label>
+          </div>
+          <div class="col-12 col-lg-8">
+            <textarea rows="5" id="inputDescription" class="form-control" placeholder="Write your message here">
+            </textarea>
+          </div>
+          <p></p>
+          <div class="position-relative">
+              <div class="position-absolute bottom-0 end-0">
+                    <button type="button" class="btn btn-danger hvr-sweep-to-right-danger">Delete</button>
+                    <button type="button" class="btn btn-success hvr-sweep-to-right-success buttom-right">Save</button>
             </div>
           </div>
-        </div>
-    </div>
-    <div class="col-4"><button type="button" class="btn btn-danger hvr-sweep-to-right-danger">Remove</button></div>
-</div>
-</section>
-<p></p>
-<br />
-<p></p>
-<br />
-  <div class="position-relative">
-      <div class="position-absolute bottom-0 end-0">
-            <button type="button" class="btn btn-danger hvr-sweep-to-right-danger">Delete</button>
-            <button type="button" class="btn btn-success hvr-sweep-to-right-success buttom-right">Save</button>
-  </div>
       </div>
-</main>
+    </form>
 {% endblock %}
