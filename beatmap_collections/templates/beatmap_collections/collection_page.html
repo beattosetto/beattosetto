@@ -1,7 +1,7 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
     {% block title %}
-  <title>Collection title</title>
+  <title>{{ collection.name }} | beattosetto</title>
    {% endblock %}
 {% block content %}
 <main class="bg-dark text-light">
@@ -14,12 +14,35 @@
         </div>
     </div>
 
-<section class="py-1 container">
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
 
+<section class="py-1 container">
     <div class="row">
+        {% if user == collection.author %}
         <div class="col-sm-2">
-            <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "edit_collection"%}"><i class="fas fa-edit icon-menu hvr-icon"></i> Edit collection</a></p>
+            <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "edit_collection" collection.id %}"><i class="fas fa-edit icon-menu hvr-icon"></i> Edit collection</a></p>
         </div>
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "add_beatmap" collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Add Beatmap</a></p>
+        </div>
+        {% endif %}
     </div>
 <div class="row g-4 py-4">
     <div class="col-lg-6">
