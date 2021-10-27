@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.http import HttpRequest
+
 from .models import *
 from .forms import *
+from django.db import models
 
 
 class CreateCollectionViewTests(TestCase):
@@ -47,3 +49,24 @@ class CollectionCreationTest(TestCase):
                                 'description': ''}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
+
+
+class CollectionModelTest(TestCase):
+    """Test methods in collection model."""
+
+    def test_optimize_image(self):
+        """Test image optimization with image larger than specific size."""
+
+        collection_image_mock = MagicMock(return_value=None)
+        collection_image_mock.width = 1921
+        collection_image_mock.height = 1000
+        models.Model.save = MagicMock()
+        collection_image_mock.thumbnail = MagicMock()
+        Image.open = MagicMock(return_value=collection_image_mock)
+        collection = Collection.objects.create(name="Mock")
+        collection.collection_list = collection_image_mock
+        collection.save()
+        width, height = collection_image_mock.thumbnail.call_args[0][0]
+        self.assertEqual(width, 1920)
+        self.assertEqual(height, 1080)
+
