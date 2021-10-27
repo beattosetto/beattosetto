@@ -37,7 +37,11 @@
 
             </p>
               <p class="card-text text-muted" style="margin-top: -5px"><small>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap_entry.beatmap.creator_id }}" class="text-decoration-none spacing-hover-short">{{ beatmap_entry.beatmap.creator }}</a></small></p>
-              <p class="card-text beatmap-comment" style="margin-top: -5px"><small>{{ beatmap_entry.beatmap.comment }}</small></p>
+          {% if beatmap_entry.comment != '' %}
+              <p class="card-text beatmap-comment" style="margin-top: -5px"><small>{{ beatmap_entry.comment }}</small></p>
+          {% else %}
+            <p class="card-text beatmap-comment" style="margin-top: -5px">&nbsp;</p>
+          {% endif %}
               <p class="card-text text-muted" style="margin-top: -10px"><small>Added by <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ beatmap_entry.author.profile.profile_picture.url }}" alt="{{ beatmap_entry.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ beatmap_entry.author.username }}</a></small></p>
           <a class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" href="osu://b/{{ beatmap_entry.beatmap.beatmap_id }}" role="button" style="margin-top: -10px"><i class="fas fa-download color-white"></i> osu!direct</a>
           </div>
