@@ -35,6 +35,27 @@
 <main class="text-light">
     <form class="py-4 container" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
+        <h2>User Settings</h2>
+        <div class="fieldWrapper">
+            <div class="mb-3 row">
+                <label for="id_username" class="col-form-label col-lg-3">{{ user_form.username.label_tag }}</label>
+                <div class="col-lg-9">
+                    <input type="text" id="id_username" name="username" class="form-control" placeholder="Your Username" value="{{ user_form.username.value }}"required>
+                    <p class="form-error">{{ user_form.username.errors }}</p>
+                    <p class="text-muted">Your Username that will be show everywhere.</p>
+                </div>
+            </div>
+        </div>
+        <div class="fieldWrapper">
+            <div class="mb-3 row">
+                <label for="id_email" class="col-form-label col-lg-3">{{ user_form.email.label_tag }}</label>
+                <div class="col-lg-9">
+                    <input type="email" id="id_email" name="email" class="form-control" placeholder="Your Email" value="{{ user_form.email.value }}" required>
+                    <p class="form-error">{{ user_form.email.errors }}</p>
+                    <p class="text-muted">Your Email like yourgarden@suringarden.com</p>
+                </div>
+            </div>
+        </div>
         <h2>Profile Settings</h2>
         <br/>
         <div class="row g-3 align-items-center">
