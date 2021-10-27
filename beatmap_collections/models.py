@@ -4,6 +4,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 from PIL import Image
+from django.utils import timezone
 
 FALLBACK_USER_KEY = 1
 
@@ -171,13 +172,14 @@ class Beatmap(models.Model):
     total_length = models.IntegerField(default=0)
     mode = models.IntegerField(default=0)
     creator_id = models.IntegerField(default=0)
-    tags = models.CharField(max_length=100, blank=True)
+    tags = models.CharField(max_length=5000, blank=True)
 
-    submit_date = models.DateTimeField(auto_now_add=True)
-    approved_date = models.DateTimeField(auto_now_add=True)
-    last_update = models.DateTimeField(auto_now_add=True)
+    submit_date = models.DateTimeField(default=timezone.now)
+    approved_date = models.DateTimeField(default=timezone.now)
+    last_update = models.DateTimeField(default=timezone.now)
 
-    collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return f"{self.title} [{self.version}]"
 
 
 class BeatmapEntry(models.Model):
