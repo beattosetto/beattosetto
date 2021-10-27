@@ -1,5 +1,6 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+{% load count_beatmaps %}
     {% block title %}
   <title>home | beattosetto</title>
    {% endblock %}
@@ -53,7 +54,7 @@
                               <p class="mb-0"> made by {{ collection.author.username }}</p>
                               <p class="description">{{ collection.description }}</p>
                           </div>
-                          <p class="card-text">{{ collection.beatmap_count }} beatmaps</p>
+                          <p class="card-text">{{ collection.id | count_beatmaps }}</p>
                           <span class="badge rounded-pill bg-primary">Tag</span>
                       </div>
                     </div>
