@@ -8,6 +8,7 @@ urlpatterns = [
     path('new/', views.create_collection, name='new_collection'),
     path('title/', views.collection_page, name='collection_title'),
     path('add/beatmap', views.add_beatmap, name='add_beatmap')
+    path('edit/', views.edit_collection, name='edit_collection')
 ]
 
 if settings.DEBUG:
