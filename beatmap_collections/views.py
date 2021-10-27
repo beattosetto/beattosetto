@@ -33,3 +33,7 @@ def create_collection(request):
 
 def collection_page(request):
     return render(request, 'beatmap_collections/collection_page.html')
+
+
+def add_beatmap(request):
+    return render(request, 'beatmap_collections/add_beatmap.html')
