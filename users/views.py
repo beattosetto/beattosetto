@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from random_username.generate import generate_username
 import random
 
 COOL_SETTINGS_WORD = [
@@ -30,6 +31,7 @@ def settings(request):
         user_form = UserUpdateForm(instance=request.user)
     context = {
         'cool_description': random.choice(COOL_SETTINGS_WORD),
+        'random_username': generate_username()[0],
         'profile_form': profile_form,
         'user_form': user_form
     }
