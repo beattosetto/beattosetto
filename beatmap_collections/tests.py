@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock
+
 from django.test import TestCase
 from django.http import HttpRequest
 
@@ -69,4 +71,3 @@ class CollectionModelTest(TestCase):
         width, height = collection_image_mock.thumbnail.call_args[0][0]
         self.assertEqual(width, 1920)
         self.assertEqual(height, 1080)
-
