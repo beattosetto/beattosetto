@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import *
 from .forms import *
+from .functions import *
 
 
 def home(request):
@@ -40,8 +41,34 @@ def collection_page(request, collection_id):
     return render(request, 'beatmap_collections/collection_page.html', context)
 
 
+@login_required
 def add_beatmap(request, collection_id):
-    return render(request, 'beatmap_collections/add_beatmap.html')
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.method == 'POST':
+        form = AddBeatmapForm(request.POST)
+        if form.is_valid():
+            beatmap_entry = BeatmapEntry.objects.create()
+            beatmap_entry.collection = collection
+            if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'], collection=collection).exists():
+                messages.error(request, 'This beatmap is already in this collection!')
+                return redirect('collection', collection_id=collection_id)
+            else:
+                if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
+                    beatmap_entry.beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+                else:
+                    beatmap_entry.beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
+            beatmap_entry.author = request.user
+            beatmap_entry.comment = form.cleaned_data['comment']
+            beatmap_entry.save()
+            beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
+            return redirect("home")
+    else:
+        form = AddBeatmapForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'beatmap_collections/add_beatmap.html', context)
 
 
 @login_required
