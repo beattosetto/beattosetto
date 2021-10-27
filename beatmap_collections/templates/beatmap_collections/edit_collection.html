@@ -14,30 +14,43 @@
             </div>
         </div>
     </div>
-    <form class="py-4 container text-white">
-        <h1 class="display-5">Edit collection</h1>
-        <br />
+    <form class="py-4 container text-white" method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <h2>Collection Information</h2>
+        <br/>
         <div class="row g-3 align-items-center">
-          <div class="col-12 col-lg-4">
-            <label for="inputTitle" class="col-form-label">Title</label>
-          </div>
-          <div class="col-12 col-lg-8">
-            <input type="text" id="inputTitle" class="form-control" placeholder="Beatmap Title Here">
-          </div>
-          <div class="col-12 col-lg-4">
-            <label for="inputDescription" class="col-form-label">Description</label>
-          </div>
-          <div class="col-12 col-lg-8">
-            <textarea rows="5" id="inputDescription" class="form-control" placeholder="Write your message here">
-            </textarea>
-          </div>
-          <p></p>
-          <div class="position-relative">
-              <div class="position-absolute bottom-0 end-0">
-                    <button type="button" class="btn btn-danger hvr-sweep-to-right-danger">Delete</button>
-                    <button type="button" class="btn btn-success hvr-sweep-to-right-success buttom-right">Save</button>
+            <div class="fieldWrapper">
+                <div class="mb-3 row">
+                    <label for="id_name" class="col-form-label col-lg-3">{{ form.name.label_tag }}</label>
+                    <div class="col-lg-9">
+                        <input type="text" id="id_name" name="name" class="form-control" placeholder="Collection Title Here" value="{{ form.name.value }}" required>
+                        <p class="form-error">{{ form.name.errors }}</p>
+                        <p class="text-muted">Name of your collection that you want to create.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-      </div>
+            <div class="fieldWrapper">
+                <div class="mb-3 row">
+                    <label for="id_description" class="col-form-label col-lg-3">{{ form.description.label_tag }}</label>
+                    <div class="col-lg-9">
+                        <textarea name="description" cols="40" rows="10" class="form-control" id="id_description" placeholder="Collection Description Here" required>{{ form.description.value }}</textarea>
+                        <p class="form-error">{{ form.description.errors }}</p>
+                        <p class="text-muted">Short explanation about your collection.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <div class="mb-3 row">
+                    <label for="id_collection_list" class="col-form-label col-lg-3">{{ form.collection_list.label_tag }}</label>
+                    <div class="col-lg-9">
+                        <p>Current collection image: <img alt="{{ collection.name }}'s collection image" src="{{ collection.collection_list.url }}" style="max-height: 300px"></p>
+                        <input type="file" name="collection_list" accept="image/*" id="id_collection_list" class="form-control">
+                        <p class="form-error">{{ form.collection_list.errors }}</p>
+                        <p class="text-muted">Image that will show on your collection card. This is not required.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Create</button>
     </form>
 {% endblock %}
