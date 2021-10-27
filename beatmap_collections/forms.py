@@ -1,5 +1,5 @@
 from django import forms
-from .models import Collection
+from .models import Collection, BeatmapEntry
 
 
 class CreateCollectionForm(forms.ModelForm):
@@ -11,3 +11,12 @@ class CreateCollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
         fields = ['collection_list', 'name', 'description']
+
+
+class AddBeatmapForm(forms.Form):
+    """Form for adding beatmap using beatmap ID to the collection"""
+    beatmap_id = forms.IntegerField(required=True, label='Beatmap ID')
+    comment = forms.CharField(required=True, label='Comment')
+
+    class Meta:
+        fields = ['beatmap', 'comment']
