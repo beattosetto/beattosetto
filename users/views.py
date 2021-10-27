@@ -18,15 +18,19 @@ COOL_SETTINGS_WORD = [
 @login_required()
 def settings(request):
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, request.FILES)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        user_form = UserUpdateForm(request.POST, instance=request.user)
         if profile_form.is_valid():
             profile_form.save()
+            user_form.save()
             messages.success(request, 'Update your cool profile successfully!')
-            return redirect("home")
+            return redirect("settings")
     else:
-        profile_form = ProfileForm(instance=request.user.profile)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+        user_form = UserUpdateForm(instance=request.user)
     context = {
         'cool_description': random.choice(COOL_SETTINGS_WORD),
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'user_form': user_form
     }
     return render(request, 'users/settings.html', context)
