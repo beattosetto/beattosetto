@@ -4,7 +4,7 @@
   <title>Settings</title>
    {% endblock %}
 {% block content %}
-<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-create-collection.jpg" %});">
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/settings-cover.jpg" %});">
     <div class="container align-middle">
         <div class="row">
             <p></p>
@@ -40,7 +40,7 @@
             <div class="mb-3 row">
                 <label for="id_username" class="col-form-label col-lg-3">{{ user_form.username.label_tag }}</label>
                 <div class="col-lg-9">
-                    <input type="text" id="id_username" name="username" class="form-control" placeholder="Your Username" value="{{ user_form.username.value }}"required>
+                    <input type="text" id="id_username" name="username" class="form-control" placeholder="Your Username" value="{{ user_form.username.value }}" required>
                     <p class="form-error">{{ user_form.username.errors }}</p>
                     <p class="text-muted">Your Username that will be show everywhere. Maybe {{ random_username }}?</p>
                 </div>
