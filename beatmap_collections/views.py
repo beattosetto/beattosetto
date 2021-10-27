@@ -40,9 +40,28 @@ def collection_page(request, collection_id):
     return render(request, 'beatmap_collections/collection_page.html', context)
 
 
-def add_beatmap(request):
+def add_beatmap(request, collection_id):
     return render(request, 'beatmap_collections/add_beatmap.html')
 
-  
-def edit_collection(request):
-    return render(request, 'beatmap_collections/edit_collection.html')
+
+@login_required
+def edit_collection(request, collection_id):
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.user != collection.author:
+        messages.error(request, 'BAKA! You are not the author of this collection!')
+        return redirect('collection', collection_id=collection_id)
+    else:
+        if request.method == 'POST':
+            form = CreateCollectionForm(request.POST, request.FILES, instance=collection)
+            if form.is_valid():
+                form.instance.author = request.user
+                form.save()
+                messages.success(request, 'Edit collection complete!')
+                return redirect("home")
+        else:
+            form = CreateCollectionForm(instance=collection)
+        context = {
+            'form': form,
+            'collection': collection
+        }
+        return render(request, 'beatmap_collections/edit_collection.html', context)
