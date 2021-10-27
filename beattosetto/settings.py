@@ -184,3 +184,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 # https://django-crispy-forms.readthedocs.io/en/latest/index.html
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# osu! API key
+
+OSU_API_V1_KEY = config('OSU_API_V1_KEY', default="")
