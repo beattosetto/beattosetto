@@ -48,6 +48,7 @@ class CollectionCreateViewTest(TestCase):
         collection_form_data = {'collection_list': '',
                                 'name': 'Test',
                                 'description': 'This is test'}
+
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertTrue(collection_form.is_valid())
 
@@ -63,6 +64,28 @@ class CollectionCreateViewTest(TestCase):
                                 'description': ''}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
+
+
+class CollectionEditViewTest(TestCase):
+    """Test collection edit view."""
+
+    def test_unauthenticated_access(self):
+        """Unauthenticated user will be redirected to login page."""
+        collection = create_collection("Easy")
+        edit_url = reverse("edit_collection", kwargs={"collection_id": collection.id})
+        response = self.client.get(edit_url, follow=True)
+        self.assertRedirects(response, f"/accounts/login/?next={edit_url}")
+
+    def test_not_collection_owner(self):
+        """User who is not the collection owner cannot edit collection."""
+        user_1 = User.objects.create_user(username="One", password="Onetest")
+        user_2 = User.objects.create_user(username="Two", password="Twotest")
+        collection = create_collection("Easy", user=user_1)
+        edit_url = reverse("edit_collection", args=[collection.id])
+        view_url = reverse("collection", args=[collection.id])
+        self.client.login(username=user_2.username, password="Twotest")
+        response = self.client.get(edit_url, follow=True)
+        self.assertRedirects(response, view_url)
 
 
 class CollectionListingViewTest(TestCase):
