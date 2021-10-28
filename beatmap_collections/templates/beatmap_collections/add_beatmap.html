@@ -1,16 +1,16 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
     {% block title %}
-  <title>Add Beatmap</title>
+  <title>add beatmap for | beattosetto</title>
    {% endblock %}
 {% block content %}
-<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-create-collection.jpg" %});">
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-add-beatmap.jpg" %}); background-position: center;">
     <div class="container align-middle">
         <div class="row">
             <p></p>
             <p></p>
             <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Add Beatmap</h1></div>
-            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's add your beatmap!!!</p>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye</p>
         </div>
     </div>
 </div>
@@ -40,10 +40,11 @@
         <div class="row g-3 align-items-center">
             <div class="fieldWrapper">
                 <div class="mb-3 row">
-                    <label for="id_name" class="col-form-label col-lg-3">Beatmap ID:</label>
+                    <label for="id_beatmap_id" class="col-form-label col-lg-3">{{ form.beatmap_id.label_tag }}</label>
                     <div class="col-lg-9">
-                        <input type="text" id="id_name" name="name" class="form-control" placeholder="Add your Beatmap ID here" required>
-                        <p class="form-error">{{ form.name.errors }}</p>
+                        <input type="number" id="id_beatmap_id" name="beatmap_id" class="form-control" placeholder="Add your Beatmap ID here" required>
+                        <p class="form-error">{{ form.beatmap_id.errors }}</p>
+                        <img src="{% static "img/how-to-get-beatmap-id.png" %}" alt="How to get a beatmap ID" style="max-width: 100%;">
                         <p class="text-muted">ID of your recommend beatmap that you want to add.</p>
                     </div>
                 </div>
@@ -51,15 +52,15 @@
         </div>
         <div class="fieldWrapper">
                 <div class="mb-3 row">
-                    <label for="id_description" class="col-form-label col-lg-3">Description:</label>
+                    <label for="id_comment" class="col-form-label col-lg-3">{{ form.comment.label_tag }}</label>
                     <div class="col-lg-9">
-                        <textarea name="description" cols="1" rows="1" class="form-control" id="id_description" placeholder="Beatmap Description Here" required></textarea>
-                        <p class="form-error">{{ form.description.errors }}</p>
+                        <input type="text" id="id_comment" name="comment" class="form-control" placeholder="Add your comment here" required>
+                        <p class="form-error">{{ form.comment.errors }}</p>
                         <p class="text-muted">Short explanation about beatmap.</p>
                     </div>
                 </div>
             </div>
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Add</button>
-</form>
+    </form>
 </main>
 {% endblock %}

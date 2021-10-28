@@ -1,11 +1,25 @@
+from unittest import skip
 from unittest.mock import MagicMock
 
 from django.test import TestCase
 from django.http import HttpRequest
+from django.urls import reverse
 
 from .models import *
+from .functions import create_beatmap
 from .forms import *
 from django.db import models
+
+
+def create_collection(name, user=None) -> Collection:
+    """Utility function for creating collection.
+
+    The test user will have both username and password set to "test".
+    """
+    if user is None:
+        user, _ = User.objects.get_or_create(username="test")
+        user.set_password("test")
+    return Collection.objects.create(author=user, name=name)
 
 
 class CreateCollectionViewTests(TestCase):
@@ -28,7 +42,7 @@ class CreateCollectionViewTests(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
-class CollectionCreationTest(TestCase):
+class CollectionCreateViewTest(TestCase):
     """Tests for the create collection by form and its value after create."""
 
     def test_form_valid_with_image_missing(self):
@@ -36,6 +50,7 @@ class CollectionCreationTest(TestCase):
         collection_form_data = {'collection_list': '',
                                 'name': 'Test',
                                 'description': 'This is test'}
+
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertTrue(collection_form.is_valid())
 
@@ -51,6 +66,91 @@ class CollectionCreationTest(TestCase):
                                 'description': ''}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
+
+
+class CollectionEditViewTest(TestCase):
+    """Test collection edit view."""
+
+    def test_unauthenticated_access(self):
+        """Unauthenticated user will be redirected to login page."""
+        collection = create_collection("Easy")
+        edit_url = reverse("edit_collection", kwargs={"collection_id": collection.id})
+        response = self.client.get(edit_url, follow=True)
+        self.assertRedirects(response, f"/accounts/login/?next={edit_url}")
+
+    def test_not_collection_owner(self):
+        """User who is not the collection owner cannot edit collection."""
+        user_1 = User.objects.create_user(username="One", password="Onetest")
+        user_2 = User.objects.create_user(username="Two", password="Twotest")
+        collection = create_collection("Easy", user=user_1)
+        edit_url = reverse("edit_collection", args=[collection.id])
+        view_url = reverse("collection", args=[collection.id])
+        self.client.login(username=user_2.username, password="Twotest")
+        response = self.client.get(edit_url, follow=True)
+        self.assertRedirects(response, view_url)
+
+    def test_collection_owner(self):
+        """User who is the collection owner can edit just fine."""
+        user = User.objects.create_user(username="One", password="One pass")
+        collection = create_collection("Easy", user=user)
+        edit_url = reverse("edit_collection", args=[collection.id])
+        self.client.login(username=user.username, password="One pass")
+        response = self.client.get(edit_url, follow=True)
+        self.assertTemplateUsed(response, "beatmap_collections/edit_collection.html")
+
+
+class AddBeatmapViewTest(TestCase):
+    """Test adding beatmap to a collection."""
+
+    def setUp(self) -> None:
+        self.owner_password = "Test"
+        self.owner = User.objects.create_user(username="Test", password=self.owner_password)
+        self.not_owner_password = "Test_2"
+        self.not_owner = User.objects.create_user(username="Test_2", password=self.not_owner_password)
+        # Beatmap model contains default value.
+        self.beatmap = Beatmap.objects.create()
+        self.collection = create_collection("Test", self.owner)
+
+    def test_unauthenticated(self):
+        """Unauthenticated user cannot add beatmap."""
+
+        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
+        response = self.client.get(add_beatmap_url, follow=True)
+        self.assertRedirects(response, f"/accounts/login/?next={add_beatmap_url}")
+
+    @skip("We will test after add beatmap approval system.")
+    def test_not_owner(self):
+        """User cannot add a beatmap if they are not the owner."""
+        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
+        collection_url = reverse("collection", args=[self.collection.id])
+        self.client.login(username=self.not_owner.username, password=self.not_owner_password)
+        response = self.client.get(add_beatmap_url, follow=True)
+        self.assertRedirects(response, collection_url)
+
+
+class CollectionListingViewTest(TestCase):
+    """Test collection listing on the homepage."""
+
+    def test_with_one_collection(self):
+        """Test with one collection.
+
+        It should display collection name.
+        """
+
+        collection_1 = create_collection("Easy")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, collection_1.name)
+
+    def test_with_two_collections(self):
+        """Test with two collection.
+
+        It should contain both collections' name.
+        """
+        collection_1 = create_collection("Easy")
+        collection_2 = create_collection("Hard")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, collection_1.name)
+        self.assertContains(response, collection_2.name)
 
 
 class CollectionModelTest(TestCase):

@@ -1,7 +1,8 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+{% load count_beatmaps %}
     {% block title %}
-  <title>Welcome to beattosetto!</title>
+  <title>home | beattosetto</title>
    {% endblock %}
 
 
@@ -43,17 +44,17 @@
         {% for collection in collections %}
             <div class="col-lg-6">
                 <div class="card mb-3 bg-dark text-light border border-primary collection-card">
-                  <div class="row g-0">
+                  <div class="row g-0" style="font-size: 90%">
                     <div class="col-md-4" style="min-height: 150px; background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
                     </div>
                     <div class="col" style="background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
                       <div class="card-body collection-background">
-                          <a href="{% url 'collection_title' %}"><h2 class="card-title text-primary text-decoration-none">{{ collection.name }}</h2></a>
+                          <a href="{% url 'collection' collection.id %}" class="text-decoration-none spacing-hover-short"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
                           <div class="card-content">
-                              <p class="mb-0"> made by {{ collection.author.username }}</p>
+                              <p class="text-muted">made by <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ collection.author.username }}</a></p>
                               <p class="description">{{ collection.description }}</p>
                           </div>
-                          <p class="card-text">{{ collection.beatmap_count }} beatmaps</p>
+                          <p class="card-text">{{ collection.id | count_beatmaps }}</p>
                           <span class="badge rounded-pill bg-primary">Tag</span>
                       </div>
                     </div>

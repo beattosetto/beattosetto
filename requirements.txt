@@ -1,9 +1,10 @@
-Django
+Django~=3.2.8
 python-decouple
 gunicorn
 psycopg2-binary
 coverage
-pillow
+pillow~=8.4.0
 rurusetto-allauth
 django-crispy-forms
 random-username
+requests~=2.26.0

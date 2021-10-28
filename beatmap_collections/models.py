@@ -4,6 +4,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 from PIL import Image
+from django.utils import timezone
 
 FALLBACK_USER_KEY = 1
 
@@ -29,7 +30,6 @@ class Collection(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     description = models.CharField(max_length=250, blank=True)
-    beatmap_count = models.IntegerField(default=0)
     tags = models.TextField(default="Pending", blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
@@ -171,13 +171,14 @@ class Beatmap(models.Model):
     total_length = models.IntegerField(default=0)
     mode = models.IntegerField(default=0)
     creator_id = models.IntegerField(default=0)
-    tags = models.CharField(max_length=100, blank=True)
+    tags = models.CharField(max_length=5000, blank=True)
 
-    submit_date = models.DateTimeField(auto_now_add=True)
-    approved_date = models.DateTimeField(auto_now_add=True)
-    last_update = models.DateTimeField(auto_now_add=True)
+    submit_date = models.DateTimeField(default=timezone.now)
+    approved_date = models.DateTimeField(default=timezone.now)
+    last_update = models.DateTimeField(default=timezone.now)
 
-    collection = models.ForeignKey(Collection, on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return f"{self.title} [{self.version}]"
 
 
 class BeatmapEntry(models.Model):
@@ -195,13 +196,14 @@ class BeatmapEntry(models.Model):
                         collection approves the request to add this beatmap.
     """
 
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
     author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="author")
     comment = models.CharField(max_length=250)
     add_date = models.DateTimeField(auto_now_add=True)
 
     # Fields originally from Beatmap model.
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="user")
-    description = models.TextField(default=None, blank=True)
     owner_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.beatmap.title} [{self.beatmap.version}] in {self.collection.name}"
