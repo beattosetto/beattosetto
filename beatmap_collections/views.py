@@ -34,6 +34,7 @@ def create_collection(request):
 
 
 def collection_page(request, collection_id):
+    """View for collection page. It contain all detail of each collection."""
     collection = get_object_or_404(Collection, id=collection_id)
     context = {
         'collection': collection,
@@ -44,6 +45,7 @@ def collection_page(request, collection_id):
 
 @login_required
 def add_beatmap(request, collection_id):
+    """View for adding beatmap to the collection."""
     collection = get_object_or_404(Collection, id=collection_id)
     if request.method == 'POST':
         form = AddBeatmapForm(request.POST)
@@ -77,6 +79,7 @@ def add_beatmap(request, collection_id):
 
 @login_required
 def edit_collection(request, collection_id):
+    """View for editing collection."""
     collection = get_object_or_404(Collection, id=collection_id)
     if request.user != collection.author:
         messages.error(request, 'BAKA! You are not the author of this collection!')
