@@ -53,16 +53,15 @@ def add_beatmap(request, collection_id):
             if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'], collection=collection).exists():
                 messages.error(request, 'This beatmap is already in this collection!')
                 return redirect('collection', collection_id=collection_id)
+            if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
+                beatmap_entry.beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
             else:
-                if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
-                    beatmap_entry.beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+                created_beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
+                if created_beatmap is None:
+                    messages.error(request, 'This beatmap does not exist!')
+                    return redirect('collection', collection_id=collection_id)
                 else:
-                    created_beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
-                    if created_beatmap is None:
-                        messages.error(request, 'This beatmap does not exist!')
-                        return redirect('collection', collection_id=collection_id)
-                    else:
-                        beatmap_entry.beatmap = created_beatmap
+                    beatmap_entry.beatmap = created_beatmap
             beatmap_entry.author = request.user
             beatmap_entry.comment = form.cleaned_data['comment']
             beatmap_entry.save()
@@ -83,18 +82,17 @@ def edit_collection(request, collection_id):
     if request.user != collection.author:
         messages.error(request, 'BAKA! You are not the author of this collection!')
         return redirect('collection', collection_id=collection_id)
+    if request.method == 'POST':
+        form = CreateCollectionForm(request.POST, request.FILES, instance=collection)
+        if form.is_valid():
+            form.instance.author = request.user
+            form.save()
+            messages.success(request, 'Edit collection complete!')
+            return redirect("collection", collection_id)
     else:
-        if request.method == 'POST':
-            form = CreateCollectionForm(request.POST, request.FILES, instance=collection)
-            if form.is_valid():
-                form.instance.author = request.user
-                form.save()
-                messages.success(request, 'Edit collection complete!')
-                return redirect("collection", collection_id)
-        else:
-            form = CreateCollectionForm(instance=collection)
-        context = {
-            'form': form,
-            'collection': collection
-        }
-        return render(request, 'beatmap_collections/edit_collection.html', context)
+        form = CreateCollectionForm(instance=collection)
+    context = {
+        'form': form,
+        'collection': collection
+    }
+    return render(request, 'beatmap_collections/edit_collection.html', context)
