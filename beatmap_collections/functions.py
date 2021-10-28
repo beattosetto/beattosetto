@@ -82,8 +82,6 @@ def create_beatmap(beatmap_id):
             beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
             beatmap_object.last_update = datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S')
 
-            print("Complete!")
-
             beatmap_object.save()
             return beatmap_object
         except Exception as e:
