@@ -79,7 +79,8 @@ def create_beatmap(beatmap_id):
             beatmap_object.tags = beatmap_json['beatmapset_id']
 
             beatmap_object.submit_date = datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S')
-            beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
+            if beatmap_json['approved_date'] is not None:
+                beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
             beatmap_object.last_update = datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S')
 
             beatmap_object.save()
