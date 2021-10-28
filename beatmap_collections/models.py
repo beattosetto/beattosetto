@@ -108,6 +108,8 @@ class Beatmap(models.Model):
         diff_drain: The Health drain (HP) value of the beatmap.
         diff_overall: The Overall difficulty (OD) value of the beatmap.
         diff_size: The Circle size value (CS) of the beatmap. This value mainly use in the beatmap in osu! mode.
+        diff_aim: The aim value of the beatmap. Normally available only on osu! mode.
+        diff_speed: The speed value of the beatmap. Normally available only on osu! mode.
         max_combo: The maximum combo a user can reach playing this beatmap.
         playcount: The number of times this beatmap is played.
         favourite_count: The number of people who added this beatmap is added as one of their favourites.
@@ -118,6 +120,8 @@ class Beatmap(models.Model):
         source: The source for this beatmap's song.
         creator: The name of the user who created this beatmap.
         creator_id: The identification number of the user who created this beatmap.
+        genre_id: The genre ID of this beatmap.
+        language_id: The language ID of this beatmap.
         approved: The approval status of this beatmap. There are 7 types in total:
                     1) 4 Loved
                     2) 3 Qualified
@@ -173,6 +177,8 @@ class Beatmap(models.Model):
     total_length = models.IntegerField(default=0)
     mode = models.IntegerField(default=0)
     creator_id = models.IntegerField(default=0)
+    genre_id = models.IntegerField(default=0)
+    language_id = models.IntegerField(default=0)
     tags = models.CharField(max_length=5000, blank=True)
 
     submit_date = models.DateTimeField(default=timezone.now)
