@@ -214,4 +214,7 @@ class BeatmapEntry(models.Model):
     owner_approved = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.beatmap.title} [{self.beatmap.version}] in {self.collection.name}"
+        try:
+            return f"{self.beatmap.title} [{self.beatmap.version}] in {self.collection.name}"
+        except AttributeError:
+            return f"Unknown beatmap in unknown collection"
