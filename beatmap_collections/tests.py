@@ -1,3 +1,4 @@
+from unittest import skip
 from unittest.mock import MagicMock
 
 from django.test import TestCase
@@ -117,6 +118,7 @@ class AddBeatmapViewTest(TestCase):
         response = self.client.get(add_beatmap_url, follow=True)
         self.assertRedirects(response, f"/accounts/login/?next={add_beatmap_url}")
 
+    @skip("We will test after add beatmap approval system.")
     def test_not_owner(self):
         """User cannot add a beatmap if they are not the owner."""
         add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
