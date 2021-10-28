@@ -18,6 +18,16 @@
             {% else %}
             <p>&zwnj;</p>
             {% endif %}
+            {% if beatmap_entry.beatmap.mode == 0 %}
+                <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
+            {% elif beatmap_entry.beatmap.mode == 1 %}
+                <img alt="taiko" src="{% static "gamemode/taiko.png" %}" width="20px" height="20px">
+            {% elif beatmap_entry.beatmap.mode == 2 %}
+                <img alt="fruit" src="{% static "gamemode/fruit.png" %}" width="20px" height="20px">
+            {% elif beatmap_entry.beatmap.mode == 3 %}
+                <img alt="mania" src="{% static "gamemode/mania.png" %}" width="20px" height="20px">
+            {% endif %}
+
             {% include "beatmap_collections/snippets/star_rating_color.html" %}
             {% if beatmap_entry.beatmap.approved == "4" %}
                 <span class="badge rounded-pill bold-font" style="background-color: rgb(241, 101, 160); color: rgb(51, 58, 61); margin-top: -2px">LOVED</span>
