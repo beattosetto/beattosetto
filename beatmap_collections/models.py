@@ -164,6 +164,8 @@ class Beatmap(models.Model):
     diff_drain = models.FloatField(default="0.0")
     diff_overall = models.FloatField(default="0.0")
     diff_size = models.FloatField(default="0.0")
+    diff_aim = models.FloatField(default="0.0")
+    diff_speed = models.FloatField(default="0.0")
 
     max_combo = models.IntegerField(default=0)
     playcount = models.IntegerField(default=0)
