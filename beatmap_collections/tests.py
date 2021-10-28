@@ -87,6 +87,15 @@ class CollectionEditViewTest(TestCase):
         response = self.client.get(edit_url, follow=True)
         self.assertRedirects(response, view_url)
 
+    def test_collection_owner(self):
+        """User who is the collection owner can edit just fine."""
+        user = User.objects.create_user(username="One", password="One pass")
+        collection = create_collection("Easy", user=user)
+        edit_url = reverse("edit_collection", args=[collection.id])
+        self.client.login(username=user.username, password="One pass")
+        response = self.client.get(edit_url, follow=True)
+        self.assertTemplateUsed(response, "beatmap_collections/edit_collection.html")
+
 
 class CollectionListingViewTest(TestCase):
     """Test collection listing on the homepage."""
