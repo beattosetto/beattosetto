@@ -57,7 +57,12 @@ def add_beatmap(request, collection_id):
                 if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
                     beatmap_entry.beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
                 else:
-                    beatmap_entry.beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
+                    created_beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
+                    if created_beatmap is None:
+                        messages.error(request, 'This beatmap does not exist!')
+                        return redirect('collection', collection_id=collection_id)
+                    else:
+                        beatmap_entry.beatmap = created_beatmap
             beatmap_entry.author = request.user
             beatmap_entry.comment = form.cleaned_data['comment']
             beatmap_entry.save()
