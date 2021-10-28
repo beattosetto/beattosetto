@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from django.urls import reverse
 
 from .models import *
+from .functions import create_beatmap
 from .forms import *
 from django.db import models
 
@@ -95,6 +96,34 @@ class CollectionEditViewTest(TestCase):
         self.client.login(username=user.username, password="One pass")
         response = self.client.get(edit_url, follow=True)
         self.assertTemplateUsed(response, "beatmap_collections/edit_collection.html")
+
+
+class AddBeatmapViewTest(TestCase):
+    """Test adding beatmap to a collection."""
+
+    def setUp(self) -> None:
+        self.owner_password = "Test"
+        self.owner = User.objects.create_user(username="Test", password=self.owner_password)
+        self.not_owner_password = "Test_2"
+        self.not_owner = User.objects.create_user(username="Test_2", password=self.not_owner_password)
+        # Beatmap model contains default value.
+        self.beatmap = Beatmap.objects.create()
+        self.collection = create_collection("Test", self.owner)
+
+    def test_unauthenticated(self):
+        """Unauthenticated user cannot add beatmap."""
+
+        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
+        response = self.client.get(add_beatmap_url, follow=True)
+        self.assertRedirects(response, f"/accounts/login/?next={add_beatmap_url}")
+
+    def test_not_owner(self):
+        """User cannot add a beatmap if they are not the owner."""
+        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
+        collection_url = reverse("collection", args=[self.collection.id])
+        self.client.login(username=self.not_owner.username, password=self.not_owner_password)
+        response = self.client.get(add_beatmap_url, follow=True)
+        self.assertRedirects(response, collection_url)
 
 
 class CollectionListingViewTest(TestCase):
