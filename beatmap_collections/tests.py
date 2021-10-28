@@ -2,10 +2,22 @@ from unittest.mock import MagicMock
 
 from django.test import TestCase
 from django.http import HttpRequest
+from django.urls import reverse
 
 from .models import *
 from .forms import *
 from django.db import models
+
+
+def create_collection(name, user=None) -> Collection:
+    """Utility function for creating collection.
+
+    The test user will have both username and password set to "test".
+    """
+    if user is None:
+        user, _ = User.objects.get_or_create(username="test")
+        user.set_password("test")
+    return Collection.objects.create(author=user, name=name)
 
 
 class CreateCollectionViewTests(TestCase):
@@ -28,7 +40,7 @@ class CreateCollectionViewTests(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
-class CollectionCreationTest(TestCase):
+class CollectionCreateViewTest(TestCase):
     """Tests for the create collection by form and its value after create."""
 
     def test_form_valid_with_image_missing(self):
@@ -51,6 +63,31 @@ class CollectionCreationTest(TestCase):
                                 'description': ''}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
+
+
+class CollectionListingViewTest(TestCase):
+    """Test collection listing on the homepage."""
+
+    def test_with_one_collection(self):
+        """Test with one collection.
+
+        It should display collection name.
+        """
+
+        collection_1 = create_collection("Easy")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, collection_1.name)
+
+    def test_with_two_collections(self):
+        """Test with two collection.
+
+        It should contain both collections' name.
+        """
+        collection_1 = create_collection("Easy")
+        collection_2 = create_collection("Hard")
+        response = self.client.get(reverse("home"))
+        self.assertContains(response, collection_1.name)
+        self.assertContains(response, collection_2.name)
 
 
 class CollectionModelTest(TestCase):
