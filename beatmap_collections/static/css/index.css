@@ -10,6 +10,7 @@
     --default-font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --bs-font-sans-serif: "Comfortaa", "Mali", "Noto Sans JP", var(--default-font-family-sans-serif);
     --transition-time: 0.2s;
+    --bg-modal-progressbar: #2D2D2D;
 }
 
 * {
@@ -258,6 +259,14 @@ a.dropdown-item {
 
 .beatmap-comment {
     line-height: 1.0;
+}
+
+.modal-small {
+    font-size: 80%;
+}
+
+.modal-diff.progress {
+    background-color: #272727;
 }
 
 /* Styling class used in JS */
