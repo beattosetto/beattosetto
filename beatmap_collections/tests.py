@@ -290,6 +290,7 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(convert_star_rating(17.0000), 17.00)
         self.assertEqual(convert_star_rating(0.0000), 0.00)
         self.assertEqual(convert_star_rating(2.5421), 2.54)
+        self.assertEqual(convert_star_rating("I dunno"), None)
 
     @skip("We are thinking on this test that is it important or not.")
     def test_count_beatmaps(self):
