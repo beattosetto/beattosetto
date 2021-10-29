@@ -76,6 +76,7 @@
       <div class="modal-body">
         <h4 class="beatmap-title fw-bold">{{ beatmap_entry.beatmap.title }}</h4>
         <h6 class="fw-bold">{{ beatmap_entry.beatmap.artist }}</h6>
+        <h6 class="fw-bold" style="color: #a5a5a5">{{ beatmap_entry.beatmap.version }}</h6>
             {% if beatmap_entry.beatmap.mode == 0 %}
                 <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
             {% elif beatmap_entry.beatmap.mode == 1 %}
