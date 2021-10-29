@@ -35,7 +35,8 @@
 <main class="text-light">
     <form class="py-4 container" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
-        <h2>User Settings</h2>
+        <h1>Profile</h1>
+        <h2>User Information</h2>
         <div class="fieldWrapper">
             <div class="mb-3 row">
                 <label for="id_username" class="col-form-label col-lg-3">{{ user_form.username.label_tag }}</label>
@@ -66,12 +67,19 @@
                         <p>Current profile image: <img alt="{{ user.username }}'s profile image" src="{{ user.profile.profile_picture.url }}" width="200px" height="200px"></p>
                         <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture" class="form-control">
                         <p class="form-error">{{ profile_form.profile_picture.errors }}</p>
-                        <p class="text-muted">Your cool profile image.</p>
+                        <p class="text-muted">Your cool or cute profile image.</p>
                     </div>
                 </div>
             </div>
         </div>
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
     </form>
+    <div class="py-4 container">
+        <h1>Account</h1>
+    <h2>Account Connection</h2>
+    <p>You can connect your account with your osu! account so you can login by using your osu! account instead of using username and password.</p>
+    <a title="osu!" class="socialaccount_provider osu text-decoration-none text-center spacing-hover raleway-font hvr-icon-bounce" href="/accounts/osu/login/?process=connect"><img src="{% static "logo/osu-logo-pink.png" %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> Connect to osu! account</a>
+    </div>
+
 </main>
 {% endblock %}
