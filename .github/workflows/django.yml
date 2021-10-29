@@ -20,7 +20,7 @@ jobs:
         touch .env
         echo DEBUG=True >> .env
         echo ALLOWED_HOSTS=127.0.0.1,localhost >> .env
-        echo OSU_API_V1_KEY=${{ secrets.OSU_API_V1_KEY }} >> .env
+        echo OSU_API_V1_KEY='${{ secrets.OSU_API_V1_KEY }} >> .env
         cat .env
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
