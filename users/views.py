@@ -30,11 +30,18 @@ def settings(request):
     else:
         profile_form = ProfileUpdateForm(instance=request.user.profile)
         user_form = UserUpdateForm(instance=request.user)
+
+    if SocialAccount.objects.filter(user=request.user).exists():
+        osu_confirm_username = SocialAccount.objects.get(user=request.user).extra_data['username']
+    else:
+        osu_confirm_username = None
+
     context = {
         'cool_description': random.choice(COOL_SETTINGS_WORD),
         'random_username': generate_username()[0],
         'profile_form': profile_form,
         'user_form': user_form,
         'social_account': SocialAccount.objects.filter(user=request.user).exists(),
+        'osu_confirm_username': osu_confirm_username
     }
     return render(request, 'users/settings.html', context)

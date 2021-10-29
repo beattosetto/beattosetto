@@ -87,8 +87,12 @@
     <div class="py-4 container">
     <a id="account"><h1>Account</h1></a>
     <h2>Account Connection</h2>
-    <p>You can connect your account with your osu! account so you can login by using your osu! account instead of using username and password.</p>
+    <p>You can connect your cool Beattosetto account with your cool 7 digits osu! account so you can login by using your cool osu! account instead of using boring username and password.</p>
+    {% if social_account %}
+    <p style="color:#ff66aa"><i class="fas fa-check icon-menu" style="color:#ffb3d4"></i> This account is connected to your cool 7 digits osu! account with username : {{ osu_confirm_username }}</p>
+    {% else %}
     <a title="osu!" class="socialaccount_provider osu text-decoration-none text-center spacing-hover raleway-font hvr-icon-bounce" href="/accounts/osu/login/?process=connect"><img src="{% static "logo/osu-logo-pink.png" %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> Connect to osu! account</a>
+    {% endif %}
     </div>
 
 </main>
