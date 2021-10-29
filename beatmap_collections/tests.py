@@ -11,6 +11,12 @@ from django.db import models
 from .functions import *
 import io
 
+from .templatetags.convert_progress_bar import convert_progress_bar
+from .templatetags.convert_star_rating import convert_star_rating
+from .templatetags.count_beatmaps import count_beatmaps
+from .templatetags.length_format import length_format
+from .templatetags.thousand_seperator import thousand_seperator
+
 
 def create_collection(name, user=None) -> Collection:
     """Utility function for creating collection.
@@ -179,70 +185,147 @@ class BeatmapImportTest(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def import_beatmap(self, beatmap_id, expected_output, mock_stdout):
+        """Get value that console print"""
         beatmap = create_beatmap(beatmap_id)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
         return beatmap
 
     def test_import_osu_graveyard_beatmap(self):
+        """Test import osu! beatmap with graveyard status"""
         osu_graveyard_beatmap = self.import_beatmap(3238306, "")
         self.assertNotEqual(osu_graveyard_beatmap, None)
 
     def test_import_osu_pending_beatmap(self):
+        """Test import osu! beatmap with pending status"""
         osu_pending_beatmap = self.import_beatmap(3293365, "")
         self.assertNotEqual(osu_pending_beatmap, None)
 
     def test_import_osu_loved_beatmap(self):
+        """Test import osu! beatmap with loved status"""
         osu_loved_beatmap = self.import_beatmap(1572866, "")
         self.assertNotEqual(osu_loved_beatmap, None)
 
     def test_import_osu_ranked_beatmap(self):
+        """Test import osu! beatmap with ranked status"""
         osu_ranked_beatmap = self.import_beatmap(3157181, "")
         self.assertNotEqual(osu_ranked_beatmap, None)
 
     def test_import_taiko_graveyard_beatmap(self):
+        """Test import taiko beatmap with graveyard status"""
         taiko_graveyard_beatmap = self.import_beatmap(3194148, "")
         self.assertNotEqual(taiko_graveyard_beatmap, None)
 
     def test_import_taiko_pending_beatmap(self):
+        """Test import taiko beatmap with pending status"""
         taiko_pending_beatmap = self.import_beatmap(3294208, "")
         self.assertNotEqual(taiko_pending_beatmap, None)
 
     def test_import_taiko_loved_beatmap(self):
+        """Test import taiko beatmap with loved status"""
         taiko_loved_beatmap = self.import_beatmap(2231614, "")
         self.assertNotEqual(taiko_loved_beatmap, None)
 
     def test_import_taiko_ranked_beatmap(self):
+        """Test import taiko beatmap with ranked status"""
         taiko_ranked_beatmap = self.import_beatmap(3204946, "")
         self.assertNotEqual(taiko_ranked_beatmap, None)
 
     def test_import_catch_graveyard_beatmap(self):
+        """Test import catch beatmap with graveyard status"""
         catch_graveyard_beatmap = self.import_beatmap(3248762, "")
         self.assertNotEqual(catch_graveyard_beatmap, None)
 
     def test_import_catch_pending_beatmap(self):
+        """Test import catch beatmap with pending status"""
         catch_pending_beatmap = self.import_beatmap(3293380, "")
         self.assertNotEqual(catch_pending_beatmap, None)
 
     def test_import_catch_loved_beatmap(self):
+        """Test import catch beatmap with loved status"""
         catch_loved_beatmap = self.import_beatmap(801716, "")
         self.assertNotEqual(catch_loved_beatmap, None)
 
     def test_import_catch_ranked_beatmap(self):
+        """Test import catch beatmap with ranked status"""
         catch_ranked_beatmap = self.import_beatmap(3083866, "")
         self.assertNotEqual(catch_ranked_beatmap, None)
 
     def test_import_mania_graveyard_beatmap(self):
+        """Test import mania beatmap with graveyard status"""
         mania_graveyard_beatmap = self.import_beatmap(3060329, "")
         self.assertNotEqual(mania_graveyard_beatmap, None)
 
     def test_import_mania_pending_beatmap(self):
+        """Test import mania beatmap with pending status"""
         mania_pending_beatmap = self.import_beatmap(3294229, "")
         self.assertNotEqual(mania_pending_beatmap, None)
 
     def test_import_mania_loved_beatmap(self):
+        """Test import mania beatmap with loved status"""
         mania_loved_beatmap = self.import_beatmap(883028, "")
         self.assertNotEqual(mania_loved_beatmap, None)
 
     def test_import_mania_ranked_beatmap(self):
+        """Test import mania beatmap with ranked status"""
         mania_ranked_beatmap = self.import_beatmap(3143428, "")
         self.assertNotEqual(mania_ranked_beatmap, None)
+
+
+class TemplateTagsFunctionTest(TestCase):
+    """Test template tags functions."""
+
+    def test_convert_progress_bar(self):
+        """Test convert integer to value that use in progress bar."""
+        self.assertEqual(convert_progress_bar(7), 70)
+        self.assertEqual(convert_progress_bar(0), 0)
+        self.assertEqual(convert_progress_bar(10), 100)
+        self.assertEqual(convert_progress_bar(2.25), 22.5)
+        self.assertEqual(convert_progress_bar(10.5), 100)
+        self.assertEqual(convert_progress_bar(0.5), 5)
+
+    def test_convert_star_rating(self):
+        """Test convert star rating function."""
+        self.assertEqual(convert_star_rating(7.5678), 7.57)
+        self.assertEqual(convert_star_rating(17.0000), 17.00)
+        self.assertEqual(convert_star_rating(0.0000), 0.00)
+        self.assertEqual(convert_star_rating(2.5421), 2.54)
+
+    @skip("We are thinking on this test that is it important or not.")
+    def test_count_beatmaps(self):
+        """Test count beatmaps function."""
+        user = User.objects.create(username="SurinBoyInwZaa", id=85)
+        dummy_collection = Collection.objects.create(name="Prayuth the collection",
+                                                     description="Song to kick Prayuth out of the world.",
+                                                     author=user)
+        self.assertEqual(count_beatmaps(dummy_collection), "0 beatmap")
+        beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection, author=user)
+        beatmap_entry_1.save()
+        self.assertEqual(count_beatmaps(dummy_collection), "1 beatmap")
+        beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection, author=user)
+        beatmap_entry_2.save()
+        beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection, author=user)
+        beatmap_entry_3.save()
+        self.assertEqual(count_beatmaps(dummy_collection), "3 beatmaps")
+
+    def test_length_format(self):
+        """Test convert length to display string."""
+        self.assertEqual(length_format(0), "00:00")
+        self.assertEqual(length_format(1), "00:01")
+        self.assertEqual(length_format(60), "01:00")
+        self.assertEqual(length_format(76), "01:16")
+        self.assertEqual(length_format(490), "08:10")
+        self.assertEqual(length_format(3600), "01:00:00")
+        self.assertEqual(length_format(3720), "01:02:00")
+
+    def test_thousand_seperator(self):
+        """Test convert integer to string with thousand seperator."""
+        self.assertEqual(thousand_seperator(1), "1")
+        self.assertEqual(thousand_seperator(96), "96")
+        self.assertEqual(thousand_seperator(752), "752")
+        self.assertEqual(thousand_seperator(4125), "4,125")
+        self.assertEqual(thousand_seperator(72349), "72,349")
+        self.assertEqual(thousand_seperator(764823), "764,823")
+        self.assertEqual(thousand_seperator(9481634), "9,481,634")
+        self.assertEqual(thousand_seperator(19481634), "19,481,634")
+        self.assertEqual(thousand_seperator(719481634), "719,481,634")
+        self.assertEqual(thousand_seperator(2719481634), "2,719,481,634")
