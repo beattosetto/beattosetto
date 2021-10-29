@@ -11,6 +11,7 @@ from django.db import models
 from .functions import *
 import io
 
+from .templatetags.convert_beatmap_stat import convert_beatmap_stat
 from .templatetags.convert_progress_bar import convert_progress_bar
 from .templatetags.convert_star_rating import convert_star_rating
 from .templatetags.count_beatmaps import count_beatmaps
@@ -331,3 +332,12 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(thousand_seperator(19481634), "19,481,634")
         self.assertEqual(thousand_seperator(719481634), "719,481,634")
         self.assertEqual(thousand_seperator(2719481634), "2,719,481,634")
+
+    def test_convert_beatmap_stat(self):
+        """Test convert beatmap stat function."""
+        self.assertEqual(convert_beatmap_stat(0), 0)
+        self.assertEqual(convert_beatmap_stat(10), 10)
+        self.assertEqual(convert_beatmap_stat(10.5), 10.5)
+        self.assertEqual(convert_beatmap_stat(10.567), 10.6)
+        self.assertEqual(convert_beatmap_stat(80.6666666), 80.7)
+        self.assertEqual(convert_beatmap_stat("Why this value here"), "Why this value here")
