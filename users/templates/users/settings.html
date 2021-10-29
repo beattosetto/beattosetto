@@ -33,9 +33,19 @@
     </div>
   </div>
 <main class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="#profile"><i class="fas fa-user icon-menu hvr-icon"></i> Profile</a></p>
+            </div>
+            <div class="col-sm-2">
+                <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="#account"><i class="fas fa-user-cog icon-menu hvr-icon"></i> Account</a></p>
+            </div>
+        </div>
+    </div>
     <form class="py-4 container" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
-        <h1>Profile</h1>
+        <a id="profile"><h1>Profile</h1></a>
         <h2>User Information</h2>
         <div class="fieldWrapper">
             <div class="mb-3 row">
@@ -75,7 +85,7 @@
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
     </form>
     <div class="py-4 container">
-        <h1>Account</h1>
+    <a id="account"><h1>Account</h1></a>
     <h2>Account Connection</h2>
     <p>You can connect your account with your osu! account so you can login by using your osu! account instead of using username and password.</p>
     <a title="osu!" class="socialaccount_provider osu text-decoration-none text-center spacing-hover raleway-font hvr-icon-bounce" href="/accounts/osu/login/?process=connect"><img src="{% static "logo/osu-logo-pink.png" %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> Connect to osu! account</a>
