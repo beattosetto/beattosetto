@@ -15,7 +15,7 @@ def convert_beatmap_stat(value):
     try:
         if (float(value)).is_integer():
             return int(value)
-        return float(value)
+        return round(float(value), 1)
     except ValueError:
         return value
 
