@@ -1,0 +1,32 @@
+{% extends "beatmap_collections/base_generic.html" %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+  {% endblock %}
+{% block title %}
+    <title>connection status | beattosetto</title>
+{% endblock %}
+{% block content %}
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+      <div class="col-sm-4 hidden-md-down position-relative" style="color: white;">
+        <div class="container position-absolute top-50 start-50 translate-middle col-8">
+            {% if messages %}
+            {% for message in messages %}
+                <h1>Connection status</h1>
+                <p></p>
+                <p>{{ message }}</p>
+            {% endfor %}
+            {% else %}
+                <h1>Unknown status</h1>
+                <p></p>
+                <p>No status provided</p>
+            {% endif %}
+            <a href="{% url 'settings' %}" class="text-decoration-none spacing-hover">Back to settings page</a>
+        </div>
+      </div>
+         <div class="col-sm-8" style="background-image: url('{% static "img/login-cover.jpg" %}')"></div>
+
+    </div>
+  </div>
+{% endblock %}
