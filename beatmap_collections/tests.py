@@ -1,14 +1,15 @@
 from unittest import skip
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
 from django.http import HttpRequest
 from django.urls import reverse
 
 from .models import *
-from .functions import create_beatmap
 from .forms import *
 from django.db import models
+from .functions import *
+import io
 
 
 def create_collection(name, user=None) -> Collection:
@@ -171,3 +172,77 @@ class CollectionModelTest(TestCase):
         width, height = collection_image_mock.thumbnail.call_args[0][0]
         self.assertEqual(width, 1920)
         self.assertEqual(height, 1080)
+
+
+class BeatmapImportTest(TestCase):
+    """Test beatmap import function from osu! API"""
+
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def import_beatmap(self, beatmap_id, expected_output, mock_stdout):
+        beatmap = create_beatmap(beatmap_id)
+        self.assertEqual(mock_stdout.getvalue(), expected_output)
+        return beatmap
+
+    def test_import_osu_graveyard_beatmap(self):
+        osu_graveyard_beatmap = self.import_beatmap(3238306, "")
+        self.assertNotEqual(osu_graveyard_beatmap, None)
+
+    def test_import_osu_pending_beatmap(self):
+        osu_pending_beatmap = self.import_beatmap(3293365, "")
+        self.assertNotEqual(osu_pending_beatmap, None)
+
+    def test_import_osu_loved_beatmap(self):
+        osu_loved_beatmap = self.import_beatmap(1572866, "")
+        self.assertNotEqual(osu_loved_beatmap, None)
+
+    def test_import_osu_ranked_beatmap(self):
+        osu_ranked_beatmap = self.import_beatmap(3157181, "")
+        self.assertNotEqual(osu_ranked_beatmap, None)
+
+    def test_import_taiko_graveyard_beatmap(self):
+        taiko_graveyard_beatmap = self.import_beatmap(3194148, "")
+        self.assertNotEqual(taiko_graveyard_beatmap, None)
+
+    def test_import_taiko_pending_beatmap(self):
+        taiko_pending_beatmap = self.import_beatmap(3294208, "")
+        self.assertNotEqual(taiko_pending_beatmap, None)
+
+    def test_import_taiko_loved_beatmap(self):
+        taiko_loved_beatmap = self.import_beatmap(2231614, "")
+        self.assertNotEqual(taiko_loved_beatmap, None)
+
+    def test_import_taiko_ranked_beatmap(self):
+        taiko_ranked_beatmap = self.import_beatmap(3204946, "")
+        self.assertNotEqual(taiko_ranked_beatmap, None)
+
+    def test_import_catch_graveyard_beatmap(self):
+        catch_graveyard_beatmap = self.import_beatmap(3248762, "")
+        self.assertNotEqual(catch_graveyard_beatmap, None)
+
+    def test_import_catch_pending_beatmap(self):
+        catch_pending_beatmap = self.import_beatmap(3293380, "")
+        self.assertNotEqual(catch_pending_beatmap, None)
+
+    def test_import_catch_loved_beatmap(self):
+        catch_loved_beatmap = self.import_beatmap(801716, "")
+        self.assertNotEqual(catch_loved_beatmap, None)
+
+    def test_import_catch_ranked_beatmap(self):
+        catch_ranked_beatmap = self.import_beatmap(3083866, "")
+        self.assertNotEqual(catch_ranked_beatmap, None)
+
+    def test_import_mania_graveyard_beatmap(self):
+        mania_graveyard_beatmap = self.import_beatmap(3060329, "")
+        self.assertNotEqual(mania_graveyard_beatmap, None)
+
+    def test_import_mania_pending_beatmap(self):
+        mania_pending_beatmap = self.import_beatmap(3294229, "")
+        self.assertNotEqual(mania_pending_beatmap, None)
+
+    def test_import_mania_loved_beatmap(self):
+        mania_loved_beatmap = self.import_beatmap(883028, "")
+        self.assertNotEqual(mania_loved_beatmap, None)
+
+    def test_import_mania_ranked_beatmap(self):
+        mania_ranked_beatmap = self.import_beatmap(3143428, "")
+        self.assertNotEqual(mania_ranked_beatmap, None)
