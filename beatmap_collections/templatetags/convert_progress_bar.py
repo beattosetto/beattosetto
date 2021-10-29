@@ -14,8 +14,7 @@ def convert_progress_bar(value):
     """
     if float(value) <= 10:
         return float(value/10)*100
-    else:
-        return 100
+    return 100
 
 
 register.filter('convert_progress_bar', convert_progress_bar)
