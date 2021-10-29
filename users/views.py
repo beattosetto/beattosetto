@@ -1,3 +1,4 @@
+from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -33,6 +34,7 @@ def settings(request):
         'cool_description': random.choice(COOL_SETTINGS_WORD),
         'random_username': generate_username()[0],
         'profile_form': profile_form,
-        'user_form': user_form
+        'user_form': user_form,
+        'social_account': SocialAccount.objects.filter(user=request.user).exists(),
     }
     return render(request, 'users/settings.html', context)
