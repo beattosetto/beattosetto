@@ -12,3 +12,4 @@ omit =
     beatmap_collections/tests.py
     users/tests.py
     manage.py
+    beatmap_collection/functions.py
