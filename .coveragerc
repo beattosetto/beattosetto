@@ -8,4 +8,7 @@ omit =
     beatmap_collections/migrations/*
     users/migrations/*
     beattosetto/*
+    # No tests for tests
+    beatmap_collections/tests.py
+    users/tests.py
     manage.py

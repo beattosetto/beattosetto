@@ -69,17 +69,25 @@ def create_beatmap(beatmap_id):
             beatmap_object.diff_drain = beatmap_json['diff_drain']
             beatmap_object.diff_overall = beatmap_json['diff_overall']
             beatmap_object.diff_size = beatmap_json['diff_size']
+            if beatmap_json['diff_aim'] is not None:
+                beatmap_object.diff_aim = beatmap_json['diff_aim']
+            if beatmap_json['diff_speed'] is not None:
+                beatmap_object.diff_speed = beatmap_json['diff_speed']
 
-            beatmap_object.max_combo = beatmap_json['max_combo']
+            if beatmap_json['max_combo'] is not None:
+                beatmap_object.max_combo = beatmap_json['max_combo']
             beatmap_object.playcount = beatmap_json['playcount']
             beatmap_object.favourite_count = beatmap_json['favourite_count']
             beatmap_object.total_length = beatmap_json['total_length']
             beatmap_object.mode = beatmap_json['mode']
             beatmap_object.creator_id = beatmap_json['creator_id']
-            beatmap_object.tags = beatmap_json['beatmapset_id']
+            beatmap_object.genre_id = beatmap_json['genre_id']
+            beatmap_object.language_id = beatmap_json['language_id']
+            beatmap_object.tags = beatmap_json['tags']
 
             beatmap_object.submit_date = datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S')
-            beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
+            if beatmap_json['approved_date'] is not None:
+                beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
             beatmap_object.last_update = datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S')
 
             beatmap_object.save()
