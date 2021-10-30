@@ -73,6 +73,7 @@ def add_beatmap(request, collection_id):
         form = AddBeatmapForm()
     context = {
         'form': form,
+        'collection': collection,
     }
     return render(request, 'beatmap_collections/add_beatmap.html', context)
 

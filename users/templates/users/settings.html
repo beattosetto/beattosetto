@@ -1,7 +1,7 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
     {% block title %}
-  <title>Settings</title>
+  <title>settings | beattosetto</title>
    {% endblock %}
 {% block content %}
 <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/settings-cover.jpg" %});">
@@ -33,9 +33,20 @@
     </div>
   </div>
 <main class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="#profile"><i class="fas fa-user icon-menu hvr-icon"></i> Profile</a></p>
+            </div>
+            <div class="col-sm-2">
+                <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="#account"><i class="fas fa-user-cog icon-menu hvr-icon"></i> Account</a></p>
+            </div>
+        </div>
+    </div>
     <form class="py-4 container" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
-        <h2>User Settings</h2>
+        <a id="profile"><h1>Profile</h1></a>
+        <h2>User Information</h2>
         <div class="fieldWrapper">
             <div class="mb-3 row">
                 <label for="id_username" class="col-form-label col-lg-3">{{ user_form.username.label_tag }}</label>
@@ -66,12 +77,23 @@
                         <p>Current profile image: <img alt="{{ user.username }}'s profile image" src="{{ user.profile.profile_picture.url }}" width="200px" height="200px"></p>
                         <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture" class="form-control">
                         <p class="form-error">{{ profile_form.profile_picture.errors }}</p>
-                        <p class="text-muted">Your cool profile image.</p>
+                        <p class="text-muted">Your cool or cute profile image.</p>
                     </div>
                 </div>
             </div>
         </div>
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
     </form>
+    <div class="py-4 container">
+    <a id="account"><h1>Account</h1></a>
+    <h2>Account Connection</h2>
+    <p>You can connect your lovely Beattosetto account with your cool 7 digits osu! account so you can login by using your cool osu! account instead of using boring username and password.</p>
+    {% if social_account %}
+    <p style="color:#ff66aa"><i class="fas fa-check icon-menu" style="color:#ffb3d4"></i> This account is connected to your cool 7 digits osu! account with username : {{ osu_confirm_username }}</p>
+    {% else %}
+    <a title="osu!" class="socialaccount_provider osu text-decoration-none text-center spacing-hover raleway-font hvr-icon-bounce" href="/accounts/osu/login/?process=connect"><img src="{% static "logo/osu-logo-pink.png" %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> Connect to osu! account</a>
+    {% endif %}
+    </div>
+
 </main>
 {% endblock %}

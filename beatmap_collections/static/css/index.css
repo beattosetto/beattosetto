@@ -35,6 +35,12 @@ a:hover {
     border-color: var(--bs-primary) !important;
 }
 
+h1 {
+    /* I want header 1 to be the only header that is bold */
+    font-family: "Comfortaa", cursive;
+    font-weight: bold;
+}
+
 /*Header and footer styling*/
 
 #header {

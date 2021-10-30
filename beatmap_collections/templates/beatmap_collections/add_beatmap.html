@@ -1,7 +1,7 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
     {% block title %}
-  <title>add beatmap for | beattosetto</title>
+  <title>add beatmap to {{ collection.name }} | beattosetto</title>
    {% endblock %}
 {% block content %}
 <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-add-beatmap.jpg" %}); background-position: center;">
