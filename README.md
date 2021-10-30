@@ -21,3 +21,12 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
 - [Iteration 1](../../wiki/Iteration-1)   
 - [Iteration 2](../../wiki/Iteration-2)
 - [Iteration 3](../../wiki/Iteration-3)   
+
+## Licensing
+This repository is licensed under the MIT License. We recommend you to go check out [the LICENSE file itself](LICENSE), 
+so that you are fully informed about the licensing of this repository. <br/><br/>For people who are not fans of long paperwork 
+however, it basically means that **you can do whatever you desire to this software's files as long as you include the 
+original copyright and license notice in any copy of the software**.
+
+**DISCLAIMER:** We, along with beattosetto, are in no way associated with `osu!` or `ppy`. In addition, contents
+uploaded to this website are subjects to DMCA (Digital Millennium Copyright Act).
