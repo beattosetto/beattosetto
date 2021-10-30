@@ -1,5 +1,22 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/new">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="create collection | beattosetto">
+    <meta property="og:description" content="Let's make some collection! poon poon Poon POON">
+    <meta property="og:image" content="{% static "img/hero-create-collection.jpg" %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/new">
+    <meta property="twitter:title" content="create collection | beattosetto">
+    <meta property="twitter:description" content="Let's make some collection! poon poon Poon POON">
+    <meta property="twitter:image" content="{% static "img/hero-create-collection.jpg" %}">
+    {% endblock %}
+
     {% block title %}
   <title>create collection | beattosetto</title>
    {% endblock %}
