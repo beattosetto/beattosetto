@@ -3,6 +3,23 @@
 {% get_providers as socialaccount_providers %}
 {% load crispy_forms_tags %}
 {% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/accounts/login/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="login | beattosetto">
+    <meta property="og:description" content="Let's login to beattosetto world!">
+    <meta property="og:image" content="{% static "img/login-cover.jpg" %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/accounts/login/">
+    <meta property="twitter:title" content="login | beattosetto">
+    <meta property="twitter:description" content="Let's login to beattosetto world!">
+    <meta property="twitter:image" content="{% static "img/login-cover.jpg" %}">
+    {% endblock %}
+
   {% block css %}
   <link rel="stylesheet" href="{% static "css/login.css" %}">
   {% endblock %}
