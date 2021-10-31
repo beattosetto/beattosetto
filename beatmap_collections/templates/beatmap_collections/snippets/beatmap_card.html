@@ -124,9 +124,9 @@
                         <div class="row">
                             <p></p>
                             <p>
-                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/triangle-bpm.svg" %}" style="filter: invert(1)" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm }}  <i class="far fa-circle"></i> {{ beatmap_entry.beatmap.count_normal }}  <i class="fas fa-grip-lines"></i> {{ beatmap_entry.beatmap.count_slider }}
+                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_normal }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_slider }}
                                 {% if beatmap_entry.beatmap.mode == 0 or beatmap_entry.beatmap.mode == 1 %}
-                                    <i class="fas fa-circle-notch"></i> {{ beatmap_entry.beatmap.count_spinner }}
+                                    <img src="{% static "img/spinner-count-circle.svg" %}" alt="Spinner Count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_spinner }}
                                 {% endif %}
                             </p>
                         </div>
@@ -140,7 +140,7 @@
                                   <div class="progress-bar bg-white" role="progressbar" style="width: {{ beatmap_entry.beatmap.diff_size | convert_progress_bar }}%" aria-valuenow="{{ beatmap_entry.beatmap.diff_size }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.diff_size | convert_beatmap_stat }}</small>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                   <div class="progress-bar bg-white" role="progressbar" style="width: {{ beatmap_entry.beatmap.diff_size | convert_progress_bar }}%" aria-valuenow="{{ beatmap_entry.beatmap.diff_size }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.diff_size | convert_beatmap_stat }}</small>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                                   <div class="progress-bar bg-white" role="progressbar" style="width: {{ beatmap_entry.beatmap.diff_drain | convert_progress_bar }}%" aria-valuenow="{{ beatmap_entry.beatmap.diff_drain }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.diff_drain | convert_beatmap_stat }}</small>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
                                   <div class="progress-bar bg-white" role="progressbar" style="width: {{ beatmap_entry.beatmap.diff_overall | convert_progress_bar }}%" aria-valuenow="{{ beatmap_entry.beatmap.diff_overall }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.diff_overall | convert_beatmap_stat }}</small>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                   <div class="progress-bar bg-white" role="progressbar" style="width: {{ beatmap_entry.beatmap.diff_approach | convert_progress_bar }}%" aria-valuenow="{{ beatmap_entry.beatmap.diff_approach }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.diff_approach | convert_beatmap_stat }}</small>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
                                   <div class="progress-bar" role="progressbar" style="width: {{ beatmap_entry.beatmap.difficultyrating | convert_progress_bar }}%; background-color: #fc2" aria-valuenow="{{ beatmap_entry.beatmap.diff_difficultyrating }}" aria-valuemin="0" aria-valuemax="10"></div>
                                 </div>
                             </div>
-                            <div class="col-sm-2 text-center">
+                            <div class="col-sm-2 beatmap-stat-text">
                                 <small>{{ beatmap_entry.beatmap.difficultyrating | convert_star_rating }}</small>
                             </div>
                         </div>

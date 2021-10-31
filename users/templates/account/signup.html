@@ -4,6 +4,22 @@
 {% load socialaccount %}
 {% get_providers as socialaccount_providers %}
 
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/accounts/signup/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="register | beattosetto">
+    <meta property="og:description" content="Let's join to beattosetto world!">
+    <meta property="og:image" content="{% static "img/register-cover.jpeg" %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/accounts/signup/">
+    <meta property="twitter:title" content="register | beattosetto">
+    <meta property="twitter:description" content="Let's join to beattosetto world!">
+    <meta property="twitter:image" content="{% static "img/register-cover.jpeg" %}">
+    {% endblock %}
+
 <!doctype html>
     {% block css %}
   <link rel="stylesheet" href="{% static "css/login.css" %}">
