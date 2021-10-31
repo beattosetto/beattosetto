@@ -56,8 +56,8 @@
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
         {% endfor %}
     {% else %}
-    <div data-aos="fade-up" class="col-12" data-aos-duration="500">
-        <h1 class="text-center"><img src="{% static "img/no-beatmap.gif" %}" alt="No beatmap"></h1>
+    <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" class="w-100" alt="No beatmap"></h1>
         <h3 class="text-center">No beatmaps added for this collection!</h3>
         <h3 class="text-center">Let's add one!</h3>
     </div>
