@@ -275,6 +275,16 @@ a.dropdown-item {
     background-color: #272727;
 }
 
+.beatmap-stat-text {
+    text-align: center!important;
+}
+
+@media (max-width: 1009px) {
+    .beatmap-stat-text {
+        text-align: left!important;
+    }
+}
+
 /* Styling class used in JS */
 
 .hidden {
