@@ -35,6 +35,8 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default="localhost")
 INSTALLED_APPS = [
     'beatmap_collections.apps.BeatmapCollectionsConfig',
     'users.apps.UsersConfig',
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,6 +87,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'beattosetto.wsgi.application'
 
+# This required for new admin interface
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SILENCED_SYSTEM_CHECKS = ['security.W019']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
