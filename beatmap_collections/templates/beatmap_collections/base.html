@@ -76,6 +76,7 @@
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                   {% if user.is_superuser or user.is_staff %}
+                <li><a class="dropdown-item spacing-hover" href="{% url "actions" %}">Actions</a></li>
                 <li><a class="dropdown-item spacing-hover" href="{% url "admin:index" %}">Admin</a></li>
                 <li><hr class="dropdown-divider"></li>
                   {% endif %}
@@ -116,6 +117,7 @@
             <div class="collapse" id="collapseProfileMenu">
               <div class="list-group border-0">
                   {% if user.is_superuser or user.is_staff %}
+                <a href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
                 <a href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
                   {% endif %}
                 <a href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
