@@ -110,7 +110,7 @@
 
               <div class="row">
                   <div class="col-sm-6">
-                      <p>mapped by <a href=https://osu.ppy.sh/users/{{ beatmap_entry.beatmap.creator_id }}" class="text-decoration-none spacing-hover">{{ beatmap_entry.beatmap.creator }}</a></p>
+                      <p>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap_entry.beatmap.creator_id }}" class="text-decoration-none spacing-hover">{{ beatmap_entry.beatmap.creator }}</a></p>
                       <p>submitted {{ beatmap_entry.beatmap.submit_date | date:"j F Y H:i:s" }} UTC</p>
                         {% if beatmap_entry.beatmap.approved == '1' %}
                             <p>ranked {{ beatmap_entry.beatmap.approved_date | date:"j F Y H:i:s" }} UTC</p>
@@ -120,7 +120,7 @@
                             <p>last updated {{ beatmap_entry.beatmap.last_update | date:"j F Y H:i:s" }} UTC</p>
                         {% endif %}
                   </div>
-                    <div class="col-sm-6 modal-diff" style="background-color: #6f6f6f">
+                    <div class="col-sm-6 modal-diff" style="background-color: rgb(60,70,76);">
                         <div class="row">
                             <p></p>
                             <p>
