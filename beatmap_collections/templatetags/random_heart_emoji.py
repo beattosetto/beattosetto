@@ -14,4 +14,4 @@ def random_heart_emoji():
                           '🖤', '🤍', '🤎'])
 
 
-register.filter('random_heart_emoji', random_heart_emoji)
+register.simple_tag(random_heart_emoji)
