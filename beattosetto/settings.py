@@ -35,6 +35,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default="localhost")
 INSTALLED_APPS = [
     'beatmap_collections.apps.BeatmapCollectionsConfig',
     'users.apps.UsersConfig',
+    'actions.apps.ActionsConfig',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',

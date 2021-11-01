@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('beatmap_collections.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('', include('actions.urls'))
 ]
 
 if DEBUG:
