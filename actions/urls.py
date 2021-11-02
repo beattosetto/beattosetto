@@ -5,6 +5,7 @@ from . import views
 
 urlpatterns = [
     path('actions/', views.actions, name='actions'),
+    path('actions/update_beatmap', views.update_beatmap_action, name='actions_update_beatmap'),
 ]
 
 if settings.DEBUG:
