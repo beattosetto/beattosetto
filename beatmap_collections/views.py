@@ -38,7 +38,7 @@ def collection_page(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
     context = {
         'collection': collection,
-        'all_beatmap': BeatmapEntry.objects.filter(collection=collection),
+        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
     }
     return render(request, 'beatmap_collections/collection_page.html', context)
 
@@ -116,7 +116,7 @@ def beatmap_approval(request, collection_id):
         return redirect('collection', collection_id=collection_id)
     context = {
         'collection': collection,
-        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection)
+        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection, owner_approved=False)
     }
     return render(request, 'beatmap_collections/beatmap_approval.html', context)
 
