@@ -65,9 +65,15 @@ def add_beatmap(request, collection_id):
                 beatmap_entry.beatmap = created_beatmap
             beatmap_entry.author = request.user
             beatmap_entry.comment = form.cleaned_data['comment']
+            if request.user == collection.author:
+                beatmap_entry.owner_approved = True
+                beatmap_entry.save()
+                beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+                messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
+                return redirect('collection', collection_id=collection_id)
             beatmap_entry.save()
             beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
-            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
+            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list for this collection! Please wait for collection owner to approve it.')
             return redirect('collection', collection_id=collection_id)
     else:
         form = AddBeatmapForm()
