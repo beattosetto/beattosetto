@@ -2,7 +2,8 @@ import threading
 
 from django.contrib.auth.decorators import user_passes_test
 from django.core.checks import messages
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import ActionLog
 from .scripts import *
@@ -27,7 +28,7 @@ def update_beatmap_action(request):
     :return: Redirect to maintainer menu with message
     """
     action_log = ActionLog()
-    action_log.title = "Update all beatmap metadata"
+    action_log.name = "Update all beatmap metadata"
     action_log.running_text = "Start working thread..."
     action_log.status = 1
     action_log.start_user = request.user
@@ -37,3 +38,25 @@ def update_beatmap_action(request):
     thread_worker.start()
     messages.success(request, f"Start your cute bot successfully! (Log ID : {action_log.id})")
     return redirect('actions')
+
+
+@user_passes_test(lambda u: u.is_superuser or u.is_staff)
+def check_action_log(request, log_id):
+    action = get_object_or_404(ActionLog, id=log_id)
+    if action.status == 1 or action.status == 0:
+        duration = (timezone.now() - action.time_start).total_seconds()
+    elif action.status == 2:
+        duration = (action.time_finish - action.time_start).total_seconds()
+    else:
+        duration = "Unknown"
+
+    if duration != "Unknown":
+        hours = duration//3600
+        duration = duration - (hours*3600)
+        minutes = duration//60
+        seconds = duration - (minutes*60)
+        duration = '{:02}:{:02}:{:02}'.format(int(hours), int(minutes), int(seconds))
+
+    if request.method == "GET":
+        return JsonResponse({"running_text": action.running_text, "status": action.status, "duration": duration}, status=200)
+    return JsonResponse({}, status=400)
