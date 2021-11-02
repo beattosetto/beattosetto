@@ -49,17 +49,17 @@
       {% endif %}
     </div>
   </div>
-<main class="text-light">
+<main class="container text-light">
     <div class="row g-4 py-4">
-    {% if all_beatmap %}
-        {% for beatmap_entry in all_beatmap %}
+    {% if beatmap_approve %}
+        {% for beatmap_entry in beatmap_approve %}
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
         {% endfor %}
     {% else %}
     <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
-        <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
-        <h3 class="text-center">No beatmaps added for this collection!</h3>
-        <h3 class="text-center">Let's add one!</h3>
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap-approval.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap to approve"></h1>
+        <h3 class="text-center">No beatmap need to approve now!</h3>
+        <h3 class="text-center">Back to work</h3>
     </div>
     {% endif %}
 </div>
