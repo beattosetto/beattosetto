@@ -9,12 +9,17 @@ class Profile(models.Model):
 
     Attributes:
         profile_picture: The profile picture of the user.
+        cover_image: The profile's cover image.
         user: The user that this profile belongs to.
+        osu_username: Username of the osu! account associated with the user.
     """
 
     profile_picture = models.ImageField(default='user_list/placeholder.png', upload_to='user_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
+    cover_image = models.ImageField(default='cover_list/placeholder.jpg', upload_to='cover_list', validators=[
+        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    osu_username = models.CharField(max_length=32, blank=True)
 
     def __str__(self):
         """Returns the string representation of the profile."""
