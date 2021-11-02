@@ -83,27 +83,10 @@ def update_beatmap_action_script(action: ActionLog):
                 action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                 log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
 
-                beatmap.beatmapset_id = beatmap_json['beatmapset_id']
-                beatmap.title = beatmap_json['title']
-                beatmap.artist = beatmap_json['artist']
-                beatmap.source = beatmap_json['source']
-                beatmap.creator = beatmap_json['creator']
                 beatmap.approved = beatmap_json['approved']
                 beatmap.difficultyrating = beatmap_json['difficultyrating']
                 beatmap.bpm = beatmap_json['bpm']
                 beatmap.version = beatmap_json['version']
-
-                if beatmap_json['mode'] == '0':
-                    beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
-                elif beatmap_json['mode'] == '1':
-                    beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
-                elif beatmap_json['mode'] == '2':
-                    beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
-                elif beatmap_json['mode'] == '3':
-                    beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
-                else:
-                    # This should never happen
-                    beatmap.url = "https://osu.ppy.sh/"
 
                 beatmap.count_normal = beatmap_json['count_normal']
                 beatmap.count_slider = beatmap_json['count_slider']
@@ -123,8 +106,6 @@ def update_beatmap_action_script(action: ActionLog):
                 beatmap.playcount = beatmap_json['playcount']
                 beatmap.favourite_count = beatmap_json['favourite_count']
                 beatmap.total_length = beatmap_json['total_length']
-                beatmap.mode = beatmap_json['mode']
-                beatmap.creator_id = beatmap_json['creator_id']
                 beatmap.genre_id = beatmap_json['genre_id']
                 beatmap.language_id = beatmap_json['language_id']
                 beatmap.tags = beatmap_json['tags']
