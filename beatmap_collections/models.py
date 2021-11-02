@@ -45,6 +45,11 @@ class Collection(models.Model):
         if cover_image.height > 1080 or cover_image.width > 1920:
             cover_image.thumbnail((1920, 1080))
             cover_image.save(self.collection_list.path)
+    
+    @property
+    def beatmaps_count(self):
+        """Count beatmaps in the collection."""
+        return BeatmapEntry.objects.filter(collection=self).count()
 
 
 class Comment(models.Model):

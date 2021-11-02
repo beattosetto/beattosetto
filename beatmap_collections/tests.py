@@ -14,7 +14,6 @@ import io
 from .templatetags.convert_beatmap_stat import convert_beatmap_stat
 from .templatetags.convert_progress_bar import convert_progress_bar
 from .templatetags.convert_star_rating import convert_star_rating
-from .templatetags.count_beatmaps import count_beatmaps
 from .templatetags.length_format import length_format
 from .templatetags.thousand_seperator import thousand_seperator
 
@@ -180,6 +179,32 @@ class CollectionModelTest(TestCase):
         self.assertEqual(width, 1920)
         self.assertEqual(height, 1080)
 
+    # @skip("We are thinking on this test that is it important or not.")
+    def test_count_beatmaps(self):
+        """Test count beatmaps function."""
+        def create_beatmap(beatmap_id: int):
+            """Create beatmap without using API.
+
+            Calling API is irrelevant to the test.
+            """
+            beatmap = Beatmap.objects.create(beatmap_id=beatmap_id)
+        user = User.objects.create(username="SurinBoyInwZaa", id=85)
+        dummy_collection = Collection.objects.create(name="Prayuth the collection",
+                                                     description="Song to kick Prayuth out of the world.",
+                                                     author=user)
+        self.assertEqual(dummy_collection.beatmaps_count, 0)
+        beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection,
+                                                      author=user)
+        beatmap_entry_1.save()
+        self.assertEqual(dummy_collection.beatmaps_count, 1)
+        beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection,
+                                                      author=user)
+        beatmap_entry_2.save()
+        beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection,
+                                                      author=user)
+        beatmap_entry_3.save()
+        self.assertEqual(dummy_collection.beatmaps_count, 3)
+
 
 @skip("I don't know why this test cannot run in GitHub Actions")
 class BeatmapImportTest(TestCase):
@@ -292,23 +317,6 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(convert_star_rating(0.0000), 0.00)
         self.assertEqual(convert_star_rating(2.5421), 2.54)
         self.assertEqual(convert_star_rating("I dunno"), None)
-
-    @skip("We are thinking on this test that is it important or not.")
-    def test_count_beatmaps(self):
-        """Test count beatmaps function."""
-        user = User.objects.create(username="SurinBoyInwZaa", id=85)
-        dummy_collection = Collection.objects.create(name="Prayuth the collection",
-                                                     description="Song to kick Prayuth out of the world.",
-                                                     author=user)
-        self.assertEqual(count_beatmaps(dummy_collection), "0 beatmap")
-        beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection, author=user)
-        beatmap_entry_1.save()
-        self.assertEqual(count_beatmaps(dummy_collection), "1 beatmap")
-        beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection, author=user)
-        beatmap_entry_2.save()
-        beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection, author=user)
-        beatmap_entry_3.save()
-        self.assertEqual(count_beatmaps(dummy_collection), "3 beatmaps")
 
     def test_length_format(self):
         """Test convert length to display string."""
