@@ -18,14 +18,14 @@ function scrollFunction() {
             profilePicture.style.height = "32px";
             profilePicture.style.width = "32px";
             headerLogo.style.height = "50px";
-            header.style.backgroundColor = "rgba(74,74,74,.8)";
+            header.style.backgroundColor = "rgba(39,45,49,0.8)";
             header.classList.add('blur-bg')
             navListing.style.fontSize = "18px"
         } else {
             profilePicture.style.height = "48px";
             profilePicture.style.width = "48px";
             headerLogo.style.height = "65px";
-            header.style.backgroundColor = "rgba(74,74,74,0)"
+            header.style.backgroundColor = "rgba(39,45,49,0)"
             header.classList.remove('blur-bg')
             navListing.style.fontSize = "20px"
         }
@@ -36,7 +36,7 @@ function scrollFunction() {
             mobileLogo.style.marginTop = "-5px";
             mobileLogo.style.marginLeft = "-5px";
             mobileLogo.style.height = "45px";
-            mobileHeader.style.backgroundColor = "rgba(74,74,74,.8)";
+            mobileHeader.style.backgroundColor = "rgba(39,45,49,.8)";
             mobileHeader.classList.add('blur-bg');
             document.getElementById("navbarToggleExternalContent").style.marginTop = "68px";
         } else {
@@ -45,7 +45,7 @@ function scrollFunction() {
             mobileLogo.style.marginTop = "0";
             mobileLogo.style.marginLeft = "0";
             mobileLogo.style.height = "50px";
-            mobileHeader.style.backgroundColor = "rgba(74,74,74,0)";
+            mobileHeader.style.backgroundColor = "rgba(39,45,49,0)";
             mobileHeader.classList.remove('blur-bg');
             document.getElementById("navbarToggleExternalContent").style.marginTop = "77px";
         }
@@ -74,10 +74,10 @@ function onResize() {
         headerLogo.classList.add('disabled')
     }
 
-    if ((document.documentElement.clientWidth < 1010 && header.style.backgroundColor === "rgba(74,74,74,0.8)") ||
+    if ((document.documentElement.clientWidth < 1010 && header.style.backgroundColor === "rgba(39,45,49,0.8)") ||
         (document.documentElement.clientWidth < 1010 && header.style.backgroundColor === "rgba(255,255,255,0.8)") ||
         (document.documentElement.clientWidth < 1010 && header.classList.contains('show'))) {
-        header.style.backgroundColor = "rgba(74,74,74,0)";
+        header.style.backgroundColor = "rgba(39,45,49,0)";
     }
 
     if (document.documentElement.clientWidth < 1010 && header.classList.contains('show')) {

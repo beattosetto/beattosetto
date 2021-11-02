@@ -4,6 +4,7 @@ from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
+from django.utils.timezone import make_aware
 
 
 def create_beatmap(beatmap_id):
@@ -85,10 +86,10 @@ def create_beatmap(beatmap_id):
             beatmap_object.language_id = beatmap_json['language_id']
             beatmap_object.tags = beatmap_json['tags']
 
-            beatmap_object.submit_date = datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S')
+            beatmap_object.submit_date = make_aware(datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S'))
             if beatmap_json['approved_date'] is not None:
-                beatmap_object.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
-            beatmap_object.last_update = datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S')
+                beatmap_object.approved_date = make_aware(datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S'))
+            beatmap_object.last_update = make_aware(datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S'))
 
             beatmap_object.save()
             return beatmap_object

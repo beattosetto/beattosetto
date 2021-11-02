@@ -7,3 +7,4 @@ pillow
 rurusetto-allauth
 django-crispy-forms
 random-username
+django-admin-interface

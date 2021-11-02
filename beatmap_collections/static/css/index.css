@@ -7,6 +7,9 @@
     --bs-primary-dark: #FF268c;
     --bg-color: rgb(33, 37, 41);
     --bg-color-trans: rgba(33, 37, 41, .8);
+    --bg-primary-lighter-zero: rgba(39, 45, 49, 0);
+    --bg-primary-lighter: rgb(39, 45, 49);
+    --bg-primary-lighter-trans: rgba(39, 45, 49, 0.8);
     --default-font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --bs-font-sans-serif: "Comfortaa", "Mali", "Noto Sans JP", var(--default-font-family-sans-serif);
     --transition-time: 0.2s;
@@ -44,14 +47,14 @@ h1 {
 /*Header and footer styling*/
 
 #header {
-    background-color: rgba(74,74,74,0);
+    background-color: var(--bg-primary-lighter-zero);
     transition: var(--transition-time);
     z-index: 2;
 }
 
 footer {
     color: white;
-    background-color: #4a4a4a;
+    background-color: var(--bg-primary-lighter);
 }
 
 .github-footer {
@@ -87,11 +90,11 @@ footer {
 }
 
 .dropdown-menu {
-    background-color: #5f5f5f;
+    background-color: rgb(44, 53, 56);
 }
 
 .dropdown-item:hover {
-    background-color: #8f8f8f;
+    background-color: rgb(72, 88, 92);
 }
 
 .dropdown-pfp::after {
@@ -114,7 +117,7 @@ footer {
     transition: var(--transition-time);
     min-height: 68px;
     height: 8%;
-    background-color: rgba(74, 74, 74, 0);
+    background-color: var(--bg-primary-lighter-zero);
 }
 
 #mobile-logo {
@@ -123,22 +126,22 @@ footer {
 
 #navbarToggleExternalContent {
     margin-top: 77px;
-    background-color: rgba(74, 74, 74, .8);
+    background-color: var(--bg-primary-lighter-trans);
     backdrop-filter: blur(5px);
 }
 
 .list-group-item {
     border: 0;
-    background-color: rgba(74, 74, 74, .8);
+    background-color: var(--bg-primary-lighter-trans);
 }
 
 .list-group {
-    background-color: rgba(74, 74, 74, 0);
+    background-color: var(--bg-primary-lighter-zero);
 }
 
 .list-group-item:hover {
     border: 0;
-    background-color: rgba(74, 74, 74, .3);
+    background-color: rgba(39, 45, 49, .3);
 }
 
 .mobile-header-text {
@@ -156,7 +159,7 @@ footer {
 .modal-header,
 .modal-body,
 .modal-footer {
-    background-color: #4a4a4a;
+    background-color: #272d31;
 }
 
 .modal-body {
@@ -189,17 +192,17 @@ button.accordion-button:not(.collapsed) {
 
 button.accordion-button.collapsed,
 button.accordion-button:not(.collapsed) {
-    background-color: #4a4a4a;
+    background-color: rgb(49, 58, 61);
     border-color: white;
 }
 
 button.accordion-button:focus {
-    background-color: #6f6f6f;
-    border-color: #6f6f6f;
+    background-color: rgb(67, 80, 83);
+    border-color: rgb(67, 80, 83);
 }
 
 .accordion-body {
-    background-color: #4a4a4a;
+    background-color: rgb(49, 58, 61);
 }
 
 .accordion-button::after {
@@ -211,7 +214,7 @@ button.accordion-button:focus {
 }
 
 #profile-menu {
-    background-color: rgba(74, 74, 74, .8);
+    background-color: var(--bg-primary-lighter-trans);
     color: white;
 }
 
@@ -248,7 +251,7 @@ a.dropdown-item {
 /* Styling use in beatmap card */
 
 .beatmap-card {
-    background-color: rgba(45, 45, 45, 0.9);
+    background-color: rgba(39, 45, 49, 0.9);
     backdrop-filter: blur(4px);
     font-size: 95%;
 }
@@ -325,7 +328,7 @@ a.disabled {
 }
 
 .collection-background {
-    background-color: rgba(45, 45, 45, 0.9);
+    background-color: rgba(39, 45, 49, 0.9);
     backdrop-filter: blur(4px);
 }
 
