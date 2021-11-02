@@ -215,8 +215,10 @@
                         </div>
                     </div>
               </div>
+                {% if beatmap_entry.beatmap.source %}
                 <p class="fw-bold">Source</p>
                 <p>{{ beatmap_entry.beatmap.source }}</p>
+                {% endif %}
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
@@ -289,8 +291,10 @@
                         {% endif %}
                     </div>
                 </div>
+                {% if beatmap_entry.beatmap.tags %}
                 <p class="fw-bold">Tags</p>
                 <p>{{ beatmap_entry.beatmap.tags }}</p>
+                {% endif %}
       </div>
     </div>
   </div>
