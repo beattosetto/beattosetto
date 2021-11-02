@@ -50,25 +50,26 @@
     </div>
   </div>
 <main class="container text-light">
-    <h1><i class="fas fa-wrench"></i> Start an action</h1>
-    <p>Trigger the worker to let beatto-chan do some job for you!</p>
-    <div class="alert alert-warning" role="alert">
+    <h1 data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><i class="fas fa-wrench"></i> Start an action</h1>
+    <p data-aos="fade-up" data-aos-duration="750" data-aos-once="true">Trigger the worker to let beatto-chan do some job for you!</p>
+    <div class="alert alert-warning" role="alert" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
       <b>Warning :</b> This action is running in background and consume a lot of server's calculation power. Please think before running it!
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
           <a class="btn btn-warning" href="{% url 'actions_update_beatmap' %}">Update all beatmaps metadata</a>
         </div>
-        <div class="col-9">
+        <div class="col-8" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
           <p>Update all beatmap metadata in the server.</p>
         </div>
     </div>
 
     <br>
 
-    <h1><i class="fas fa-running"></i> Worker log</h1>
+    <h1 data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><i class="fas fa-running"></i> Worker log</h1>
+    {% if action_log %}
     {% for action in action_log %}
-    <div class="container rounded border border-2 p-3">
+    <div class="container rounded border border-2 p-3" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">
         <h3><b>#{{ action.id }}</b> {{ action.name }}</h3>
 
     <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link"><p class="text-muted"><img src="{{ action.start_user.profile.profile_picture.url }}" alt="{{ action.start_user.username }}" width="32" height="32" class="rounded-circle hvr-icon"> {{ action.start_user.username }} </p></a>
@@ -97,9 +98,19 @@
     </div>
 
     <p id="running_log_{{ action.id }}">Running Status : {{ action.running_text }}</p>
+    {% if action.get_log_url %}
+    <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{{ action.log.url }}"><i class="fas fa-file-download icon-menu hvr-icon"></i> Download log</a></p>
+    {% endif %}
     </div>
     <p></p>
     {% endfor %}
+    {% else %}
+    <div class="col-12" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">
+        <h1 class="text-center" ><img src="{% static "img/no-log.gif" %}" style="max-width: 500px" class="w-100" alt="No log"></h1>
+        <h3 class="text-center">Nothing here, just pass me.</h3>
+        <h3 class="text-center">Or let me work for you!</h3>
+    </div>
+    {% endif %}
 </main>
 {% endblock %}
 
