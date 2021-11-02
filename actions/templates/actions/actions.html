@@ -102,3 +102,55 @@
     {% endfor %}
 </main>
 {% endblock %}
+
+{% block js %}
+    <script>
+        {% for action in action_log %}
+            let status_before_{{ action.id }} = 0;
+            async function updateRunningText{{ action.id }}() {
+
+                // Storing response
+                const response = await fetch("{% url 'check_action_log' action.id %}")
+
+                // Storing data in form of JSON
+                let Data = await response.json()
+                const status_action0id = document.getElementById("status_{{ action.id }}");
+                const status_running_log_action0id = document.getElementById("running_log_{{ action.id }}");
+                const status_duration_action0id = document.getElementById("duration_{{ action.id }}");
+
+                // If response, update HTML
+                if (response) {
+                    status_running_log_action0id.innerHTML = "Running Status : " + Data['running_text']
+                    status_duration_action0id.innerHTML = "Duration : " + Data['duration']
+                    if (status_before_{{ action.id }} !== Data['status']) {
+                        status_before_{{ action.id }} = Data['status']
+
+                        let status_message = "";
+                        if (Data['status'] === 0) {
+                            status_message = '<div class="spinner-grow" role="status" style="color: #ff66aa">\n' +
+                                '<span class="visually-hidden">Idle...</span>\n' +
+                                '</div> <span style="color: #ff66aa" class="text-center">Idle...</span>'
+                        } else if (Data['status'] === 1) {
+                            status_message = '<div class="spinner-border" role="status" style="color: #ff66aa">\n' +
+                                '<span class="visually-hidden">Loading...</span>\n' +
+                                '</div> <span style="color: #ff66aa" class="text-center">Running...</span>'
+                        } else if (Data['status'] === 2) {
+                            status_message = '<p class="text-success"><i class="fas fa-check"></i> Successfully running</p>'
+                        } else if (Data['status'] === 3) {
+                            status_message = '<p class="text-danger"><i class="fas fa-times"></i> Run failed</p>'
+                        } else {
+                            status_message = '<p>Unknown Status</p>'
+                        }
+
+                        status_action0id.innerHTML = status_message;
+                    }
+                }
+            }
+        {% endfor %}
+        {% for action in action_log %}
+            setInterval (() => {
+                updateRunningText{{ action.id }}()
+            }, 1000);
+        {% endfor %}
+    </script>
+{% endblock js %}
