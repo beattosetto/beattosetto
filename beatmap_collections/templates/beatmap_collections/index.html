@@ -47,7 +47,7 @@
                   <div class="row g-0" style="font-size: 90%">
                     <div class="col-md-4" style="min-height: 150px; background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
                     </div>
-                    <div class="col" style="background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
+                    <div class="col-md-8" style="background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
                       <div class="card-body collection-background">
                           <a href="{% url 'collection' collection.id %}" class="text-decoration-none spacing-hover-short"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
                           <div class="card-content">

@@ -29,10 +29,10 @@
     <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url('{{ collection.collection_list.url }}'); background-position: center;">
         <p></p>
         <p></p>
-        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ collection.name }}</h1>
-        <div class="col-lg-4 mx-auto">
+        <h1 class="display-5 fw-bold text-break" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ collection.name }}</h1>
+        <div class="col-lg-12 mx-auto">
             <p class="lead mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-once="true" style="color: #b5b5b5">Made by <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}'s profile picture" class="rounded-circle hvr-icon" width="32px" height="32px" > {{ collection.author.username }}</a></p>
-          <p class="lead mb-4" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">{{ collection.description }}</p>
+          <p class="lead mb-4 text-break" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">{{ collection.description }}</p>
         </div>
     </div>
 
@@ -70,12 +70,12 @@
     </div>
 <div class="row g-4 py-4">
     {% if all_beatmap %}
-    {% for beatmap_entry in all_beatmap %}
-    {% include "beatmap_collections/snippets/beatmap_card.html" %}
-    {% endfor %}
+        {% for beatmap_entry in all_beatmap %}
+            {% include "beatmap_collections/snippets/beatmap_card.html" %}
+        {% endfor %}
     {% else %}
-    <div data-aos="fade-up" data-aos-duration="500">
-        <h1 class="text-center"><img src="{% static "img/no-beatmap.gif" %}" alt="No beatmap"></h1>
+    <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
         <h3 class="text-center">No beatmaps added for this collection!</h3>
         <h3 class="text-center">Let's add one!</h3>
     </div>

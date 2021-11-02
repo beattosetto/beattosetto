@@ -73,7 +73,7 @@ footer {
 }
 
 .hero, .hero-profile {
-    height:30vh;
+    /*height:30vh;*/
     min-height:400px;
     background-size: cover;
     margin:0!important;
