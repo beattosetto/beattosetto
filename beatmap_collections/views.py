@@ -99,3 +99,17 @@ def edit_collection(request, collection_id):
         'collection': collection
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
+
+
+@login_required
+def beatmap_approval(request, collection_id):
+    """View for approve beatmap that user who is not collection owner want to add to collection."""
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.user != collection.author:
+        messages.error(request, 'How dare you access this page despite not an owner??? Go away!')
+        return redirect('collection', collection_id=collection_id)
+    context = {
+        'collection': collection,
+        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection)
+    }
+    return render(request, 'beatmap_collections/beatmap_approval.html', context)
