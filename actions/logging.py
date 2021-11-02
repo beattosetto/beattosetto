@@ -1,4 +1,5 @@
 import logging
+import os
 
 LOG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s]: %(levelname)s - %(message)s",
                                datefmt='%Y-%m-%d %H:%M:%S')
@@ -19,10 +20,14 @@ def setup_logger(name: str, log_file: str, mode: str, level: int = logging.INFO)
     try:
         handler = logging.FileHandler(log_file, mode=mode)
     except FileNotFoundError:
-        # If find is not found, just create it and continue
-        file = open(log_file, "a+")
-        file.write(f"# Log name: {name}")
-        handler = logging.FileHandler(log_file, mode=mode)
+        try:
+            # If find is not found, just create it and continue
+            file = open(log_file, "a+")
+            file.write(f"# Log name: {name}")
+            handler = logging.FileHandler(log_file, mode=mode)
+        except FileNotFoundError:
+            # We cannot fix this so just reverse filename to a logger name and normally save it.
+            handler = logging.FileHandler(f'{name}.log', mode=mode)
     handler.setFormatter(LOG_FORMAT)
 
     logger = logging.getLogger(name)

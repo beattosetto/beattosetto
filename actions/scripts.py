@@ -19,9 +19,12 @@ def update_beatmap_action_script(action: ActionLog):
     Parameters:
         action (ActionLog): The ActionLog for tracking the action.
     """
+    # For running first time, make a new folder for store debug log
+    if not os.path.exists('actions_logs_debug'):
+        os.mkdir('actions_logs_debug')
     # Setup the new logger
     info_logger = setup_logger(f'info_log_{action.id}', f'media/{action.log}', 'a+', logging.INFO)
-    debug_logger = setup_logger(f'debug_log_{action.id}', f'media/actions_logs/log_{action.id}_debug.log', 'a+', logging.DEBUG)
+    debug_logger = setup_logger(f'debug_log_{action.id}', f'actions_logs_debug/log_{action.id}_debug.log', 'a+', logging.DEBUG)
     log_two_handler(info_logger, debug_logger, logging.INFO, "Setup logger complete.")
     beatmap_count = Beatmap.objects.all().count()
     log_two_handler(info_logger, debug_logger, logging.INFO, f"Prepare to update {beatmap_count} beatmaps.")
