@@ -17,6 +17,10 @@
     <meta property="twitter:image" content="{% static "img/hero-beatmap-approval.jpg" %}">
     {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static "css/progres-bar.css" %}">
+{% endblock %}
+
     {% block title %}
   <title>approve beatmap in {{ collection.name }} | beattosetto</title>
    {% endblock %}
@@ -59,9 +63,19 @@
     <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         <h1 class="text-center" ><img src="{% static "img/no-beatmap-approval.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap to approve"></h1>
         <h3 class="text-center">No beatmap need to approve now!</h3>
-        <h3 class="text-center">Back to work</h3>
+        <h3 class="text-center">Back to work.</h3>
     </div>
     {% endif %}
 </div>
 </main>
+{% endblock %}
+
+{% block js %}
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="{% static "js/player.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+        $('.mediPlayer').mediaPlayer();
+    });
+    </script>
 {% endblock %}
