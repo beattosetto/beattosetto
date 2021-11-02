@@ -39,3 +39,9 @@ class ActionLog(models.Model):
         else:
             status_text = "Unknown"
         return f'{self.name} [{status_text}]'
+
+    def get_log_url(self):
+        try:
+            return self.log.url
+        except IOError:
+            return None
