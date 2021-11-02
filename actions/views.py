@@ -32,7 +32,7 @@ def update_beatmap_action(request):
     action_log.status = 1
     action_log.start_user = request.user
     action_log.save()
-    action_log.log.save(f"log_{action_log.id}", ContentFile(f'# Log for worker ID : {action_log.id}\n'))
+    action_log.log.save(f"log_{action_log.id}.log", ContentFile(f'# Log for worker ID : {action_log.id}\n'))
     thread_worker = threading.Thread(target=update_beatmap_action_script, args=[action_log])
     thread_worker.setDaemon(True)
     thread_worker.start()
