@@ -9,9 +9,10 @@ from django.utils import timezone
 from actions.models import ActionLog
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
+from django.utils.timezone import make_aware
 
 
-def update_beatmap_action(action: ActionLog):
+def update_beatmap_action_script(action: ActionLog):
     """An action script for updating a beatmap's data entire server.
 
     Parameters:
@@ -108,10 +109,10 @@ def update_beatmap_action(action: ActionLog):
                 beatmap.language_id = beatmap_json['language_id']
                 beatmap.tags = beatmap_json['tags']
 
-                beatmap.submit_date = datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S')
+                beatmap.submit_date = make_aware(datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S'))
                 if beatmap_json['approved_date'] is not None:
-                    beatmap.approved_date = datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S')
-                beatmap.last_update = datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S')
+                    beatmap.approved_date = make_aware(datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S'))
+                beatmap.last_update = make_aware(datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S'))
 
                 beatmap.save()
                 success += 1
