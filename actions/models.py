@@ -24,3 +24,16 @@ class ActionLog(models.Model):
     time_finish = models.DateTimeField(null=True, blank=True)
 
     start_user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+
+    def __str__(self):
+        if self.status == 0:
+            status_text = "Idle"
+        elif self.status == 1:
+            status_text = "Running"
+        elif self.status == 2:
+            status_text = "Finished"
+        elif self.status == 3:
+            status_text = "Error"
+        else:
+            status_text = "Unknown"
+        return f'{self.name} [{status_text}]'
