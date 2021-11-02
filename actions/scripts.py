@@ -83,6 +83,12 @@ def update_beatmap_action_script(action: ActionLog):
                 action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                 log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
 
+                beatmap.beatmapset_id = beatmap_json['beatmapset_id']
+                beatmap.title = beatmap_json['title']
+                beatmap.artist = beatmap_json['artist']
+                beatmap.source = beatmap_json['source']
+                beatmap.creator = beatmap_json['creator']
+
                 beatmap.approved = beatmap_json['approved']
                 beatmap.difficultyrating = beatmap_json['difficultyrating']
                 beatmap.bpm = beatmap_json['bpm']
