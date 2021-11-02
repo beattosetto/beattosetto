@@ -25,6 +25,8 @@ class ActionLog(models.Model):
 
     start_user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
 
+    log = models.FileField(upload_to='actions_logs', null=True, blank=True)
+
     def __str__(self):
         if self.status == 0:
             status_text = "Idle"
