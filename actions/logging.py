@@ -16,7 +16,13 @@ def setup_logger(name: str, log_file: str, mode: str, level: int = logging.INFO)
     Returns:
         The logger (logging.Logger)
     """
-    handler = logging.FileHandler(log_file, mode=mode)
+    try:
+        handler = logging.FileHandler(log_file, mode=mode)
+    except FileNotFoundError:
+        # If find is not found, just create it and continue
+        file = open(log_file, "a+")
+        file.write(f"# Log name: {name}")
+        handler = logging.FileHandler(log_file, mode=mode)
     handler.setFormatter(LOG_FORMAT)
 
     logger = logging.getLogger(name)
