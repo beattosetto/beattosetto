@@ -57,7 +57,7 @@
     <div class="row g-4 py-4">
     {% if beatmap_approve %}
         {% for beatmap_entry in beatmap_approve %}
-            {% include "beatmap_collections/snippets/beatmap_card.html" %}
+            {% include "beatmap_collections/snippets/beatmap_card_approval.html" %}
         {% endfor %}
     {% else %}
     <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
