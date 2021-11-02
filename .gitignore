@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea
+
+# Actions debug log
+actions_logs_debug
