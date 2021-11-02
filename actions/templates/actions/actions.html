@@ -64,5 +64,41 @@
         </div>
     </div>
 
+    <br>
+
+    <h1><i class="fas fa-running"></i> Worker log</h1>
+    {% for action in action_log %}
+    <div class="container rounded border border-2 p-3">
+        <h3><b>#{{ action.id }}</b> {{ action.name }}</h3>
+
+    <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link"><p class="text-muted"><img src="{{ action.start_user.profile.profile_picture.url }}" alt="{{ action.start_user.username }}" width="32" height="32" class="rounded-circle hvr-icon"> {{ action.start_user.username }} </p></a>
+
+    <p>Start at {{ action.0.time_start|date:"F j, Y h:i A" }} UTC</p>
+    <p id="duration_{{ action.0.id }}">Duration : Calculating...</p>
+
+    <div id="status_{{ action.0.id }}">
+        {% if action.status == 0 %}
+        <div>
+        <div class="spinner-grow" role="status" style="color: #ff66aa">
+          <span class="visually-hidden">Idle...</span>
+        </div> <span style="color: #ff66aa" class="text-center">Idle...</span>
+        </div>
+        {% elif action.status == 1 %}
+        <div>
+        <div class="spinner-border" role="status" style="color: #ff66aa">
+          <span class="visually-hidden">Loading...</span>
+        </div> <span style="color: #ff66aa" class="text-center">Running...</span>
+        </div>
+        {% elif action.status == 2 %}
+        <p class="text-success"><i class="fas fa-check"></i> Successfully running</p>
+        {% elif action.status == 3 %}
+        <p class="text-danger"><i class="fas fa-times"></i> Run failed</p>
+        {% endif %}
+    </div>
+
+    <p id="running_log_{{ action.id }}">Running Status : {{ action.running_text }}</p>
+    </div>
+    <p></p>
+    {% endfor %}
 </main>
 {% endblock %}
