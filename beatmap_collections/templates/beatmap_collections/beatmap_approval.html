@@ -54,6 +54,11 @@
     </div>
   </div>
 <main class="container text-light">
+    <div class="row">
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="700"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+        </div>
+    </div>
     <div class="row g-4 py-4">
     {% if beatmap_approve %}
         {% for beatmap_entry in beatmap_approve %}
