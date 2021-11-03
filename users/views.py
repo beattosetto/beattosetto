@@ -1,7 +1,8 @@
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from beatmap_collections.models import Collection
 from .forms import *
 from random_username.generate import generate_username
 import random
@@ -45,3 +46,16 @@ def settings(request):
         'osu_confirm_username': osu_confirm_username
     }
     return render(request, 'users/settings.html', context)
+
+
+def profile(request, user_id: int):
+    """List all collections created by user."""
+    collection_owner = get_object_or_404(User, id=user_id)
+    collections = Collection.objects.filter(
+        author=collection_owner
+    )
+    context = {
+        "collections": collections,
+        "owner": collection_owner
+    }
+    return render(request, "users/profile.html", context)

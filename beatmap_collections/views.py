@@ -108,19 +108,6 @@ def edit_collection(request, collection_id):
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
 
-def list_collection_from_user(request, user_id: int):
-    """List all collections created by user."""
-    collection_owner = get_object_or_404(User, id=user_id)
-    collections = Collection.objects.filter(
-        author=collection_owner
-    )
-    context = {
-        "collections": collections,
-        "owner": collection_owner
-    }
-    return render(request, "beatmap_collections/profile_collection_listing.html", context)
-
-
 @login_required
 def beatmap_approval(request, collection_id):
     """View for approve beatmap page that user who is not collection owner want to add to collection."""
