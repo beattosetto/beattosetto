@@ -179,22 +179,22 @@ class CollectionModelTest(TestCase):
             Calling API is irrelevant to the test.
             """
             beatmap = Beatmap.objects.create(beatmap_id=beatmap_id)
-        user = User.objects.create(username="SurinBoyInwZaa", id=85)
-        dummy_collection = Collection.objects.create(name="Prayuth the collection",
-                                                     description="Song to kick Prayuth out of the world.",
-                                                     author=user)
-        self.assertEqual(dummy_collection.beatmaps_count, 0)
-        beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_1.save()
-        self.assertEqual(dummy_collection.beatmaps_count, 1)
-        beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_2.save()
-        beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_3.save()
-        self.assertEqual(dummy_collection.beatmaps_count, 3)
+            user = User.objects.create(username="SurinBoyInwZaa", id=85)
+            dummy_collection = Collection.objects.create(name="Prayuth the collection",
+                                                         description="Song to kick Prayuth out of the world.",
+                                                         author=user)
+            self.assertEqual(dummy_collection.beatmaps_count, 0)
+            beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection,
+                                                          author=user)
+            beatmap_entry_1.save()
+            self.assertEqual(dummy_collection.beatmaps_count, 1)
+            beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection,
+                                                          author=user)
+            beatmap_entry_2.save()
+            beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection,
+                                                          author=user, owner_approved=True)
+            beatmap_entry_3.save()
+            self.assertEqual(dummy_collection.beatmaps_count, 1)
 
 
 class TemplateTagsFunctionTest(TestCase):
