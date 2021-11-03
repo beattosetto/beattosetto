@@ -55,8 +55,8 @@ def profile(request, user_id: int):
     collections = Collection.objects.filter(author=profile_owner)
     # Try to get rid of error from API value
     try:
-        if SocialAccount.objects.filter(user=request.user).exists():
-            osu_username = SocialAccount.objects.get(user=request.user).extra_data["username"]
+        if SocialAccount.objects.filter(user=profile_owner).exists():
+            osu_username = SocialAccount.objects.get(user=profile_owner).extra_data["username"]
         else:
             osu_username = None
     except KeyError:
