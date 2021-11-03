@@ -288,6 +288,10 @@ a.dropdown-item {
     }
 }
 
+.color-white {
+    color: white!important;
+}
+
 /* Styling class used in JS */
 
 .hidden {

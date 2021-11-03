@@ -125,15 +125,6 @@ class AddBeatmapViewTest(TestCase):
         response = self.client.get(add_beatmap_url, follow=True)
         self.assertRedirects(response, f"/accounts/login/?next={add_beatmap_url}")
 
-    @skip("We will test after add beatmap approval system.")
-    def test_not_owner(self):
-        """User cannot add a beatmap if they are not the owner."""
-        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
-        collection_url = reverse("collection", args=[self.collection.id])
-        self.client.login(username=self.not_owner.username, password=self.not_owner_password)
-        response = self.client.get(add_beatmap_url, follow=True)
-        self.assertRedirects(response, collection_url)
-
 
 class CollectionListingViewTest(TestCase):
     """Test collection listing on the homepage."""
@@ -188,114 +179,22 @@ class CollectionModelTest(TestCase):
             Calling API is irrelevant to the test.
             """
             beatmap = Beatmap.objects.create(beatmap_id=beatmap_id)
-        user = User.objects.create(username="SurinBoyInwZaa", id=85)
-        dummy_collection = Collection.objects.create(name="Prayuth the collection",
-                                                     description="Song to kick Prayuth out of the world.",
-                                                     author=user)
-        self.assertEqual(dummy_collection.beatmaps_count, 0)
-        beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_1.save()
-        self.assertEqual(dummy_collection.beatmaps_count, 1)
-        beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_2.save()
-        beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection,
-                                                      author=user)
-        beatmap_entry_3.save()
-        self.assertEqual(dummy_collection.beatmaps_count, 3)
-
-
-@skip("I don't know why this test cannot run in GitHub Actions")
-class BeatmapImportTest(TestCase):
-    """Test beatmap import function from osu! API"""
-
-    @patch('sys.stdout', new_callable=io.StringIO)
-    def import_beatmap(self, beatmap_id, expected_output, mock_stdout):
-        """Get value that console print"""
-        beatmap = create_beatmap(beatmap_id)
-        self.assertEqual(mock_stdout.getvalue(), expected_output)
-        return beatmap
-
-    def test_import_osu_graveyard_beatmap(self):
-        """Test import osu! beatmap with graveyard status"""
-        osu_graveyard_beatmap = self.import_beatmap(3238306, "")
-        self.assertNotEqual(osu_graveyard_beatmap, None)
-
-    def test_import_osu_pending_beatmap(self):
-        """Test import osu! beatmap with pending status"""
-        osu_pending_beatmap = self.import_beatmap(3293365, "")
-        self.assertNotEqual(osu_pending_beatmap, None)
-
-    def test_import_osu_loved_beatmap(self):
-        """Test import osu! beatmap with loved status"""
-        osu_loved_beatmap = self.import_beatmap(1572866, "")
-        self.assertNotEqual(osu_loved_beatmap, None)
-
-    def test_import_osu_ranked_beatmap(self):
-        """Test import osu! beatmap with ranked status"""
-        osu_ranked_beatmap = self.import_beatmap(3157181, "")
-        self.assertNotEqual(osu_ranked_beatmap, None)
-
-    def test_import_taiko_graveyard_beatmap(self):
-        """Test import taiko beatmap with graveyard status"""
-        taiko_graveyard_beatmap = self.import_beatmap(3194148, "")
-        self.assertNotEqual(taiko_graveyard_beatmap, None)
-
-    def test_import_taiko_pending_beatmap(self):
-        """Test import taiko beatmap with pending status"""
-        taiko_pending_beatmap = self.import_beatmap(3294208, "")
-        self.assertNotEqual(taiko_pending_beatmap, None)
-
-    def test_import_taiko_loved_beatmap(self):
-        """Test import taiko beatmap with loved status"""
-        taiko_loved_beatmap = self.import_beatmap(2231614, "")
-        self.assertNotEqual(taiko_loved_beatmap, None)
-
-    def test_import_taiko_ranked_beatmap(self):
-        """Test import taiko beatmap with ranked status"""
-        taiko_ranked_beatmap = self.import_beatmap(3204946, "")
-        self.assertNotEqual(taiko_ranked_beatmap, None)
-
-    def test_import_catch_graveyard_beatmap(self):
-        """Test import catch beatmap with graveyard status"""
-        catch_graveyard_beatmap = self.import_beatmap(3248762, "")
-        self.assertNotEqual(catch_graveyard_beatmap, None)
-
-    def test_import_catch_pending_beatmap(self):
-        """Test import catch beatmap with pending status"""
-        catch_pending_beatmap = self.import_beatmap(3293380, "")
-        self.assertNotEqual(catch_pending_beatmap, None)
-
-    def test_import_catch_loved_beatmap(self):
-        """Test import catch beatmap with loved status"""
-        catch_loved_beatmap = self.import_beatmap(801716, "")
-        self.assertNotEqual(catch_loved_beatmap, None)
-
-    def test_import_catch_ranked_beatmap(self):
-        """Test import catch beatmap with ranked status"""
-        catch_ranked_beatmap = self.import_beatmap(3083866, "")
-        self.assertNotEqual(catch_ranked_beatmap, None)
-
-    def test_import_mania_graveyard_beatmap(self):
-        """Test import mania beatmap with graveyard status"""
-        mania_graveyard_beatmap = self.import_beatmap(3060329, "")
-        self.assertNotEqual(mania_graveyard_beatmap, None)
-
-    def test_import_mania_pending_beatmap(self):
-        """Test import mania beatmap with pending status"""
-        mania_pending_beatmap = self.import_beatmap(3294229, "")
-        self.assertNotEqual(mania_pending_beatmap, None)
-
-    def test_import_mania_loved_beatmap(self):
-        """Test import mania beatmap with loved status"""
-        mania_loved_beatmap = self.import_beatmap(883028, "")
-        self.assertNotEqual(mania_loved_beatmap, None)
-
-    def test_import_mania_ranked_beatmap(self):
-        """Test import mania beatmap with ranked status"""
-        mania_ranked_beatmap = self.import_beatmap(3143428, "")
-        self.assertNotEqual(mania_ranked_beatmap, None)
+            user = User.objects.create(username="SurinBoyInwZaa", id=85)
+            dummy_collection = Collection.objects.create(name="Prayuth the collection",
+                                                         description="Song to kick Prayuth out of the world.",
+                                                         author=user)
+            self.assertEqual(dummy_collection.beatmaps_count, 0)
+            beatmap_entry_1 = BeatmapEntry.objects.create(beatmap=create_beatmap(75), collection=dummy_collection,
+                                                          author=user)
+            beatmap_entry_1.save()
+            self.assertEqual(dummy_collection.beatmaps_count, 1)
+            beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=create_beatmap(712376), collection=dummy_collection,
+                                                          author=user)
+            beatmap_entry_2.save()
+            beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=dummy_collection,
+                                                          author=user, owner_approved=True)
+            beatmap_entry_3.save()
+            self.assertEqual(dummy_collection.beatmaps_count, 1)
 
 
 class TemplateTagsFunctionTest(TestCase):
@@ -349,3 +248,108 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(convert_beatmap_stat(10.567), 10.6)
         self.assertEqual(convert_beatmap_stat(80.6666666), 80.7)
         self.assertEqual(convert_beatmap_stat("Why this value here"), "Why this value here")
+
+
+class BeatmapApprovalTest(TestCase):
+    """Test beatmap approval."""
+
+    def setUp(self):
+        """Create beatmap and user."""
+        self.author = User.objects.create_user(username="mrekk", password="test")
+        self.author.save()
+        self.normal_user = User.objects.create_user(username="pippi", password="test")
+        self.normal_user.save()
+        self.beatmap = Beatmap.objects.create(beatmap_id=12345, title="Test Beatmap")
+        self.beatmap.save()
+        self.collection = Collection.objects.create(name="Test Collection", author=self.author)
+        self.collection.save()
+
+    def test_beatmap_approval_page_access_without_login(self):
+        """Test who not login cannot access approval page"""
+        response = self.client.get(f'/collections/{self.collection.id}/approval')
+        self.assertRedirects(response, f'/accounts/login/?next=/collections/{self.collection.id}/approval')
+
+    def test_beatmap_approval_page_access_not_owner(self):
+        """Test who not owner cannot access approval page"""
+        self.client.login(username='pippi', password='test')
+        response = self.client.get(f'/collections/{self.collection.id}/approval')
+        self.assertRedirects(response, f'/collections/{self.collection.id}/')
+
+    def test_beatmap_approval_page_access_owner(self):
+        """Test who is owner can access approval page"""
+        self.client.login(username='mrekk', password='test')
+        response = self.client.get(f'/collections/{self.collection.id}/approval')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'beatmap_collections/beatmap_approval.html', 'beatmap_collections/base.html')
+
+    def test_approve_beatmap(self):
+        """Test approve beatmap"""
+        self.client.login(username='mrekk', password='test')
+        self.beatmap_entry = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection)
+        self.beatmap_entry.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry.id).owner_approved, True)
+
+    def test_deny_beatmap(self):
+        """Test deny beatmap"""
+        self.client.login(username='mrekk', password='test')
+        self.beatmap_entry_2 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection)
+        self.beatmap_entry_2.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_2.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
+        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_2.id).exists(), False)
+
+    def test_approve_beatmap_not_owner(self):
+        """Test approve beatmap but not owner"""
+        self.client.login(username='pippi', password='test')
+        self.beatmap_entry_3 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection)
+        self.beatmap_entry_3.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_3.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/')
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_3.id).owner_approved, False)
+        self.beatmap_entry_4 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection, owner_approved=True)
+        self.beatmap_entry_4.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_4.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/')
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_4.id).owner_approved, True)
+
+    def test_deny_beatmap_not_owner(self):
+        """Test deny beatmap but not owner"""
+        self.client.login(username='pippi', password='test')
+        self.beatmap_entry_5 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection)
+        self.beatmap_entry_5.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_5.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/')
+        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_5.id).exists(), True)
+        self.beatmap_entry_6 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection, owner_approved=True)
+        self.beatmap_entry_6.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_6.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/')
+        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_6.id).exists(), True)
+
+    def test_approve_beatmap_already_approve(self):
+        """Test approve beatmap that is already approved"""
+        self.client.login(username='mrekk', password='test')
+        self.beatmap_entry_7 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection, owner_approved=True)
+        self.beatmap_entry_7.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_7.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_7.id).owner_approved, True)
+
+    def test_deny_beatmap_already_approve(self):
+        """Test deny beatmap that is already approved"""
+        self.client.login(username='mrekk', password='test')
+        self.beatmap_entry_8 = BeatmapEntry.objects.create(beatmap=self.beatmap, collection=self.collection, owner_approved=True)
+        self.beatmap_entry_8.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_8.id}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_8.id).owner_approved, True)
