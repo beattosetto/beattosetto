@@ -1,7 +1,8 @@
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from beatmap_collections.models import Collection
 from .forms import *
 from random_username.generate import generate_username
 import random
@@ -45,3 +46,25 @@ def settings(request):
         'osu_confirm_username': osu_confirm_username
     }
     return render(request, 'users/settings.html', context)
+
+
+def profile(request, user_id: int):
+    """View for profile page."""
+    profile_owner = get_object_or_404(User, pk=user_id)
+    profile = profile_owner.profile
+    collections = Collection.objects.filter(author=profile_owner)
+    # Try to get rid of error from API value
+    try:
+        if SocialAccount.objects.filter(user=profile_owner).exists():
+            osu_username = SocialAccount.objects.get(user=profile_owner).extra_data["username"]
+        else:
+            osu_username = None
+    except KeyError:
+        osu_username = None
+    context = {
+        'profile_owner': profile_owner,
+        'profile': profile,
+        'collections': collections,
+        'osu_username': osu_username
+    }
+    return render(request, "users/profile.html", context)

@@ -81,6 +81,7 @@
                 <li><a class="dropdown-item spacing-hover" href="{% url "admin:index" %}">Admin</a></li>
                 <li><hr class="dropdown-divider"></li>
                   {% endif %}
+                <li><a class="dropdown-item spacing-hover" href="{% url 'profile' user.id %}">Profile</a></li>
                 <li><a class="dropdown-item spacing-hover" href="{% url 'settings' %}">Settings</a></li>
               <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item spacing-hover" id="signout-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign out</a></li>
@@ -121,6 +122,7 @@
                 <a href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
                 <a href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
                   {% endif %}
+                <a href="{% url 'profile' user.id %}" class="list-group-item list-group-item-action mobile-header-text">Profile</a>
                 <a href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
                 <a class="list-group-item list-group-item-action mobile-header-text" id="signout-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign out</a>
               </div>

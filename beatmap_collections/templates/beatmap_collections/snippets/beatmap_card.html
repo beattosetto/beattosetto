@@ -1,6 +1,7 @@
 {% load convert_star_rating %}
 {% load convert_progress_bar %}
 {% load thousand_seperator %}
+{% load round_up %}
 {% load length_format %}
 {% load convert_beatmap_stat %}
 {% load static %}
@@ -56,7 +57,7 @@
           {% else %}
             <p class="card-text beatmap-comment" style="margin-top: -5px">&nbsp;</p>
           {% endif %}
-              <p class="card-text text-muted" style="margin-top: -10px"><small>Added by <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ beatmap_entry.author.profile.profile_picture.url }}" alt="{{ beatmap_entry.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ beatmap_entry.author.username }}</a></small></p>
+              <p class="card-text text-muted" style="margin-top: -10px"><small>Added by <a href="{% url 'profile' beatmap_entry.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ beatmap_entry.author.profile.profile_picture.url }}" alt="{{ beatmap_entry.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ beatmap_entry.author.username }}</a></small></p>
           <a class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" href="osu://b/{{ beatmap_entry.beatmap.beatmap_id }}" role="button" style="margin-top: -10px"><i class="fas fa-download color-white"></i> osu!direct</a>
           <button type="button" class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" data-bs-toggle="modal" data-bs-target="#modal{{ beatmap_entry.beatmap.beatmap_id }}" style="margin-top: -10px">
               <i class="fas fa-info-circle"></i> Beatmap Detail
@@ -124,7 +125,7 @@
                         <div class="row">
                             <p></p>
                             <p>
-                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm | thousand_seperator }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_normal | thousand_seperator }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_slider | thousand_seperator }}
+                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm | round_up }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_normal | thousand_seperator }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_slider | thousand_seperator }}
                                 {% if beatmap_entry.beatmap.mode == 0 or beatmap_entry.beatmap.mode == 1 %}
                                     <img src="{% static "img/spinner-count-circle.svg" %}" alt="Spinner Count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_spinner | thousand_seperator }}
                                 {% endif %}

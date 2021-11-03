@@ -15,6 +15,7 @@ from .templatetags.convert_beatmap_stat import convert_beatmap_stat
 from .templatetags.convert_progress_bar import convert_progress_bar
 from .templatetags.convert_star_rating import convert_star_rating
 from .templatetags.length_format import length_format
+from .templatetags.round_up import round_up
 from .templatetags.thousand_seperator import thousand_seperator
 
 
@@ -173,12 +174,14 @@ class CollectionModelTest(TestCase):
     # @skip("We are thinking on this test that is it important or not.")
     def test_count_beatmaps(self):
         """Test count beatmaps function."""
+
         def create_beatmap(beatmap_id: int):
             """Create beatmap without using API.
 
             Calling API is irrelevant to the test.
             """
             beatmap = Beatmap.objects.create(beatmap_id=beatmap_id)
+
             user = User.objects.create(username="SurinBoyInwZaa", id=85)
             dummy_collection = Collection.objects.create(name="Prayuth the collection",
                                                          description="Song to kick Prayuth out of the world.",
@@ -248,6 +251,41 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(convert_beatmap_stat(10.567), 10.6)
         self.assertEqual(convert_beatmap_stat(80.6666666), 80.7)
         self.assertEqual(convert_beatmap_stat("Why this value here"), "Why this value here")
+
+    def test_round_up(self):
+        """Test round up function."""
+        self.assertEqual(round_up(0), 0)
+        self.assertEqual(round_up(1), 1)
+        self.assertEqual(round_up(2.5), 3)
+        self.assertEqual(round_up(199.99), 200)
+
+
+@skip("Unerror occured")
+class ListCollectionFromUserTest(TestCase):
+    """Test for listing collection from a user."""
+    def setUp(self) -> None:
+        self.owner = User.objects.create_user(username="owner", password="Not important")
+        self.owner_id = self.owner.id
+        self.not_owner = User.objects.create_user(username="not_owner", password="Not important")
+
+    def test_list_only_owner(self):
+        """This page only lists collection from specific user."""
+        collections = [
+            create_collection("Taiko", user=self.owner),
+            create_collection("Mono", user=self.owner)
+        ]
+        create_collection("Mone", user=self.not_owner)
+        response = self.client.get(reverse("profile_collections", args=[self.owner_id]))
+        self.assertQuerysetEqual(
+            response.context['collections'],
+            collections,
+            ordered=False
+        )
+
+    def test_redirect_404(self):
+        """If the user does not exist, it redirects to 404."""
+        response = self.client.get(reverse("profile_collections", args=[9999]), follow=True)
+        self.assertEqual(response.status_code, 404)
 
 
 class BeatmapApprovalTest(TestCase):
