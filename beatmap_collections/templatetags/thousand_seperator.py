@@ -12,7 +12,10 @@ def thousand_seperator(value):
     Returns:
         str: The string that is the number with thousand seperator.
     """
-    return f'{int(value):,}'
+    try:
+        return str(f'{int(value):,}')
+    except ValueError:
+        return str(value)
 
 
 register.filter('thousand_seperator', thousand_seperator)
