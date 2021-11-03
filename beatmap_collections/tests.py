@@ -382,4 +382,4 @@ class BeatmapApprovalTest(TestCase):
         response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_8.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_8.id).owner_approved, True
+        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_8.id).owner_approved, True)
