@@ -7,10 +7,19 @@
 
 {% block content %}
 <main class="text-light">
-    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({{ owner.profile.cover_image }});">
-        <img class="d-block mx-auto mb-4" id="home-logo" src="{{ owner.profile.profile_picture.url }}" alt="{{ owner.username }}'s profile picture" height="65" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
-        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ owner.username }}</h1>
-  </div>
+
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({{ profile.cover_image.url }});"></div>
+
+  <div class="container px-4 py-4 my-4 d-grid gap-4">
+      <div class="row profile-container" style="margin-top: -150px;">
+        <div class="col col-2" id="profile-pic">
+          <img data-aos="zoom-in" data-aos-duration="600" src="{{ profile.profile_picture.url }}" alt="{{ profile_owner.username }}" width="100%" class="rounded-circle profile-page-pic">
+        </div>
+        <div class="col col-10" id="profile-detail">
+          <h1 data-aos="fade-up" data-aos-duration="700">{{ profile_owner.username }}</h1>
+        </div>
+      </div>
+    </div>
   <div class="container">
       <div class="row">
          {% if messages %}
@@ -29,11 +38,6 @@
           {% endif %}
     </div>
   </div>
-    {% if user.is_authenticated %}
-  <div class="container">
-        <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
-    </div>
-    {% endif %}
     <section class="py-4 container">
         <h2 class="display-2 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">{{ owner.username }}'s Collections</h2>
         <div class="row g-4 py-4">
