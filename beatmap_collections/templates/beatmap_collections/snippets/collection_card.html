@@ -8,7 +8,7 @@
           <div class="card-body collection-background">
               <a href="{% url 'collection' collection.id %}" class="text-decoration-none spacing-hover-short"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
               <div class="card-content">
-                  <p class="text-muted">made by <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ collection.author.username }}</a></p>
+                  <p class="text-muted">made by <a href="{% url 'profile_collections' collection.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ collection.author.username }}</a></p>
                   <p class="description">{{ collection.description }}</p>
               </div>
               {% with beatmaps_count=collection.beatmaps_count %}
