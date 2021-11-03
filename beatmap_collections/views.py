@@ -99,3 +99,7 @@ def edit_collection(request, collection_id):
         'collection': collection
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
+
+
+def manage_beatmap(request):
+    return render(request, 'beatmap_collections/manage_beatmap.html')

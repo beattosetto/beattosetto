@@ -8,7 +8,9 @@ urlpatterns = [
     path('new/', views.create_collection, name='new_collection'),
     path('collections/<int:collection_id>/', views.collection_page, name='collection'),
     path('collections/<int:collection_id>/add/beatmap', views.add_beatmap, name='add_beatmap'),
-    path('collections/<int:collection_id>/edit', views.edit_collection, name='edit_collection')
+    path('collections/<int:collection_id>/edit', views.edit_collection, name='edit_collection'),
+
+    path('managemap/', views.manage_beatmap, name='manage_beatmap')
 ]
 
 if settings.DEBUG:
