@@ -15,6 +15,7 @@ from .templatetags.convert_beatmap_stat import convert_beatmap_stat
 from .templatetags.convert_progress_bar import convert_progress_bar
 from .templatetags.convert_star_rating import convert_star_rating
 from .templatetags.length_format import length_format
+from .templatetags.round_up import round_up
 from .templatetags.thousand_seperator import thousand_seperator
 
 
@@ -250,6 +251,13 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(convert_beatmap_stat(10.567), 10.6)
         self.assertEqual(convert_beatmap_stat(80.6666666), 80.7)
         self.assertEqual(convert_beatmap_stat("Why this value here"), "Why this value here")
+
+    def test_round_up(self):
+        """Test round up function."""
+        self.assertEqual(round_up(0), 0)
+        self.assertEqual(round_up(1), 1)
+        self.assertEqual(round_up(2.5), 3)
+        self.assertEqual(round_up(199.99), 200)
 
 
 class ListCollectionFromUserTest(TestCase):

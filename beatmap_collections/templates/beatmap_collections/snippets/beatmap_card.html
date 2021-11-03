@@ -1,6 +1,7 @@
 {% load convert_star_rating %}
 {% load convert_progress_bar %}
 {% load thousand_seperator %}
+{% load round_up %}
 {% load length_format %}
 {% load convert_beatmap_stat %}
 {% load static %}
@@ -124,7 +125,7 @@
                         <div class="row">
                             <p></p>
                             <p>
-                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm | thousand_seperator }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_normal | thousand_seperator }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_slider | thousand_seperator }}
+                                <i class="fas fa-clock"></i> {{ beatmap_entry.beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap_entry.beatmap.bpm | round_up }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_normal | thousand_seperator }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_slider | thousand_seperator }}
                                 {% if beatmap_entry.beatmap.mode == 0 or beatmap_entry.beatmap.mode == 1 %}
                                     <img src="{% static "img/spinner-count-circle.svg" %}" alt="Spinner Count" height="20px" width="20px"> {{ beatmap_entry.beatmap.count_spinner | thousand_seperator }}
                                 {% endif %}
