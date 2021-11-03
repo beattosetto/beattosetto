@@ -52,7 +52,8 @@ def add_beatmap(request, collection_id):
         if form.is_valid():
             beatmap_entry = BeatmapEntry.objects.create()
             beatmap_entry.collection = collection
-            if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'], collection=collection).exists():
+            if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'],
+                                           collection=collection).exists():
                 messages.error(request, 'This beatmap is already in this collection!')
                 return redirect('collection', collection_id=collection_id)
             if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():

@@ -11,7 +11,7 @@ urlpatterns = [
     path('collections/<int:collection_id>/edit', views.edit_collection, name='edit_collection'),
     path('collections/<int:collection_id>/approval', views.beatmap_approval, name='beatmap_approval'),
     path('collections/<int:collection_id>/approve/<int:beatmap_entry_id>', views.approve_beatmap, name='approve_beatmap'),
-    path('collections/<int:collection_id>/deny/<int:beatmap_entry_id>', views.deny_beatmap, name='deny_beatmap')
+    path('collections/<int:collection_id>/deny/<int:beatmap_entry_id>', views.deny_beatmap, name='deny_beatmap'),
 ]
 
 if settings.DEBUG:
