@@ -79,40 +79,43 @@
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
         {% endfor %}
     {% else %}
-    <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+    <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
         <h3 class="text-center">No beatmaps added for this collection!</h3>
         <h3 class="text-center">Let's add one!</h3>
     </div>
     {% endif %}
 </div>
+
+    {% if user.is_authenticated %}
     <form class="py-4 container" method="post">
         {% csrf_token %}
         <div class="fieldWrapper">
-            <h2>Add Comment</h2>
+            <h2 data-aos="fade-up" data-aos-duration="500" data-aos-once="true">Add Comment</h2>
             <p></p>
-            <textarea name="comment" cols="40" rows="5" class="form-control" id="id_comment" maxlength="500" placeholder="Post a lovely comment to collection here."></textarea>
-            <p class="form-error">{{ form.comment.errors }}</p>
+            <textarea name="comment" cols="40" rows="5" class="form-control" id="id_comment" maxlength="500" placeholder="Post a lovely comment to collection here." data-aos="fade-up" data-aos-duration="500" data-aos-once="true"></textarea>
+            <p class="form-error" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">{{ form.comment.errors }}</p>
         </div>
         <p></p>
-        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Add</button>
+        <button type="submit" class="btn btn-success hvr-sweep-to-right-success" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">Add</button>
     </form>
+    {% endif %}
 
-<div class="card bg-dark text-light border-primary">
-    <div class="container">
-        <br />
-    <blockquote class="blockquote mb-0">
-  <p class="text-primary"><img src="{% static "img/no-beatmap.gif" %}" class="rounded-circle" alt="Cinque Terre" width="60" height="60">   Some random member</p>
-    </blockquote>
-</div>
-  <div class="card-body">
-    <blockquote class="blockquote mb-1">
-      <p class="text-light col-sm-4">&#9; Nice README.md & pull request!</p>
-    </blockquote>
-  </div>
-</div>
+    {% if comment %}
+    {% for comment_object in comment %}
+    <div class="container rounded border border-2 p-3" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+
+        <a href="{% url 'profile' comment_object.user.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link fix-transition"><p style="font-size: 200%"><img src="{{ comment_object.user.profile.profile_picture.url }}" alt="{{ comment_object.user.username }}" width="50" height="50" class="rounded-circle hvr-icon"> {{ comment_object.user.username }} </p></a>
+        <p class="text-muted">Commented at {{ comment_object.create_date | date:"F j, Y h:i A" }}</p>
+        <p>{{ comment_object.detail }}</p>
+
+    </div>
+    <p></p>
+    {% endfor %}
+    {% endif %}
+
 </section>
-    <br />
+
 </main>
 {% endblock %}
 
