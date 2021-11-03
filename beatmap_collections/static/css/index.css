@@ -379,11 +379,11 @@ a.disabled {
         width: 75%;
     }
 
-    #profie-container {
+    #profile-container {
         margin-top: -120px;
     }
 
-    #recommend-beatmap-link {
-        width: 100%!important;
+    .hero-profile {
+        background-position: center;
     }
 }
