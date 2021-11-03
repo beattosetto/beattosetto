@@ -61,13 +61,15 @@
         <div class="col-sm-2">
             <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "edit_collection" collection.id %}"><i class="fas fa-edit icon-menu hvr-icon"></i> Edit collection</a></p>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'beatmap_approval' collection.id %}"><i class="fas fa-tasks icon-menu hvr-icon"></i> Approve beatmap</a></p>
         </div>
-        {% endif %}
-        {% if user.is_authenticated %}
         <div class="col-sm-2">
-            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "add_beatmap" collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Add Beatmap</a></p>
+            <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'add_beatmap' collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Add beatmap</a></p>
+        </div>
+        {% else %}
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'add_beatmap' collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Suggest beatmap</a></p>
         </div>
         {% endif %}
     </div>
