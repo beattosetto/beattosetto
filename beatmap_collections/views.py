@@ -108,6 +108,10 @@ def edit_collection(request, collection_id):
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
 
+def manage_beatmap(request):
+    return render(request, 'beatmap_collections/manage_beatmap.html')
+
+
 @login_required
 def beatmap_approval(request, collection_id):
     """View for approve beatmap page that user who is not collection owner want to add to collection."""
