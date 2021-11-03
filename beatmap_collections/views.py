@@ -52,7 +52,8 @@ def add_beatmap(request, collection_id):
         if form.is_valid():
             beatmap_entry = BeatmapEntry.objects.create()
             beatmap_entry.collection = collection
-            if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'], collection=collection).exists():
+            if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'],
+                                           collection=collection).exists():
                 messages.error(request, 'This beatmap is already in this collection!')
                 return redirect('collection', collection_id=collection_id)
             if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
@@ -99,3 +100,16 @@ def edit_collection(request, collection_id):
         'collection': collection
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
+
+
+def list_collection_from_user(request, user_id: int):
+    """List all collections created by user."""
+    collection_owner = get_object_or_404(User, id=user_id)
+    collections = Collection.objects.filter(
+        author=collection_owner
+    )
+    context = {
+        "collections": collections,
+        "owner": collection_owner
+    }
+    return render(request, "beatmap_collections/profile_collection_listing.html", context)
