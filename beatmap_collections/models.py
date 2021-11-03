@@ -49,7 +49,7 @@ class Collection(models.Model):
     @property
     def beatmaps_count(self):
         """Count beatmaps in the collection."""
-        return BeatmapEntry.objects.filter(collection=self).count()
+        return BeatmapEntry.objects.filter(collection=self, owner_approved=True).count()
 
 
 class Comment(models.Model):
