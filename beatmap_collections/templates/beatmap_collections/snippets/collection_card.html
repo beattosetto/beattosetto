@@ -12,7 +12,11 @@
                   <p class="description">{{ collection.description }}</p>
               </div>
               {% with beatmaps_count=collection.beatmaps_count %}
-              <p class="card-text">{{ beatmaps_count }} beatmap{{ beatmaps_count | pluralize  }}</p>
+              {% if beatmaps_count >= 2 %}
+              <p class="card-text">{{ beatmaps_count }} beatmaps</p>
+              {% else %}
+              <p class="card-text">{{ beatmaps_count }} beatmap</p>
+              {% endif %}
               {% endwith %}
               <span class="badge rounded-pill bg-primary">Tag</span>
           </div>
