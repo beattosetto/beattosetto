@@ -27,7 +27,7 @@ def update_beatmap_action(request):
     This view can only activate by superuser and staff.
     """
     action_log = ActionLog()
-    action_log.name = "Update all beatmap metadata"
+    action_log.name = "Update all beatmaps metadata"
     action_log.running_text = "Start working thread..."
     action_log.status = 1
     action_log.start_user = request.user
