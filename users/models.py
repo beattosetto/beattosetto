@@ -32,3 +32,8 @@ class Profile(models.Model):
         if profile_image.height > 300 or profile_image.width > 300:
             profile_image.thumbnail((300, 300))
             profile_image.save(self.profile_picture.path)
+
+        cover_image = Image.open(self.cover_image.path)
+        if cover_image.height > 1080 or cover_image.width > 1920:
+            cover_image.thumbnail((1920, 1080))
+            cover_image.save(self.cover_image.path)
