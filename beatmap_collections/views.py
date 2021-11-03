@@ -166,4 +166,3 @@ def deny_beatmap(request, collection_id, beatmap_entry_id):
     beatmap_entry.delete()
     messages.success(request, 'Beatmap denied!')
     return redirect('beatmap_approval', collection_id=collection_id)
-
