@@ -68,9 +68,11 @@
             <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'add_beatmap' collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Add beatmap</a></p>
         </div>
         {% else %}
+        {% if user.is_authenticated %}
         <div class="col-sm-2">
             <p data-aos="fade-up" data-aos-duration="900"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'add_beatmap' collection.id %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Suggest beatmap</a></p>
         </div>
+        {% endif %}
         {% endif %}
     </div>
 <div class="row g-4 py-4">
