@@ -49,13 +49,13 @@ def settings(request):
 
 
 def profile(request, user_id: int):
-    """List all collections created by user."""
-    collection_owner = get_object_or_404(User, id=user_id)
-    collections = Collection.objects.filter(
-        author=collection_owner
-    )
+    """View for profile page."""
+    profile_owner = get_object_or_404(User, pk=user_id)
+    profile = profile_owner.profile
+    collections = Collection.objects.filter(author=profile_owner)
     context = {
-        "collections": collections,
-        "owner": collection_owner
+        'profile_owner': profile_owner,
+        'profile': profile,
+        'collections': collections
     }
     return render(request, "users/profile.html", context)
