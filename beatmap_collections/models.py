@@ -67,6 +67,13 @@ class Comment(models.Model):
     detail = models.CharField(max_length=250)
     create_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        """Return the name of the Comment model."""
+        try:
+            return f"Comment from {self.user.username} in {self.collection.name}"
+        except AttributeError:
+            return f"Unknown comment"
+
 
 class Rating(models.Model):
     """This model stores the rating information of a collection.
