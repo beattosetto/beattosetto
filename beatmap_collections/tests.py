@@ -379,4 +379,3 @@ class ListCollectionFromUserTest(TestCase):
         """If the user does not exist, it redirects to 404."""
         response = self.client.get(reverse("profile_collections", args=[9999]), follow=True)
         self.assertEqual(response.status_code, 404)
-
