@@ -59,7 +59,7 @@ def profile(request, user_id: int):
             osu_username = SocialAccount.objects.get(user=request.user).extra_data["username"]
         else:
             osu_username = None
-    except SocialAccount.DoesNotExist or KeyError:
+    except KeyError:
         osu_username = None
     context = {
         'profile_owner': profile_owner,
