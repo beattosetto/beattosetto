@@ -26,8 +26,13 @@
         <div class="row">
             <p></p>
             <p></p>
+            {% if user == collection.author %}
             <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Add Beatmap</h1></div>
             <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye</p>
+            {% else %}
+            <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Suggest Beatmap</h1></div>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Have some new idea on this collection? Let's add some here! Hehehehe</p>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -50,9 +55,20 @@
     </div>
   </div>
 <main class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p data-aos="fade-up" data-aos-duration="700"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+            </div>
+        </div>
+    </div>
     <form class="py-4 container" method="post" enctype='multipart/form-data'>
         {% csrf_token %}
+        {% if user == collection.author %}
         <h2>Add Beatmap</h2>
+        {% else %}
+        <h2>Suggest Beatmap</h2>
+        {% endif %}
         <br/>
         <div class="row g-3 align-items-center">
             <div class="fieldWrapper">

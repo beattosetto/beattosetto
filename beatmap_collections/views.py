@@ -38,7 +38,7 @@ def collection_page(request, collection_id):
     collection = get_object_or_404(Collection, id=collection_id)
     context = {
         'collection': collection,
-        'all_beatmap': BeatmapEntry.objects.filter(collection=collection),
+        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
     }
     return render(request, 'beatmap_collections/collection_page.html', context)
 
@@ -65,9 +65,15 @@ def add_beatmap(request, collection_id):
                 beatmap_entry.beatmap = created_beatmap
             beatmap_entry.author = request.user
             beatmap_entry.comment = form.cleaned_data['comment']
+            if request.user == collection.author:
+                beatmap_entry.owner_approved = True
+                beatmap_entry.save()
+                beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+                messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
+                return redirect('collection', collection_id=collection_id)
             beatmap_entry.save()
             beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
-            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
+            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list! Please wait for cool person name {collection.author.username} to approve it.')
             return redirect('collection', collection_id=collection_id)
     else:
         form = AddBeatmapForm()
@@ -99,3 +105,50 @@ def edit_collection(request, collection_id):
         'collection': collection
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
+
+
+@login_required
+def beatmap_approval(request, collection_id):
+    """View for approve beatmap page that user who is not collection owner want to add to collection."""
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.user != collection.author:
+        messages.error(request, 'How dare you access this page despite not an owner??? Go away!')
+        return redirect('collection', collection_id=collection_id)
+    context = {
+        'collection': collection,
+        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection, owner_approved=False)
+    }
+    return render(request, 'beatmap_collections/beatmap_approval.html', context)
+
+
+@login_required
+def approve_beatmap(request, collection_id, beatmap_entry_id):
+    """View for approve BeatmapEntry to the collection by changing the owner_approved value to True"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    if request.user != collection.author:
+        messages.error(request, 'Hehehehe No! Stop there!')
+        return redirect('collection', collection_id=collection_id)
+    if beatmap_entry.owner_approved:
+        messages.error(request, 'This beatmap is already approved!')
+        return redirect('beatmap_approval', collection_id=collection_id)
+    beatmap_entry.owner_approved = True
+    beatmap_entry.save()
+    messages.success(request, 'Beatmap approved!')
+    return redirect('beatmap_approval', collection_id=collection_id)
+
+
+@login_required
+def deny_beatmap(request, collection_id, beatmap_entry_id):
+    """View for deny BeatmapEntry to the collection by deleting the BeatmapEntry object"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    if request.user != collection.author:
+        messages.error(request, 'Hehehehe No! Stop there!')
+        return redirect('collection', collection_id=collection_id)
+    if beatmap_entry.owner_approved:
+        messages.error(request, 'This beatmap is already approved!')
+        return redirect('beatmap_approval', collection_id=collection_id)
+    beatmap_entry.delete()
+    messages.success(request, 'Beatmap denied!')
+    return redirect('beatmap_approval', collection_id=collection_id)

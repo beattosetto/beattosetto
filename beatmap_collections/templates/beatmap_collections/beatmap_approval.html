@@ -1,0 +1,86 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/collections/{{ collection.id }}/approve/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="approve beatmap in {{ collection.name }} | beattosetto">
+    <meta property="og:description" content="Wow! Other circle clicker interest in your collection and want to contribute it. Let's approve some of it! \o/">
+    <meta property="og:image" content="{% static "img/hero-beatmap-approval.jpg" %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/approve/">
+    <meta property="twitter:title" content="approve beatmap in {{ collection.name }} | beattosetto">
+    <meta property="twitter:description" content="Wow! Other circle clicker interest in your collection and want to contribute it. Let's approve some of it! \o/">
+    <meta property="twitter:image" content="{% static "img/hero-beatmap-approval.jpg" %}">
+    {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "css/progres-bar.css" %}">
+{% endblock %}
+
+    {% block title %}
+  <title>approve beatmap in {{ collection.name }} | beattosetto</title>
+   {% endblock %}
+{% block content %}
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-beatmap-approval.jpg" %});">
+    <div class="container align-middle">
+        <div class="row">
+            <p></p>
+            <p></p>
+            <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Approve beatmap</h1></div>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Wow! Other circle clicker interest in your collection and want to contribute it. Let's approve some of it! \o/</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+     {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success"%}
+                <div class="alert alert-success">
+                    <i class="fas fa-check"></i> {{ message }}
+                </div>
+            {% endif %}
+            {% if message.tags == "error"%}
+                <div class="alert alert-danger">
+                    <i class="fas fa-times"></i> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+<main class="container text-light">
+    <div class="row">
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="700"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+        </div>
+    </div>
+    <div class="row g-4 py-4">
+    {% if beatmap_approve %}
+        {% for beatmap_entry in beatmap_approve %}
+            {% include "beatmap_collections/snippets/beatmap_card_approval.html" %}
+        {% endfor %}
+    {% else %}
+    <div  class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap-approval.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap to approve"></h1>
+        <h3 class="text-center">No beatmap need to approve now!</h3>
+        <h3 class="text-center">Back to work.</h3>
+    </div>
+    {% endif %}
+</div>
+</main>
+{% endblock %}
+
+{% block js %}
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="{% static "js/player.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+        $('.mediPlayer').mediaPlayer();
+    });
+    </script>
+{% endblock %}
