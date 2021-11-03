@@ -53,9 +53,18 @@ def profile(request, user_id: int):
     profile_owner = get_object_or_404(User, pk=user_id)
     profile = profile_owner.profile
     collections = Collection.objects.filter(author=profile_owner)
+    # Try to get rid of error from API value
+    try:
+        if SocialAccount.objects.filter(user=request.user).exists():
+            osu_username = SocialAccount.objects.get(user=request.user).extra_data["username"]
+        else:
+            osu_username = None
+    except SocialAccount.DoesNotExist or KeyError:
+        osu_username = None
     context = {
         'profile_owner': profile_owner,
         'profile': profile,
-        'collections': collections
+        'collections': collections,
+        'osu_username': osu_username
     }
     return render(request, "users/profile.html", context)
