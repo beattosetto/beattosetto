@@ -72,7 +72,7 @@
     <div class="container rounded border border-2 p-3" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">
         <h3><b>#{{ action.id }}</b> {{ action.name }}</h3>
 
-    <a href="#" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link"><p class="text-muted"><img src="{{ action.start_user.profile.profile_picture.url }}" alt="{{ action.start_user.username }}" width="32" height="32" class="rounded-circle hvr-icon"> {{ action.start_user.username }} </p></a>
+    <a href="{% url 'profile_collections' action.start_user.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link"><p class="text-muted"><img src="{{ action.start_user.profile.profile_picture.url }}" alt="{{ action.start_user.username }}" width="32" height="32" class="rounded-circle hvr-icon"> {{ action.start_user.username }} </p></a>
 
     <p>Start at {{ action.time_start|date:"F j, Y h:i A" }} UTC</p>
     <p id="duration_{{ action.id }}">Duration : Calculating...</p>
