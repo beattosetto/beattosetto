@@ -1,14 +1,31 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/profile/{{ profile_owner.id }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ profile_owner.username }}'s profile | beattosetto">
+    <meta property="og:description" content='This is a profile page of cool circle clicker name {{ profile_owner.username }}.'>
+    <meta property="og:image" content="{{ profile.cover_image.url }}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/profile/{{ profile_owner.id }}">
+    <meta property="twitter:title" content="{{ profile_owner.username }}'s profile | beattosetto">
+    <meta property="twitter:description" content='This is a profile page of cool circle clicker name {{ profile_owner.username }}'>
+    <meta property="twitter:image" content="{{ profile.cover_image.url }}">
+    {% endblock %}
+
     {% block title %}
-  <title>{{ owner.username }}'s collections | beattosetto</title>
+  <title>{{ profile_owner.username }}'s profile | beattosetto</title>
    {% endblock %}
 
 
 {% block content %}
 <main class="text-light">
 
-    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({{ profile.cover_image.url }});"></div>
+    <div class="px-4 py-4 my-4 text-center align-middle hero-profile" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({{ profile.cover_image.url }});"></div>
 
   <div class="container px-4 py-4 my-4 d-grid gap-4">
       <div class="row profile-container" style="margin-top: -150px;">
@@ -17,6 +34,11 @@
         </div>
         <div class="col col-10" id="profile-detail">
           <h1 data-aos="fade-up" data-aos-duration="700">{{ profile_owner.username }}</h1>
+            {% if osu_username %}
+            <div class="col-sm-2 hvr-icon-bounce" data-aos="fade-up" data-aos-duration="800">
+                <a class="text-decoration-none text-center spacing-hover-short" target="_blank" href="https://osu.ppy.sh/users/{{profile_object.osu_username}}"><img src="{% static 'logo/osu-logo-pink.png' %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> {{ osu_username }}</a>
+            </div>
+            {% endif %}
         </div>
       </div>
     </div>
@@ -39,7 +61,7 @@
     </div>
   </div>
     <section class="py-4 container">
-        <h2 class="display-2 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">{{ owner.username }}'s Collections</h2>
+        <h1 class="display-4 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">{{ profile_owner.username }}'s Collections</h1>
         <div class="row g-4 py-4">
         {% for collection in collections %}
             {% include "beatmap_collections/snippets/collection_card.html" %}
