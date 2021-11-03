@@ -1,0 +1,48 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+    {% block title %}
+  <title>{{ owner.username }}'s collections | beattosetto</title>
+   {% endblock %}
+
+
+{% block content %}
+<main class="text-light">
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({{ owner.profile.cover_image }});">
+        <img class="d-block mx-auto mb-4" id="home-logo" src="{{ owner.profile.profile_picture.url }}" alt="{{ owner.username }}'s profile picture" height="65" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
+        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ owner.username }}</h1>
+  </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+    {% if user.is_authenticated %}
+  <div class="container">
+        <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
+    </div>
+    {% endif %}
+    <section class="py-4 container">
+        <h2 class="display-2 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">{{ owner.username }}'s Collections</h2>
+        <div class="row g-4 py-4">
+        {% for collection in collections %}
+            {% include "beatmap_collections/snippets/collection_card.html" %}
+        {% endfor %}
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}
