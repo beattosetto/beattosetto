@@ -5,10 +5,11 @@ from .models import Profile
 
 class ProfileUpdateForm(forms.ModelForm):
     profile_picture = forms.ImageField(required=False, label='Profile Picture')
+    cover_image = forms.ImageField(required=False, label='Cover Image')
 
     class Meta:
         model = Profile
-        fields = ['profile_picture']
+        fields = ['profile_picture', 'cover_image']
 
 
 class UserUpdateForm(forms.ModelForm):

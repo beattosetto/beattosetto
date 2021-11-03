@@ -97,6 +97,15 @@
                         <p class="text-muted">Your cool or cute profile image.</p>
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label for="id_cover_image" class="col-form-label col-lg-3">{{ profile_form.cover_image.label_tag }}</label>
+                    <div class="col-lg-9">
+                        <p>Current cover image: <img alt="{{ user.username }}'s cover image" src="{{ user.profile.cover_image.url }}" height="200px"></p>
+                        <input type="file" name="cover_image" accept="image/*" id="id_cover_image" class="form-control">
+                        <p class="form-error">{{ profile_form.cover_image.errors }}</p>
+                        <p class="text-muted">Your cool or cute cover image.</p>
+                    </div>
+                </div>
             </div>
         </div>
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
