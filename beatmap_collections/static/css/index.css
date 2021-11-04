@@ -387,3 +387,8 @@ a.disabled {
         background-position: center;
     }
 }
+
+.fix-transition {
+    /*This class is used to fix some animation that is slower than expected.*/
+    transition: 0.05s!important;
+}

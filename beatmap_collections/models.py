@@ -62,10 +62,17 @@ class Comment(models.Model):
         create_date: The date this comment was posted.
     """
 
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
     detail = models.CharField(max_length=250)
     create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return the name of the Comment model."""
+        try:
+            return f"Comment from {self.user.username} in {self.collection.name}"
+        except AttributeError:
+            return f"Unknown comment"
 
 
 class Rating(models.Model):
