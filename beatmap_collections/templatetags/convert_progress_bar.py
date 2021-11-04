@@ -12,6 +12,11 @@ def convert_progress_bar(value):
     Returns:
         float: The converted value that will use in progress bar.
     """
+    if type(value) is not float:
+        try:
+            value = float(value)
+        except ValueError:
+            return 0
     if float(value) <= 10:
         return float(value/10)*100
     return 100
