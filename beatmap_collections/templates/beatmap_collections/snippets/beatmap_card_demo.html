@@ -4,9 +4,10 @@
 {% load round_up %}
 {% load length_format %}
 {% load convert_beatmap_stat %}
+{% load convert_datetime %}
 {% load static %}
 
-<div class="col-sm-9" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
+<div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
     <div class="card mb-3" style="max-width: 100%;">
       <div class="row g-0 rounded" style="background-image: url({{ beatmap.beatmap_card.url }}); background-size: cover; background-position: center">
         <div class="col-md-4 position-relative" style="min-height: 200px; background-image: url('https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/list.jpg'); background-size: cover; background-position: center;">
@@ -23,17 +24,17 @@
             {% else %}
             <p>&zwnj;</p>
             {% endif %}
-            {% if beatmap.mode == 0 %}
+            {% if beatmap.mode == "0" %}
                 <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 1 %}
+            {% elif beatmap.mode == "1" %}
                 <img alt="taiko" src="{% static "gamemode/taiko.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 2 %}
+            {% elif beatmap.mode == "2" %}
                 <img alt="fruit" src="{% static "gamemode/fruit.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 3 %}
+            {% elif beatmap.mode == "3" %}
                 <img alt="mania" src="{% static "gamemode/mania.png" %}" width="20px" height="20px">
             {% endif %}
 
-            {% include "beatmap_collections/snippets/star_rating_color.html" %}
+            {% include "beatmap_collections/snippets/star_rating_color_demo.html" %}
             {% if beatmap.approved == "4" %}
                 <span class="badge rounded-pill bold-font" style="background-color: rgb(241, 101, 160); color: rgb(51, 58, 61); margin-top: -2px">LOVED</span>
             {% elif beatmap.approved == "3" %}
@@ -79,13 +80,13 @@
         <h4 class="beatmap-title fw-bold">{{ beatmap.title }}</h4>
         <h6 class="fw-bold">{{ beatmap.artist }}</h6>
         <h6 class="fw-bold" style="color: #a5a5a5">{{ beatmap.version }}</h6>
-            {% if beatmap.mode == 0 %}
+            {% if beatmap.mode == "0" %}
                 <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 1 %}
+            {% elif beatmap.mode == "1" %}
                 <img alt="taiko" src="{% static "gamemode/taiko.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 2 %}
+            {% elif beatmap.mode == "2" %}
                 <img alt="fruit" src="{% static "gamemode/fruit.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == 3 %}
+            {% elif beatmap.mode == "3" %}
                 <img alt="mania" src="{% static "gamemode/mania.png" %}" width="20px" height="20px">
             {% endif %}
           {% include "beatmap_collections/snippets/star_rating_color_demo.html" %}
@@ -112,13 +113,13 @@
               <div class="row">
                   <div class="col-sm-6">
                       <p>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap.creator_id }}" class="text-decoration-none spacing-hover">{{ beatmap.creator }}</a></p>
-                      <p>submitted {{ beatmap.submit_date | date:"j F Y H:i:s" }} UTC</p>
+                      <p>submitted {{ beatmap.submit_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
                         {% if beatmap.approved == '1' %}
-                            <p>ranked {{ beatmap.approved_date | date:"j F Y H:i:s" }} UTC</p>
+                            <p>ranked {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
                         {% elif beatmap.approved == '3' %}
-                            <p>qualified {{ beatmap.approved_date | date:"j F Y H:i:s" }} UTC</p>
+                            <p>qualified {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
                         {% else %}
-                            <p>last updated {{ beatmap.last_update | date:"j F Y H:i:s" }} UTC</p>
+                            <p>last updated {{ beatmap.last_update | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
                         {% endif %}
                   </div>
                     <div class="col-sm-6 modal-diff" style="background-color: rgb(60,70,76);">
@@ -126,12 +127,12 @@
                             <p></p>
                             <p>
                                 <i class="fas fa-clock"></i> {{ beatmap.total_length | length_format }}  <img src="{% static "img/bpm-circle.svg" %}" alt="BPM" height="20px" width="20px"> {{ beatmap.bpm | round_up }}  <img src="{% static "img/circle-count-circle.svg" %}" alt="Circle count" height="20px" width="20px"> {{ beatmap.count_normal | thousand_seperator }}  <img src="{% static "img/slider-count-circle.svg" %}" alt="Slider count" height="20px" width="20px"> {{ beatmap.count_slider | thousand_seperator }}
-                                {% if beatmap.mode == 0 or beatmap.mode == 1 %}
+                                {% if beatmap.mode == "0" or beatmap.mode == "1" %}
                                     <img src="{% static "img/spinner-count-circle.svg" %}" alt="Spinner Count" height="20px" width="20px"> {{ beatmap.count_spinner | thousand_seperator }}
                                 {% endif %}
                             </p>
                         </div>
-                        {% if beatmap.mode == 0 or beatmap.mode == 2 %}
+                        {% if beatmap.mode == "0" or beatmap.mode == "2" %}
                         <div class="row">
                             <div class="col-sm-4">
                                 <small class="modal-small">Circle Size</small>
@@ -145,7 +146,7 @@
                                 <small>{{ beatmap.diff_size | convert_beatmap_stat }}</small>
                             </div>
                         </div>
-                        {% elif beatmap.mode == 3 %}
+                        {% elif beatmap.mode == "3" %}
                         <div class="row">
                             <div class="col-sm-4">
                                 <small class="modal-small">Key Amount</small>
@@ -223,33 +224,33 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
-                        {% if beatmap.genre_id == 0 %}
+                        {% if beatmap.genre_id == '0' %}
                             <p>Any</p>
-                        {% elif beatmap.genre_id == 1 %}
+                        {% elif beatmap.genre_id == '1' %}
                             <p>Unspecified</p>
-                        {% elif beatmap.genre_id == 2 %}
+                        {% elif beatmap.genre_id == '2' %}
                             <p>Video Game</p>
-                        {% elif beatmap.genre_id == 3 %}
+                        {% elif beatmap.genre_id == '3' %}
                             <p>Anime</p>
-                        {% elif beatmap.genre_id == 4 %}
+                        {% elif beatmap.genre_id == '4' %}
                             <p>Rock</p>
-                        {% elif beatmap.genre_id == 5 %}
+                        {% elif beatmap.genre_id == '5' %}
                             <p>Pop</p>
-                        {% elif beatmap.genre_id == 6 %}
+                        {% elif beatmap.genre_id == '6' %}
                             <p>Other</p>
-                        {% elif beatmap.genre_id == 7 %}
+                        {% elif beatmap.genre_id == '7' %}
                             <p>Novelty</p>
-                        {% elif beatmap.genre_id == 9 %}
+                        {% elif beatmap.genre_id == '9' %}
                             <p>Hip-Hop</p>
-                        {% elif beatmap.genre_id == 10 %}
+                        {% elif beatmap.genre_id == '10' %}
                             <p>Electronic</p>
-                        {% elif beatmap.genre_id == 11 %}
+                        {% elif beatmap.genre_id == '11' %}
                             <p>Metal</p>
-                        {% elif beatmap.genre_id == 12 %}
+                        {% elif beatmap.genre_id == '12' %}
                             <p>Classical</p>
-                        {% elif beatmap.genre_id == 13 %}
+                        {% elif beatmap.genre_id == '13' %}
                             <p>Folk</p>
-                        {% elif beatmap.genre_id == 14 %}
+                        {% elif beatmap.genre_id == '14' %}
                             <p>Jazz</p>
                         {% else %}
                             <p>Unknown</p>
@@ -257,35 +258,35 @@
                     </div>
                     <div class="col-sm-6">
                         <p class="fw-bold">Language</p>
-                        {% if beatmap.language_id == 0 %}
+                        {% if beatmap.language_id == '0' %}
                             <p>Any</p>
-                        {% elif beatmap.language_id == 1 %}
+                        {% elif beatmap.language_id == '1' %}
                             <p>Unspecified</p>
-                        {% elif beatmap.language_id == 2 %}
+                        {% elif beatmap.language_id == '2' %}
                             <p>English</p>
-                        {% elif beatmap.language_id == 3 %}
+                        {% elif beatmap.language_id == '3' %}
                             <p>Japanese</p>
-                        {% elif beatmap.language_id == 4 %}
+                        {% elif beatmap.language_id == '4' %}
                             <p>Chinese</p>
-                        {% elif beatmap.language_id == 5 %}
+                        {% elif beatmap.language_id == '5' %}
                             <p>Instrumental</p>
-                        {% elif beatmap.language_id == 6 %}
+                        {% elif beatmap.language_id == '6' %}
                             <p>Korean</p>
-                        {% elif beatmap.language_id == 7 %}
+                        {% elif beatmap.language_id == '7' %}
                             <p>French</p>
-                        {% elif beatmap.language_id == 8 %}
+                        {% elif beatmap.language_id == '8' %}
                             <p>German</p>
-                        {% elif beatmap.language_id == 9 %}
+                        {% elif beatmap.language_id == '9' %}
                             <p>Swedish</p>
-                        {% elif beatmap.language_id == 10 %}
+                        {% elif beatmap.language_id == '10' %}
                             <p>Spanish</p>
-                        {% elif beatmap.language_id == 11 %}
+                        {% elif beatmap.language_id == '11' %}
                             <p>Italian</p>
-                        {% elif beatmap.language_id == 12 %}
+                        {% elif beatmap.language_id == '12' %}
                             <p>Russian</p>
-                        {% elif beatmap.language_id == 13 %}
+                        {% elif beatmap.language_id == '13' %}
                             <p>Polish</p>
-                        {% elif beatmap.language_id == 14 %}
+                        {% elif beatmap.language_id == '14' %}
                             <p>Other</p>
                         {% else %}
                             <p>Unknown</p>
