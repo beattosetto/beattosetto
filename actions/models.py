@@ -15,7 +15,7 @@ class ActionLog(models.Model):
         time_end (datetime): The time the action ended.
         user (User): The user who initiated the action.
     """
-    name = models.CharField(max_length=100, default="Beattosetto actions")
+    name = models.CharField(max_length=5000, default="Beattosetto actions")
 
     status = models.IntegerField(default=0)
     running_text = models.CharField(max_length=100, default="", blank=True)
