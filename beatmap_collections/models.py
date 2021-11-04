@@ -28,7 +28,7 @@ class Collection(models.Model):
                                                                                                'jpeg', 'bmp', 'svg',
                                                                                                'webp'])])
     name = models.CharField(max_length=100)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=250, blank=True)
     tags = models.TextField(default="Pending", blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -63,7 +63,7 @@ class Comment(models.Model):
     """
 
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     detail = models.CharField(max_length=250)
     create_date = models.DateTimeField(auto_now_add=True)
 
@@ -100,7 +100,7 @@ class RatingLog(models.Model):
     """
 
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_rating = models.IntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
 
@@ -218,7 +218,7 @@ class BeatmapEntry(models.Model):
 
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="author")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=250)
     add_date = models.DateTimeField(auto_now_add=True)
 
