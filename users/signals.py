@@ -28,15 +28,14 @@ def user_update_information_from_osu_oauth(request, user, **kwargs):
             avatar_temp = NamedTemporaryFile(delete=True)
             avatar_temp.write(avatar_pic.content)
             avatar_temp.flush()
-            profile.image.save(data["avatar_url"].split('?')[-1], File(avatar_temp), save=True)
+            profile.profile_picture.save(data["avatar_url"].split('?')[-1], File(avatar_temp), save=True)
 
         if data["cover_url"] is not None:
             cover_pic = requests.get(data["cover_url"])
             cover_temp = NamedTemporaryFile(delete=True)
             cover_temp.write(cover_pic.content)
             cover_temp.flush()
-            profile.cover.save(data["cover_url"].split('/')[-1], File(cover_temp), save=True)
-            profile.cover_light.save(data["cover_url"].split('/')[-1], File(cover_temp), save=True)
+            profile.cover_image.save(data["cover_url"].split('/')[-1], File(cover_temp), save=True)
 
         profile.osu_username = data["username"]
         profile.oauth_first_migrate = True
