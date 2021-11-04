@@ -11,6 +11,7 @@ omit =
     # No tests for tests
     beatmap_collections/tests.py
     users/tests.py
+    users/signals.py
     manage.py
     beatmap_collection/functions.py
     actions/*
