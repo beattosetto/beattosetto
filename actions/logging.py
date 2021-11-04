@@ -2,7 +2,7 @@
 import logging
 import os
 
-LOG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s]: %(levelname)s - %(message)s",
+LOG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s@%(process)d by %(funcName)s]: %(levelname)s - %(message)s",
                                datefmt='%Y-%m-%d %H:%M:%S')
 
 
