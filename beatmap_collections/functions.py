@@ -98,3 +98,20 @@ def create_beatmap(beatmap_id):
             return None
     else:
         return None
+
+
+def get_beatmap_detail(beatmap_id: int) -> dict:
+    """
+    Return a dictionary list of beatmap detail from API
+
+    Args:
+        beatmap_id (int) : The beatmap ID that want information
+
+    Returns:
+        dict : The beatmap detail
+    """
+    parameter = {'b': beatmap_id, 'k': OSU_API_V1_KEY}
+    request_data = requests.get("https://osu.ppy.sh/api/get_beatmaps", params=parameter)
+    if (request_data.status_code == 200) and (request_data.json() != []):
+        return request_data.json()[0]
+    return None
