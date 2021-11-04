@@ -39,9 +39,8 @@ def collection_page(request, collection_id):
     if request.method == 'POST':
         form = AddCommentForm(request.POST)
         if form.is_valid():
-            comment_object = Comment.objects.create()
+            comment_object = Comment.objects.create(user=request.user)
             comment_object.collection = collection
-            comment_object.user = request.user
             comment_object.detail = form.cleaned_data['comment']
             comment_object.save()
             messages.success(request, 'Add comment successfully!')
