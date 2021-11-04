@@ -114,5 +114,4 @@ def get_beatmap_detail(beatmap_id: int) -> dict:
     request_data = requests.get("https://osu.ppy.sh/api/get_beatmaps", params=parameter)
     if (request_data.status_code == 200) and (request_data.json() != []):
         return request_data.json()[0]
-    else:
-        return None
+    return None
