@@ -20,6 +20,7 @@ class Profile(models.Model):
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     osu_username = models.CharField(max_length=32, blank=True)
+    oauth_first_migrate = models.BooleanField(default=False)
 
     def __str__(self):
         """Returns the string representation of the profile."""

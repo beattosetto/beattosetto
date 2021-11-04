@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from .models import Profile
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-from allauth.account.signals import user_signed_up
+from allauth.account.signals import user_logged_in
 
 
 @receiver(post_save, sender=User)
@@ -16,11 +16,11 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 
-@receiver(user_signed_up)
+@receiver(user_logged_in)
 def user_update_information_from_osu_oauth(request, user, **kwargs):
-    """Signal when user sign up using allauth (sign up with osu! account)"""
-    if SocialAccount.objects.filter(user=request.user).exists():
-        profile = Profile.objects.get(user=request.user)
+    """Signal when user login using allauth (sign up with osu! account)"""
+    profile = Profile.objects.get(user=request.user)
+    if SocialAccount.objects.filter(user=request.user).exists() and not request.user.profile.oauth_first_migrate:
         data = SocialAccount.objects.get(user=request.user).extra_data
 
         if data["avatar_url"] is not None:
@@ -35,7 +35,11 @@ def user_update_information_from_osu_oauth(request, user, **kwargs):
             cover_temp = NamedTemporaryFile(delete=True)
             cover_temp.write(cover_pic.content)
             cover_temp.flush()
-            profile.cover_image.cover.save(data["cover_url"].split('/')[-1], File(cover_temp), save=True)
+            profile.cover_image.save(data["cover_url"].split('/')[-1], File(cover_temp), save=True)
 
         profile.osu_username = data["username"]
+        profile.oauth_first_migrate = True
+        profile.save()
+    else:
+        profile.oauth_first_migrate = True
         profile.save()
