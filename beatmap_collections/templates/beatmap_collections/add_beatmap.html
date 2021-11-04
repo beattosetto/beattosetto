@@ -82,7 +82,9 @@
                     <div class="col-lg-9">
                         <input type="number" id="id_beatmap_id" name="beatmap_id" onchange="RenderDemoCard(this.value);" class="form-control" placeholder="Add your Beatmap ID here" required>
                         <p class="form-error">{{ form.beatmap_id.errors }}</p>
-                        <div id="demo-beatmap-card"></div>
+                        <div id="beatmap-card">
+                            <div id="demo-beatmap-card"></div>
+                        </div>
                         <img src="{% static "img/how-to-get-beatmap-id.png" %}" alt="How to get a beatmap ID" style="max-width: 100%;">
                         <p class="text-muted">ID of your recommend beatmap that you want to add.</p>
                     </div>
