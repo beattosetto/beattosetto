@@ -64,30 +64,28 @@ def add_beatmap(request, collection_id):
     if request.method == 'POST':
         form = AddBeatmapForm(request.POST)
         if form.is_valid():
-            beatmap_entry = BeatmapEntry.objects.create()
-            beatmap_entry.collection = collection
             if BeatmapEntry.objects.filter(beatmap__beatmap_id=form.cleaned_data['beatmap_id'],
                                            collection=collection, owner_approved=True).exists():
                 messages.error(request, 'This beatmap is already in this collection!')
                 return redirect('collection', collection_id=collection_id)
             if Beatmap.objects.filter(beatmap_id=form.cleaned_data['beatmap_id']).exists():
-                beatmap_entry.beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
+                beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
             else:
-                created_beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
-                if created_beatmap is None:
+                beatmap = create_beatmap(form.cleaned_data['beatmap_id'])
+                if beatmap is None:
                     messages.error(request, 'This beatmap does not exist!')
                     return redirect('collection', collection_id=collection_id)
-                beatmap_entry.beatmap = created_beatmap
+            beatmap_entry = BeatmapEntry.objects.create()
+            beatmap_entry.collection = collection
+            beatmap_entry.beatmap = beatmap
             beatmap_entry.author = request.user
             beatmap_entry.comment = form.cleaned_data['comment']
             if request.user == collection.author:
                 beatmap_entry.owner_approved = True
                 beatmap_entry.save()
-                beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
                 messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
                 return redirect('collection', collection_id=collection_id)
             beatmap_entry.save()
-            beatmap = Beatmap.objects.get(beatmap_id=form.cleaned_data['beatmap_id'])
             messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list! Please wait for cool person name {collection.author.username} to approve it.')
             return redirect('collection', collection_id=collection_id)
     else:
