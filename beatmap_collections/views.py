@@ -118,8 +118,16 @@ def edit_collection(request, collection_id):
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
 
-def manage_beatmap(request):
-    return render(request, 'beatmap_collections/manage_beatmap.html')
+def manage_beatmap(request, collection_id):
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.user != collection.author:
+        messages.error(request, "Get out! Get out! GET OUT! You idiot.")
+        return redirect('collection', collection_id=collection_id)
+    context = {
+        'collection': collection,
+        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+    }
+    return render(request, 'beatmap_collections/manage_beatmap.html', context)
 
 
 @login_required
@@ -147,6 +155,10 @@ def approve_beatmap(request, collection_id, beatmap_entry_id):
     if beatmap_entry.owner_approved:
         messages.error(request, 'This beatmap is already approved!')
         return redirect('beatmap_approval', collection_id=collection_id)
+    if BeatmapEntry.objects.filter(collection=collection, beatmap__beatmap_id=beatmap_entry.beatmap.beatmap_id,
+                                   owner_approved=True).exists():
+        messages.error(request, 'This beatmap is already in collection!')
+        return redirect('beatmap_approval', collection_id=collection_id)
     beatmap_entry.owner_approved = True
     beatmap_entry.save()
     messages.success(request, 'Beatmap approved!')
@@ -167,3 +179,16 @@ def deny_beatmap(request, collection_id, beatmap_entry_id):
     beatmap_entry.delete()
     messages.success(request, 'Beatmap denied!')
     return redirect('beatmap_approval', collection_id=collection_id)
+
+
+@login_required
+def delete_beatmap(request, collection_id, beatmap_entry_id):
+    """View for delete beatmap entry"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    if request.user != collection.author:
+        messages.error(request, "Hey! That's nonsense")
+        return redirect('collection', collection_id=collection_id)
+    beatmap_entry.delete()
+    messages.success(request, 'Delete beatmap from collection successfully!')
+    return redirect('manage_beatmap', collection_id=collection_id)

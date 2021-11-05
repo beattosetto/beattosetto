@@ -1,5 +1,5 @@
 from django import forms
-from .models import Collection, BeatmapEntry
+from .models import Collection
 
 
 class CreateCollectionForm(forms.ModelForm):
