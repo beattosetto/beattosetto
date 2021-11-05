@@ -155,6 +155,9 @@ class CollectionListingViewTest(TestCase):
 class CollectionModelTest(TestCase):
     """Test methods in collection model."""
 
+    def setUp(self):
+        self.original_save_func = models.Model.save
+
     def test_optimize_image(self):
         """Test image optimization with image larger than specific size."""
 
@@ -198,6 +201,9 @@ class CollectionModelTest(TestCase):
                                                           author=user, owner_approved=True)
             beatmap_entry_3.save()
             self.assertEqual(dummy_collection.beatmaps_count, 1)
+
+    def tearDown(self):
+        models.Model.save = self.original_save_func
 
 
 class TemplateTagsFunctionTest(TestCase):
