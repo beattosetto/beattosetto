@@ -78,7 +78,9 @@
 <div class="row g-4 py-4">
     {% if all_beatmap %}
         {% for beatmap_entry in all_beatmap %}
+            <div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
+            </div>
         {% endfor %}
     {% else %}
     <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
