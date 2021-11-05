@@ -155,6 +155,10 @@ def approve_beatmap(request, collection_id, beatmap_entry_id):
     if beatmap_entry.owner_approved:
         messages.error(request, 'This beatmap is already approved!')
         return redirect('beatmap_approval', collection_id=collection_id)
+    if BeatmapEntry.objects.filter(collection=collection, beatmap__beatmap_id=beatmap_entry.beatmap.beatmap_id,
+                                   owner_approved=True).exists():
+        messages.error(request, 'This beatmap is already in collection!')
+        return redirect('beatmap_approval', collection_id=collection_id)
     beatmap_entry.owner_approved = True
     beatmap_entry.save()
     messages.success(request, 'Beatmap approved!')
