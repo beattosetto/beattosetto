@@ -149,7 +149,7 @@ def approve_beatmap(request, collection_id, beatmap_entry_id):
     """View for approve BeatmapEntry to the collection by changing the owner_approved value to True"""
     collection = get_object_or_404(Collection, id=collection_id)
     beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
-    if request.user != collection.author:
+    if beatmap_entry.collection != collection and request.user != collection.author:
         messages.error(request, 'Hehehehe No! Stop there!')
         return redirect('collection', collection_id=collection_id)
     if beatmap_entry.owner_approved:
@@ -166,7 +166,7 @@ def deny_beatmap(request, collection_id, beatmap_entry_id):
     """View for deny BeatmapEntry to the collection by deleting the BeatmapEntry object"""
     collection = get_object_or_404(Collection, id=collection_id)
     beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
-    if request.user != collection.author:
+    if beatmap_entry.collection != collection and request.user != collection.author:
         messages.error(request, 'Hehehehe No! Stop there!')
         return redirect('collection', collection_id=collection_id)
     if beatmap_entry.owner_approved:
@@ -175,3 +175,16 @@ def deny_beatmap(request, collection_id, beatmap_entry_id):
     beatmap_entry.delete()
     messages.success(request, 'Beatmap denied!')
     return redirect('beatmap_approval', collection_id=collection_id)
+
+
+@login_required
+def delete_beatmap(request, collection_id, beatmap_entry_id):
+    """View for delete beatmap entry"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    if beatmap_entry.collection != collection and request.user != collection.author:
+        messages.error(request, "Hey! That's nonsense")
+        return redirect('collection', collection_id=collection_id)
+    beatmap_entry.delete()
+    messages.success(request, 'Delete beatmap from collection successfully!')
+    return redirect('manage_beatmap', collection_id=collection_id)
