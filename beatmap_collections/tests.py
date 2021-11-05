@@ -350,7 +350,7 @@ class BeatmapApprovalTest(TestCase):
                                                            collection=self.collection)
         self.beatmap_entry_3.save()
         response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_3.id}')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_3.id).owner_approved, False)
         self.beatmap_entry_4 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap, collection=self.collection,
                                                            owner_approved=True)
@@ -368,7 +368,7 @@ class BeatmapApprovalTest(TestCase):
         self.beatmap_entry_5.save()
         response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_5.id}')
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_5.id).exists(), True)
+        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_5.id).exists(), False)
         self.beatmap_entry_6 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection, owner_approved=True)
         self.beatmap_entry_6.save()
