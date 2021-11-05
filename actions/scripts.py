@@ -7,7 +7,7 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
 from django.utils import timezone
-from .logging import setup_logger, log_two_handler
+from .logging import setup_logger, log_two_handler, LOG_FORMAT, LOG_DEBUG_FORMAT
 from .models import ActionLog
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
@@ -24,8 +24,8 @@ def update_beatmap_action_script(action: ActionLog):
         if not os.path.exists('actions_logs_debug'):
             os.mkdir('actions_logs_debug')
         # Setup the new logger
-        info_logger = setup_logger(f'info_log_{action.id}', f'media/{action.log}', 'a+', logging.INFO)
-        debug_logger = setup_logger(f'debug_log_{action.id}', f'actions_logs_debug/log_{action.id}_debug.log', 'a+', logging.DEBUG)
+        info_logger = setup_logger(f'info_log_{action.id}', f'media/{action.log}', 'a+', logging.INFO, LOG_FORMAT)
+        debug_logger = setup_logger(f'debug_log_{action.id}', f'actions_logs_debug/log_{action.id}_debug.log', 'a+', logging.DEBUG, LOG_DEBUG_FORMAT)
         log_two_handler(info_logger, debug_logger, logging.INFO, "Setup logger complete.")
         beatmap_count = Beatmap.objects.all().count()
         log_two_handler(info_logger, debug_logger, logging.INFO, f"Prepare to update {beatmap_count} beatmaps.")
@@ -143,7 +143,7 @@ def update_beatmap_action_script(action: ActionLog):
         action.save()
         log_two_handler(info_logger, debug_logger, logging.INFO,
                         f"Task running successfully with {success} success and {failed} failed!")
-        log_two_handler(info_logger, debug_logger, logging.INFO, "Action finished, thanks for using beatto-chan services!")
+        log_two_handler(info_logger, debug_logger, logging.INFO, "Action finished! Thanks for using beatto-chan services.")
     except Exception as e:
         action.status = 3
         action.running_text = f"Start Action failed : {str(e)}"

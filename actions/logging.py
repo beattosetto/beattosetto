@@ -1,12 +1,14 @@
-
 import logging
 import os
 
-LOG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s@%(process)d by %(funcName)s]: %(levelname)s - %(message)s",
+LOG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s]: %(levelname)s - %(message)s",
                                datefmt='%Y-%m-%d %H:%M:%S')
+LOG_DEBUG_FORMAT = logging.Formatter(fmt="%(asctime)s [%(processName)s@%(process)d by %(funcName)s@line%(lineno)d]: "
+                                         "%(levelname)s - %(message)s",
+                                     datefmt='%Y-%m-%d %H:%M:%S')
 
 
-def setup_logger(name: str, log_file: str, mode: str, level: int = logging.INFO) -> logging.Logger:
+def setup_logger(name: str, log_file: str, mode: str, level: int, log_format: logging.Formatter) -> logging.Logger:
     """
     Setup a logger with a given name and log file.
     Arguments:
@@ -27,7 +29,7 @@ def setup_logger(name: str, log_file: str, mode: str, level: int = logging.INFO)
         except FileNotFoundError:
             # We cannot fix this so just reverse filename to a logger name and normally save it.
             handler = logging.FileHandler(f'{name}.log', mode=mode)
-    handler.setFormatter(LOG_FORMAT)
+    handler.setFormatter(log_format)
 
     logger = logging.getLogger(name)
     logger.setLevel(level)
@@ -36,7 +38,8 @@ def setup_logger(name: str, log_file: str, mode: str, level: int = logging.INFO)
     return logger
 
 
-def log_two_handler(first_logger: logging.Logger, second_logger: logging.Logger, level: int = logging.INFO, log: str = None):
+def log_two_handler(first_logger: logging.Logger, second_logger: logging.Logger, level: int = logging.INFO,
+                    log: str = None):
     """
     Log to two loggers in a same time.
     Arguments:
