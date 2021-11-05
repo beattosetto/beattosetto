@@ -11,13 +11,7 @@ from django.db import models
 from .functions import *
 import io
 
-from .templatetags.convert_beatmap_stat import convert_beatmap_stat
-from .templatetags.convert_progress_bar import convert_progress_bar
-from .templatetags.convert_star_rating import convert_star_rating
-from .templatetags.length_format import length_format
-from .templatetags.round_up import round_up
-from .templatetags.thousand_seperator import thousand_seperator
-
+from .templatetags import *
 
 def create_collection(name, user=None) -> Collection:
     """Utility function for creating collection.
@@ -107,24 +101,6 @@ class CollectionEditViewTest(TestCase):
         self.assertTemplateUsed(response, "beatmap_collections/edit_collection.html")
 
 
-class AddBeatmapViewTest(TestCase):
-    """Test adding beatmap to a collection."""
-
-    def setUp(self) -> None:
-        self.owner_password = "Test"
-        self.owner = User.objects.create_user(username="Test", password=self.owner_password)
-        self.not_owner_password = "Test_2"
-        self.not_owner = User.objects.create_user(username="Test_2", password=self.not_owner_password)
-        # Beatmap model contains default value.
-        self.beatmap = Beatmap.objects.create()
-        self.collection = create_collection("Test", self.owner)
-
-    def test_unauthenticated(self):
-        """Unauthenticated user cannot add beatmap."""
-
-        add_beatmap_url = reverse("add_beatmap", args=[self.collection.id])
-        response = self.client.get(add_beatmap_url, follow=True)
-        self.assertRedirects(response, f"/accounts/login/?next={add_beatmap_url}")
 
 
 class CollectionListingViewTest(TestCase):
