@@ -118,8 +118,16 @@ def edit_collection(request, collection_id):
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
 
-def manage_beatmap(request):
-    return render(request, 'beatmap_collections/manage_beatmap.html')
+def manage_beatmap(request, collection_id):
+    collection = get_object_or_404(Collection, id=collection_id)
+    if request.user != collection.author:
+        messages.error(request, "Get out! Get out! GET OUT! You idiot.")
+        return redirect('collection', collection_id=collection_id)
+    context = {
+        'collection': collection,
+        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+    }
+    return render(request, 'beatmap_collections/manage_beatmap.html', context)
 
 
 @login_required
