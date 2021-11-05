@@ -3,22 +3,22 @@
 
     {% block meta_tags %}
     <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://beatsets.info/collections/{{ collection.id }}/add/beatmap/">
+    <meta property="og:url" content="https://beatsets.info/collections/{{ collection.id }}/manage">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="add beatmap to {{ collection.name }} | beattosetto">
-    <meta property="og:description" content="Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye">
-    <meta property="og:image" content="{% static 'img/hero-add-beatmap.jpg' %}">
+    <meta property="og:title" content="manage beatmap in {{ collection.name }} | beattosetto">
+    <meta property="og:description" content="Let's manage your beatmap!!! Delete it nowwwwww">
+    <meta property="og:image" content="{% static 'img/hero-manage-beatmap.jpg' %}">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/add/beatmap/">
-    <meta property="twitter:title" content="add beatmap to {{ collection.name }} | beattosetto">
-    <meta property="twitter:description" content="Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye">
-    <meta property="twitter:image" content="{% static 'img/hero-add-beatmap.jpg' %}">
+    <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/manage">
+    <meta property="twitter:title" content="manage beatmap in {{ collection.name }} | beattosetto">
+    <meta property="twitter:description" content="Let's manage your beatmap!!! Delete it nowwwwww">
+    <meta property="twitter:image" content="{% static 'img/hero-manage-beatmap.jpg' %}">
     {% endblock %}
 
     {% block title %}
-  <title>Manage Beatmap</title>
+  <title>manage beatmap in {{ collection.name }} | beattosetto</title>
    {% endblock %}
 
 {% block css %}
@@ -32,7 +32,7 @@
             <p></p>
             <p></p>
             <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Manage Beatmap</h1></div>
-            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Manage your beatmap!!! Hareruyaaaaaaaaaaa</p>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's manage your beatmap!!! Delete it nowwwwww</p>
         </div>
     </div>
 </div>
@@ -55,6 +55,13 @@
     </div>
   </div>
 <main class="text-light container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p data-aos="fade-up" data-aos-duration="800"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+            </div>
+        </div>
+    </div>
     <div class="row g-4 py-4">
     {% if all_beatmap %}
         {% for beatmap_entry in all_beatmap %}
@@ -65,9 +72,9 @@
         {% endfor %}
     {% else %}
     <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
-        <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
-        <h3 class="text-center">No beatmaps added for this collection!</h3>
-        <h3 class="text-center">Let's add one!</h3>
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap-manage.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
+        <h3 class="text-center">This is not right!</h3>
+        <h3 class="text-center">I think you need to add beatmap first?</h3>
     </div>
     {% endif %}
 </div>
