@@ -12,7 +12,11 @@ from .scripts import update_beatmap_action_script
 
 @user_passes_test(lambda u: u.is_superuser or u.is_staff)
 def actions(request):
-    """View for Action menu."""
+    """
+    View for Action menu.
+
+    This view can only access by superuser and staff.
+    """
     context = {
         'action_log': ActionLog.objects.all().order_by('-id'),
         'update_beatmap_running': ActionLog.objects.filter(name="Update all beatmaps metadata", status=1).exists(),
@@ -49,6 +53,8 @@ def check_action_log(request, log_id):
     """
     View for API that request in Actions page to check the status of the action log.
     It will return the value that used in live updating the Action status.
+
+    This view can only access by superuser and staff.
     """
     action = get_object_or_404(ActionLog, id=log_id)
     if action.status == 1 or action.status == 0:
@@ -68,3 +74,16 @@ def check_action_log(request, log_id):
     if request.method == "GET":
         return JsonResponse({"running_text": action.running_text, "status": action.status, "duration": duration}, status=200)
     return JsonResponse({}, status=400)
+
+
+@user_passes_test(lambda u: u.is_superuser or u.is_staff)
+def delete_action_log(request, log_id):
+    """
+    View for delete the action log.
+
+    This view can only access by superuser and staff.
+    """
+    action = get_object_or_404(ActionLog, id=log_id)
+    action.delete()
+    messages.success(request, f"Delete action log successfully!")
+    return redirect('actions')
