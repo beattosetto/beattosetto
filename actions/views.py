@@ -27,6 +27,9 @@ def update_beatmap_action(request):
 
     This view can only activate by superuser and staff.
     """
+    if ActionLog.objects.filter(name="Update all beatmaps metadata", status=1).exists():
+        messages.error(request, "This action is already running!")
+        return redirect('actions')
     action_log = ActionLog()
     action_log.name = "Update all beatmaps metadata"
     action_log.running_text = "Start working thread..."
