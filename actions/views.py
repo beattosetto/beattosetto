@@ -88,6 +88,9 @@ def delete_action_log(request, log_id):
     This view can only access by superuser and staff.
     """
     action = get_object_or_404(ActionLog, id=log_id)
+    if action.status == 0 or action.status == 1:
+        messages.error(request, "Cannot delete the Action log that is running or in idle state!")
+        return redirect('actions')
     action.delete()
     messages.success(request, f"Delete action log successfully!")
     return redirect('actions')
