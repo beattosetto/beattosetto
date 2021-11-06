@@ -176,13 +176,13 @@
       </footer>
 
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div id="actionNotificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div id="actionNotificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay=10000>
         <div class="toast-header">
-          <img src="{% static "logo/beattosetto-icon-notext.svg" %}" class="rounded me-2" alt="beattosetto icon" width="20px" height="20px">
-          <strong class="me-auto">Beattosetto Update System</strong>
+          <img src="{% static "img/beatto-chan.png" %}" class="rounded me-2" alt="beatto-chan" width="20px" height="20px">
+          <strong class="me-auto">Beattosetto Database Update System</strong>
         </div>
         <div class="toast-body">
-          Hello, currently our beatto-chan are working hard to daily updating the beatmap metadata on our server. Some beatmap cards pictures may be missing or not loaded correctly.
+          Hello, currently our beatto-chan are working hard to daily updating the beatmap metadata on our server so some beatmap cards pictures may be missing or not loaded correctly. We are sorry for the inconvenience!
         </div>
       </div>
     </div>
@@ -195,9 +195,6 @@
         if ({% update_beatmaps_running %}) {
             var toast = new bootstrap.Toast(document.getElementById('actionNotificationToast'));
             toast.show();
-            setTimeout(function(){
-                toast.classList.remove("show");
-            }, 5000);
         }
     </script>
 </body>
