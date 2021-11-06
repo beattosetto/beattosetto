@@ -1,5 +1,6 @@
 {% load static %}
 {% load random_heart_emoji %}
+{% load update_beatmaps_running %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,9 +174,31 @@
           </div>
         </div>
       </footer>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="actionNotificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="{% static "logo/beattosetto-icon-notext.svg" %}" class="rounded me-2" alt="beattosetto icon" width="20px" height="20px">
+          <strong class="me-auto">Beattosetto Update System</strong>
+        </div>
+        <div class="toast-body">
+          Hello, currently our beatto-chan are working hard to daily updating the beatmap metadata on our server. Some beatmap cards pictures may be missing or not loaded correctly.
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="{% static 'js/index.js' %}"></script>
     {% block js %}{% endblock %}
+    <script>
+        if ({% update_beatmaps_running %}) {
+            var toast = new bootstrap.Toast(document.getElementById('actionNotificationToast'));
+            toast.show();
+            setTimeout(function(){
+                toast.classList.remove("show");
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
