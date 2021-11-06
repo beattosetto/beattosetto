@@ -110,9 +110,9 @@
     {% endif %}
 
     {% if action.status == 2 or action.status == 3 %}
-    <a class="btn btn-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button"><i class="fas fa-trash"></i> Delete Log</a>
+    <a class="btn btn-danger hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button"><i class="fas fa-trash"></i> Delete Log</a>
     {% else %}
-    <a class="btn btn-danger disabled" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
+    <a class="btn btn-danger disabled hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
     {% endif %}
     </div>
     <p></p>
