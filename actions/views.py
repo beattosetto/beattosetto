@@ -14,7 +14,8 @@ from .scripts import update_beatmap_action_script
 def actions(request):
     """View for Action menu."""
     context = {
-        'action_log': ActionLog.objects.all().order_by('-id')
+        'action_log': ActionLog.objects.all().order_by('-id'),
+        'update_beatmap_running': ActionLog.objects.filter(name="Update all beatmaps metadata", status=1).exists(),
     }
     return render(request, 'actions/actions.html', context)
 

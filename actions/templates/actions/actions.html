@@ -57,10 +57,19 @@
     </div>
     <div class="row">
         <div class="col-4" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
-          <a class="btn btn-warning hvr-bounce-to-right-warning" href="{% url 'actions_update_beatmap' %}">Update all beatmaps metadata</a>
+            {% if update_beatmap_running %}
+            <a class="btn btn-warning hvr-bounce-to-right-warning disabled" href="{% url 'actions_update_beatmap' %}" aria-disabled="true">Update all beatmaps metadata</a>
+            {% else %}
+            <a class="btn btn-warning hvr-bounce-to-right-warning" href="{% url 'actions_update_beatmap' %}">Update all beatmaps metadata</a>
+            {% endif %}
         </div>
         <div class="col-8" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
           <p>Update all beatmap metadata in the server.</p>
+            {% if update_beatmap_running %}
+            <p class="text-warning"><i class="fas fa-ban"></i> Cannot start the new worker now : other worker are working on this task.</p>
+            {% else %}
+
+            {% endif %}
         </div>
     </div>
 
