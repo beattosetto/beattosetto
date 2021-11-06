@@ -108,6 +108,12 @@
     {% if action.get_log_url %}
     <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{{ action.log.url }}"><i class="fas fa-file-download icon-menu hvr-icon"></i> Download log</a></p>
     {% endif %}
+
+    {% if action.status == 2 or action.status == 3 %}
+    <a class="btn btn-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button"><i class="fas fa-trash"></i> Delete Log</a>
+    {% else %}
+    <a class="btn btn-danger disabled" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
+    {% endif %}
     </div>
     <p></p>
     {% endfor %}
@@ -135,6 +141,7 @@
                 const status_action0id = document.getElementById("status_{{ action.id }}");
                 const status_running_log_action0id = document.getElementById("running_log_{{ action.id }}");
                 const status_duration_action0id = document.getElementById("duration_{{ action.id }}");
+                const delete_button_action0id = document.getElementById("delete_log_{{ action.id }}");
 
                 // If response, update HTML
                 if (response) {
@@ -159,8 +166,16 @@
                         } else {
                             status_message = '<p>Unknown Status</p>'
                         }
-
+0
                         status_action0id.innerHTML = status_message;
+
+                        if (Data['status'] === 3 || Data['status'] === 2) {
+                            delete_button_action0id.classList.remove("disabled");
+                            delete_button_action0id.aria_disabled = "true";
+                        } else {
+                            delete_button_action0id.classList.add("disabled");
+                            delete_button_action0id.aria_disabled = "false";
+                        }
                     }
                 }
             }
