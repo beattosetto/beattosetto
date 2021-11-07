@@ -15,17 +15,17 @@ class ActionLog(models.Model):
         time_end (datetime): The time the action ended.
         user (User): The user who initiated the action.
     """
-    name = models.CharField(max_length=100, default="Beattosetto actions")
+    name = models.CharField(max_length=5000, default="Beattosetto actions")
 
     status = models.IntegerField(default=0)
-    running_text = models.CharField(max_length=100, default="", blank=True)
+    running_text = models.CharField(max_length=5000, default="", blank=True)
 
     time_start = models.DateTimeField(auto_now_add=True)
     time_finish = models.DateTimeField(null=True, blank=True)
 
     start_user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
 
-    log = models.FileField(upload_to='actions_logs', null=True, blank=True)
+    log = models.FileField(upload_to='actions_logs', null=True, blank=True, max_length=5000)
 
     def __str__(self):
         if self.status == 0:

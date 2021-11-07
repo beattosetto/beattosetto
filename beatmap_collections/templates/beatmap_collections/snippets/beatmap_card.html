@@ -6,7 +6,7 @@
 {% load convert_beatmap_stat %}
 {% load static %}
 
-<div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
+
     <div class="card mb-3" style="max-width: 100%;">
       <div class="row g-0 rounded" style="background-image: url({{ beatmap_entry.beatmap.beatmap_card.url }}); background-size: cover; background-position: center">
         <div class="col-md-4 position-relative" style="min-height: 200px; background-image: url({{ beatmap_entry.beatmap.beatmap_list.url }}); background-size: cover; background-position: center;">
@@ -66,7 +66,6 @@
         </div>
       </div>
     </div>
-</div>
 
 <div class="modal fade" id="modal{{ beatmap_entry.beatmap.beatmap_id }}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

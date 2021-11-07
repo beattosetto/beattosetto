@@ -1,0 +1,92 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/collections/{{ collection.id }}/manage">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="manage beatmap in {{ collection.name }} | beattosetto">
+    <meta property="og:description" content="Let's manage your beatmap!!! Delete it nowwwwww">
+    <meta property="og:image" content="{% static 'img/hero-manage-beatmap.jpg' %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/manage">
+    <meta property="twitter:title" content="manage beatmap in {{ collection.name }} | beattosetto">
+    <meta property="twitter:description" content="Let's manage your beatmap!!! Delete it nowwwwww">
+    <meta property="twitter:image" content="{% static 'img/hero-manage-beatmap.jpg' %}">
+    {% endblock %}
+
+    {% block title %}
+  <title>manage beatmap in {{ collection.name }} | beattosetto</title>
+   {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "css/progres-bar.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-manage-beatmap.jpg" %});">
+    <div class="container align-middle">
+        <div class="row">
+            <p></p>
+            <p></p>
+            <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Manage Beatmap</h1></div>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Let's manage your beatmap!!! Delete it nowwwwww</p>
+        </div>
+    </div>
+</div>
+<div class="container">
+  <div class="row">
+     {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "success"%}
+                <div class="alert alert-success">
+                    <i class="fas fa-check"></i> {{ message }}
+                </div>
+            {% endif %}
+            {% if message.tags == "error"%}
+                <div class="alert alert-danger">
+                    <i class="fas fa-times"></i> {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+<main class="text-light container">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <p data-aos="fade-up" data-aos-duration="800"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4 py-4">
+    {% if all_beatmap %}
+        {% for beatmap_entry in all_beatmap %}
+            <div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
+            {% include "beatmap_collections/snippets/beatmap_card.html" %}
+            <a class="btn btn-danger hvr-sweep-to-right-danger" href="{% url 'delete_beatmap' collection.id beatmap_entry.id %}" role="button" style="margin-top: -10px"><i class="fas fa-trash color-white"></i> Delete</a>
+            </div>
+        {% endfor %}
+    {% else %}
+    <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+        <h1 class="text-center" ><img src="{% static "img/no-beatmap-manage.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
+        <h3 class="text-center">This is not right!</h3>
+        <h3 class="text-center">I think you need to add beatmap first?</h3>
+    </div>
+    {% endif %}
+</div>
+</main>
+{% endblock %}
+
+{% block js %}
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script src="{% static "js/player.js" %}"></script>
+    <script>
+    $(document).ready(function () {
+        $('.mediPlayer').mediaPlayer();
+    });
+    </script>
+{% endblock %}

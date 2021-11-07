@@ -51,7 +51,7 @@ def settings(request):
 def profile(request, user_id: int):
     """View for profile page."""
     profile_owner = get_object_or_404(User, pk=user_id)
-    profile = profile_owner.profile
+    profile_object = profile_owner.profile
     collections = Collection.objects.filter(author=profile_owner)
     # Try to get rid of error from API value
     try:
@@ -63,7 +63,7 @@ def profile(request, user_id: int):
         osu_username = None
     context = {
         'profile_owner': profile_owner,
-        'profile': profile,
+        'profile': profile_object,
         'collections': collections,
         'osu_username': osu_username
     }

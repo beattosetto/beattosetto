@@ -28,7 +28,7 @@ class Collection(models.Model):
                                                                                                'jpeg', 'bmp', 'svg',
                                                                                                'webp'])])
     name = models.CharField(max_length=100)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=250, blank=True)
     tags = models.TextField(default="Pending", blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -62,10 +62,17 @@ class Comment(models.Model):
         create_date: The date this comment was posted.
     """
 
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     detail = models.CharField(max_length=250)
     create_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return the name of the Comment model."""
+        try:
+            return f"Comment from {self.user.username} in {self.collection.name}"
+        except AttributeError:
+            return f"Unknown comment"
 
 
 class Rating(models.Model):
@@ -93,7 +100,7 @@ class RatingLog(models.Model):
     """
 
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user_rating = models.IntegerField(default=0)
     create_date = models.DateTimeField(auto_now_add=True)
 
@@ -148,10 +155,10 @@ class Beatmap(models.Model):
     beatmap_id = models.IntegerField(default=75)
     beatmapset_id = models.IntegerField(default=1)
 
-    title = models.CharField(default="DISCO PRINCE", max_length=100)
-    artist = models.CharField(default="Kenji Ninuma", max_length=100)
-    source = models.CharField(default="", max_length=100, blank=True)
-    creator = models.CharField(default="peppy", max_length=100)
+    title = models.CharField(default="DISCO PRINCE", max_length=1000)
+    artist = models.CharField(default="Kenji Ninuma", max_length=1000)
+    source = models.CharField(default="", max_length=1000, blank=True)
+    creator = models.CharField(default="peppy", max_length=1000)
     approved = models.CharField(default="1", max_length=10)
     difficultyrating = models.FloatField(default="2.39774")
     bpm = models.CharField(default="119.999", max_length=10)
@@ -211,7 +218,7 @@ class BeatmapEntry(models.Model):
 
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=FALLBACK_USER_KEY, related_name="author")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=250)
     add_date = models.DateTimeField(auto_now_add=True)
 
