@@ -264,6 +264,8 @@ a.dropdown-item {
 .beatmap-artist,
 .beatmap-source {
     font-size: 90%;
+    line-height: normal;
+    margin-top: -8px;
 }
 
 .beatmap-comment {
