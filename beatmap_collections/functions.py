@@ -2,6 +2,8 @@ import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
+
+from beatmap_collections import constants
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
 from django.utils.timezone import make_aware
@@ -113,5 +115,8 @@ def get_beatmap_detail(beatmap_id: int) -> dict:
     parameter = {'b': beatmap_id, 'k': OSU_API_V1_KEY}
     request_data = requests.get("https://osu.ppy.sh/api/get_beatmaps", params=parameter)
     if (request_data.status_code == 200) and (request_data.json() != []):
-        return request_data.json()[0]
+        beatmap = request_data.json()[0]
+        beatmap['language'] = constants.languages.get(int(beatmap['language_id']), "Unknown")
+        beatmap['genre'] = constants.genres.get(int(beatmap['genre_id']), "Unknown")
+        return beatmap
     return None
