@@ -22,6 +22,22 @@ def get_genre_name(genre_id: Union[str, int]):
     return constants.genres.get(genre_id, "Unknown")
 
 
+def get_mode_name(mode_id: Union[str, int]):
+    """Get mode name from mode id"""
+    mode_id = int(mode_id)
+    return constants.modes.get(mode_id)
+
+
+def get_mode_image(mode: str):
+    """Get mode image url.
+
+    Prefixed with gamemode/
+    """
+    return f"gamemode/{mode}"
+
+
 # Register filters
 register.filter('get_language_name', get_language_name)
 register.filter('get_genre_name', get_genre_name)
+register.filter('get_mode_name', get_mode_name)
+register.filter('get_mode_image', get_mode_image)

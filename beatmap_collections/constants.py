@@ -40,3 +40,10 @@ genres = {
     14: "Jazz",
     # Default is unknown.
 }
+
+modes = {
+    0: "osu",
+    1: "taiko",
+    2: "fruit",
+    3: "mania"
+}
