@@ -112,7 +112,7 @@
     {% if action.status == 2 or action.status == 3 %}
     <a class="btn btn-danger hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button"><i class="fas fa-trash"></i> Delete Log</a>
     {% else %}
-    <a class="btn btn-danger disabled hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
+    <a class="btn btn-danger disabled hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="#" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
     {% endif %}
     </div>
     <p></p>
@@ -166,15 +166,17 @@
                         } else {
                             status_message = '<p>Unknown Status</p>'
                         }
-0
+
                         status_action0id.innerHTML = status_message;
 
                         if (Data['status'] === 3 || Data['status'] === 2) {
                             delete_button_action0id.classList.remove("disabled");
                             delete_button_action0id.aria_disabled = "true";
+                            delete_button_action0id.href = "{% url 'delete_action_log' action.id %}";
                         } else {
                             delete_button_action0id.classList.add("disabled");
                             delete_button_action0id.aria_disabled = "false";
+                            delete_button_action0id.href = "#";
                         }
                     }
                 }
