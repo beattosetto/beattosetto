@@ -202,17 +202,6 @@ class Beatmap(models.Model):
     def __str__(self):
         return f"{self.title} [{self.version}]"
 
-    @property
-    def language(self):
-        """Return string representation of language_id."""
-        return constants.languages.get(self.language_id, "Unknown")
-
-    @property
-    def genre(self):
-        """Return string representation of genre."""
-        return constants.genres.get(self.genre_id, "Unknown")
-
-
 class BeatmapEntry(models.Model):
     """This model acts as a pointer to a beatmap.
 
