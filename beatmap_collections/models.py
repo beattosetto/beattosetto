@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from PIL import Image
 from django.utils import timezone
 
-from beatmap_collections import constants
 
 FALLBACK_USER_KEY = 1
 
