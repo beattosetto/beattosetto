@@ -261,11 +261,15 @@ a.dropdown-item {
     font-size: 120%;
 }
 
-.beatmap-artist,
+.beatmap-artist {
+    font-size: 90%;
+    line-height: 0.8;
+}
+
 .beatmap-source {
     font-size: 90%;
     line-height: normal;
-    margin-top: -8px;
+    margin-top: -7px;
 }
 
 .beatmap-comment {
