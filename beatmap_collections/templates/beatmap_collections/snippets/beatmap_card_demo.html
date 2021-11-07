@@ -113,15 +113,22 @@
 
               <div class="row">
                   <div class="col-sm-6">
-                      <p>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap.creator_id }}" class="text-decoration-none spacing-hover">{{ beatmap.creator }}</a></p>
-                      <p>submitted {{ beatmap.submit_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
-                        {% if beatmap.approved == '1' %}
-                            <p>ranked {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
-                        {% elif beatmap.approved == '3' %}
-                            <p>qualified {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
-                        {% else %}
-                            <p>last updated {{ beatmap.last_update | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
-                        {% endif %}
+                      <div class="row">
+                          <div class="col-sm-4">
+                              <img src="http://s.ppy.sh/a/{{ beatmap.creator_id }}" width="120px" height="120px" alt="{{ beatmap.creator }}'s profile" class="rounded-3">
+                          </div>
+                          <div class="col-sm-8">
+                               <p class="beatmap-infobox-date">mapped by <a href="https://osu.ppy.sh/users/{{ beatmap.creator_id }}" class="text-decoration-none spacing-hover">{{ beatmap.creator }}</a></p>
+                              <p class="beatmap-infobox-date">submitted {{ beatmap.submit_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
+                                {% if beatmap.approved == '1' %}
+                                    <p class="beatmap-infobox-date">ranked {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
+                                {% elif beatmap.approved == '3' %}
+                                    <p class="beatmap-infobox-date">qualified {{ beatmap.approved_date | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
+                                {% else %}
+                                    <p class="beatmap-infobox-date">last updated {{ beatmap.last_update | convert_datetime | date:"j F Y H:i:s" }} UTC</p>
+                                {% endif %}
+                          </div>
+                      </div>
                   </div>
                     <div class="col-sm-6 modal-diff" style="background-color: rgb(60,70,76);">
                         <div class="row">
