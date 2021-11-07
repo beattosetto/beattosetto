@@ -28,12 +28,13 @@ def get_mode_name(mode_id: Union[str, int]):
     return constants.modes.get(mode_id)
 
 
-def get_mode_image(mode: str):
+def get_mode_image(mode_id: Union[str, int]):
     """Get mode image url.
 
     Prefixed with gamemode/
     """
-    return f"gamemode/{mode}"
+    mode_name = get_mode_name(mode_id)
+    return f"gamemode/{mode_name}.png"
 
 
 # Register filters
