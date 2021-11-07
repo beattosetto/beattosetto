@@ -367,6 +367,10 @@ a.disabled {
     color: var(--bs-primary) !important;
 }
 
+.beatmap-infobox-date {
+    font-size: 90%;
+}
+
 /* Styling use in profile page */
 @media (max-width: 1009px) {
     #profile-pic {
