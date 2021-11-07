@@ -222,74 +222,13 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
-                        {% if beatmap_entry.beatmap.genre_id == 0 %}
-                            <p>Any</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 1 %}
-                            <p>Unspecified</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 2 %}
-                            <p>Video Game</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 3 %}
-                            <p>Anime</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 4 %}
-                            <p>Rock</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 5 %}
-                            <p>Pop</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 6 %}
-                            <p>Other</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 7 %}
-                            <p>Novelty</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 9 %}
-                            <p>Hip-Hop</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 10 %}
-                            <p>Electronic</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 11 %}
-                            <p>Metal</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 12 %}
-                            <p>Classical</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 13 %}
-                            <p>Folk</p>
-                        {% elif beatmap_entry.beatmap.genre_id == 14 %}
-                            <p>Jazz</p>
-                        {% else %}
-                            <p>Unknown</p>
-                        {% endif %}
+                        <p>{{ beatmap_entry.beatmap.genre }}</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="fw-bold">Language</p>
-                        {% if beatmap_entry.beatmap.language_id == 0 %}
-                            <p>Any</p>
-                        {% elif beatmap_entry.beatmap.language_id == 1 %}
-                            <p>Unspecified</p>
-                        {% elif beatmap_entry.beatmap.language_id == 2 %}
-                            <p>English</p>
-                        {% elif beatmap_entry.beatmap.language_id == 3 %}
-                            <p>Japanese</p>
-                        {% elif beatmap_entry.beatmap.language_id == 4 %}
-                            <p>Chinese</p>
-                        {% elif beatmap_entry.beatmap.language_id == 5 %}
-                            <p>Instrumental</p>
-                        {% elif beatmap_entry.beatmap.language_id == 6 %}
-                            <p>Korean</p>
-                        {% elif beatmap_entry.beatmap.language_id == 7 %}
-                            <p>French</p>
-                        {% elif beatmap_entry.beatmap.language_id == 8 %}
-                            <p>German</p>
-                        {% elif beatmap_entry.beatmap.language_id == 9 %}
-                            <p>Swedish</p>
-                        {% elif beatmap_entry.beatmap.language_id == 10 %}
-                            <p>Spanish</p>
-                        {% elif beatmap_entry.beatmap.language_id == 11 %}
-                            <p>Italian</p>
-                        {% elif beatmap_entry.beatmap.language_id == 12 %}
-                            <p>Russian</p>
-                        {% elif beatmap_entry.beatmap.language_id == 13 %}
-                            <p>Polish</p>
-                        {% elif beatmap_entry.beatmap.language_id == 14 %}
-                            <p>Other</p>
-                        {% else %}
-                            <p>Unknown</p>
-                        {% endif %}
+                        <p>{{ beatmap_entry.beatmap.language }}</p>
                     </div>
+
                 </div>
                 {% if beatmap_entry.beatmap.tags %}
                 <p class="fw-bold">Tags</p>
