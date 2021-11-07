@@ -5,6 +5,7 @@
 {% load length_format %}
 {% load convert_beatmap_stat %}
 {% load convert_datetime %}
+{% load beatmap_constants %}
 {% load static %}
 
 <div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
@@ -225,11 +226,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
-                        <p> {{ beatmap.genre }}</p>
+                        <p> {{ beatmap.genre_id|get_genre_name }}</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="fw-bold">Language</p>
-                        <p>{{ beatmap.language }}</p>
+                        <p>{{ beatmap.language_id|get_language_name }}</p>
                     </div>
                 </div>
                 {% if beatmap.tags %}

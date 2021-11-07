@@ -115,8 +115,5 @@ def get_beatmap_detail(beatmap_id: int) -> dict:
     parameter = {'b': beatmap_id, 'k': OSU_API_V1_KEY}
     request_data = requests.get("https://osu.ppy.sh/api/get_beatmaps", params=parameter)
     if (request_data.status_code == 200) and (request_data.json() != []):
-        beatmap = request_data.json()[0]
-        beatmap['language'] = constants.languages.get(int(beatmap['language_id']), "Unknown")
-        beatmap['genre'] = constants.genres.get(int(beatmap['genre_id']), "Unknown")
-        return beatmap
+        return request_data.json()[0]
     return None
