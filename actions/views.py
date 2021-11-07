@@ -31,9 +31,11 @@ def update_beatmap_action(request):
 
     This view can only activate by superuser and staff.
     """
+    # If this action is already running, return error message.
     if ActionLog.objects.filter(name="Update all beatmaps metadata", status=1).exists():
         messages.error(request, "This action is already running!")
         return redirect('actions')
+    # Create a new action log for binding with the worker.
     action_log = ActionLog()
     action_log.name = "Update all beatmaps metadata"
     action_log.running_text = "Start working thread..."
@@ -41,6 +43,7 @@ def update_beatmap_action(request):
     action_log.start_user = request.user
     action_log.save()
     action_log.log.save(f"log_{action_log.id}.log", ContentFile(f'# Log for worker ID : {action_log.id}\n'))
+    # Start a new thread to work on this action.
     thread_worker = threading.Thread(target=update_beatmap_action_script, args=[action_log])
     thread_worker.setDaemon(True)
     thread_worker.start()
@@ -59,15 +62,19 @@ def check_action_log(request, log_id):
     action = get_object_or_404(ActionLog, id=log_id)
     try:
         if action.status == 1 or action.status == 0:
+            # The action is running or in idle state, it will return the start time minus the current time in seconds.
             duration = (timezone.now() - action.time_start).total_seconds()
         elif action.status == 2:
+            # The action is finished, it will return the duration that tasks is running (fimished - start) in seconds.
             duration = (action.time_finish - action.time_start).total_seconds()
         else:
+            # To avoid error in case that task is failed to run, it will return as unknown.
             duration = "Unknown"
     except TypeError:
         # The time will be show as Unknown when action that is finish not have finish time
         duration = "Unknown"
 
+    # If the duration is known, convert it to the readable format.
     if duration != "Unknown":
         hours = duration//3600
         duration = duration - (hours*3600)
@@ -75,6 +82,7 @@ def check_action_log(request, log_id):
         seconds = duration - (minutes*60)
         duration = '{:02}:{:02}:{:02}'.format(int(hours), int(minutes), int(seconds))
 
+    # Return the duration and status of the action.
     if request.method == "GET":
         return JsonResponse({"running_text": action.running_text, "status": action.status, "duration": duration}, status=200)
     return JsonResponse({}, status=400)
