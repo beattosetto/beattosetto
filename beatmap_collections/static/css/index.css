@@ -270,6 +270,19 @@ a.dropdown-item {
 
 .beatmap-comment {
     line-height: 1.0;
+    margin-top: -5px;
+}
+
+.beatmap-creatpr {
+    margin-top: -5px
+}
+
+.beatmap-author {
+    margin-top: -10px;
+}
+
+.beatmap-button {
+    margin-top: -10px;
 }
 
 .modal-small {
