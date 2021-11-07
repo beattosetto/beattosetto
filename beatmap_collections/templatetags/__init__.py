@@ -4,3 +4,4 @@ from .convert_star_rating import convert_star_rating
 from .length_format import length_format
 from .round_up import round_up
 from .thousand_seperator import thousand_seperator
+from .beatmap_constants import *

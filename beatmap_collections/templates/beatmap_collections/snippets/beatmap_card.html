@@ -4,6 +4,7 @@
 {% load round_up %}
 {% load length_format %}
 {% load convert_beatmap_stat %}
+{% load beatmap_constants %}
 {% load static %}
 
 
@@ -222,11 +223,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
-                        <p>{{ beatmap_entry.beatmap.genre }}</p>
+                        <p>{{ beatmap_entry.beatmap.genre_id|get_genre_name }}</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="fw-bold">Language</p>
-                        <p>{{ beatmap_entry.beatmap.language }}</p>
+                        <p>{{ beatmap_entry.beatmap.language_id|get_language_name }}</p>
                     </div>
 
                 </div>
