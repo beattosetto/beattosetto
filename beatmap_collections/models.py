@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 from django.utils import timezone
 
+
 FALLBACK_USER_KEY = 1
 
 
@@ -199,7 +200,6 @@ class Beatmap(models.Model):
 
     def __str__(self):
         return f"{self.title} [{self.version}]"
-
 
 class BeatmapEntry(models.Model):
     """This model acts as a pointer to a beatmap.

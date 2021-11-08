@@ -5,6 +5,7 @@
 {% load length_format %}
 {% load convert_beatmap_stat %}
 {% load convert_datetime %}
+{% load beatmap_constants %}
 {% load static %}
 
 <div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
@@ -25,17 +26,7 @@
             {% else %}
             <p>&zwnj;</p>
             {% endif %}
-            <p style="margin-top: -5px">
-            {% if beatmap.mode == "0" %}
-                <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "1" %}
-                <img alt="taiko" src="{% static "gamemode/taiko.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "2" %}
-                <img alt="fruit" src="{% static "gamemode/fruit.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "3" %}
-                <img alt="mania" src="{% static "gamemode/mania.png" %}" width="20px" height="20px">
-            {% endif %}
-
+            <img alt="{{ beatmap.mode|get_mode_name }}" src="{% static beatmap.mode|get_mode_image %}" width="20px" height="20px">
             {% include "beatmap_collections/snippets/star_rating_color_demo.html" %}
             {% if beatmap.approved == "4" %}
                 <span class="badge rounded-pill bold-font" style="background-color: rgb(241, 101, 160); color: rgb(51, 58, 61);">LOVED</span>
@@ -82,15 +73,7 @@
         <h4 class="beatmap-title fw-bold">{{ beatmap.title }}</h4>
         <h6 class="fw-bold">{{ beatmap.artist }}</h6>
         <h6 class="fw-bold" style="color: #a5a5a5">{{ beatmap.version }}</h6>
-            {% if beatmap.mode == "0" %}
-                <img alt="osu" src="{% static "gamemode/osu.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "1" %}
-                <img alt="taiko" src="{% static "gamemode/taiko.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "2" %}
-                <img alt="fruit" src="{% static "gamemode/fruit.png" %}" width="20px" height="20px">
-            {% elif beatmap.mode == "3" %}
-                <img alt="mania" src="{% static "gamemode/mania.png" %}" width="20px" height="20px">
-            {% endif %}
+            <img alt="{{ beatmap.mode|get_mode_name }}" src="{% static beatmap.mode|get_mode_image %}" width="20px" height="20px">
           {% include "beatmap_collections/snippets/star_rating_color_demo.html" %}
             {% if beatmap.approved == "4" %}
                 <span class="badge rounded-pill bold-font" style="background-color: rgb(241, 101, 160); color: rgb(51, 58, 61); margin-top: -2px">LOVED</span>
@@ -233,73 +216,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <p class="fw-bold">Genre</p>
-                        {% if beatmap.genre_id == '0' %}
-                            <p>Any</p>
-                        {% elif beatmap.genre_id == '1' %}
-                            <p>Unspecified</p>
-                        {% elif beatmap.genre_id == '2' %}
-                            <p>Video Game</p>
-                        {% elif beatmap.genre_id == '3' %}
-                            <p>Anime</p>
-                        {% elif beatmap.genre_id == '4' %}
-                            <p>Rock</p>
-                        {% elif beatmap.genre_id == '5' %}
-                            <p>Pop</p>
-                        {% elif beatmap.genre_id == '6' %}
-                            <p>Other</p>
-                        {% elif beatmap.genre_id == '7' %}
-                            <p>Novelty</p>
-                        {% elif beatmap.genre_id == '9' %}
-                            <p>Hip-Hop</p>
-                        {% elif beatmap.genre_id == '10' %}
-                            <p>Electronic</p>
-                        {% elif beatmap.genre_id == '11' %}
-                            <p>Metal</p>
-                        {% elif beatmap.genre_id == '12' %}
-                            <p>Classical</p>
-                        {% elif beatmap.genre_id == '13' %}
-                            <p>Folk</p>
-                        {% elif beatmap.genre_id == '14' %}
-                            <p>Jazz</p>
-                        {% else %}
-                            <p>Unknown</p>
-                        {% endif %}
+                        <p> {{ beatmap.genre_id|get_genre_name }}</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="fw-bold">Language</p>
-                        {% if beatmap.language_id == '0' %}
-                            <p>Any</p>
-                        {% elif beatmap.language_id == '1' %}
-                            <p>Unspecified</p>
-                        {% elif beatmap.language_id == '2' %}
-                            <p>English</p>
-                        {% elif beatmap.language_id == '3' %}
-                            <p>Japanese</p>
-                        {% elif beatmap.language_id == '4' %}
-                            <p>Chinese</p>
-                        {% elif beatmap.language_id == '5' %}
-                            <p>Instrumental</p>
-                        {% elif beatmap.language_id == '6' %}
-                            <p>Korean</p>
-                        {% elif beatmap.language_id == '7' %}
-                            <p>French</p>
-                        {% elif beatmap.language_id == '8' %}
-                            <p>German</p>
-                        {% elif beatmap.language_id == '9' %}
-                            <p>Swedish</p>
-                        {% elif beatmap.language_id == '10' %}
-                            <p>Spanish</p>
-                        {% elif beatmap.language_id == '11' %}
-                            <p>Italian</p>
-                        {% elif beatmap.language_id == '12' %}
-                            <p>Russian</p>
-                        {% elif beatmap.language_id == '13' %}
-                            <p>Polish</p>
-                        {% elif beatmap.language_id == '14' %}
-                            <p>Other</p>
-                        {% else %}
-                            <p>Unknown</p>
-                        {% endif %}
+                        <p>{{ beatmap.language_id|get_language_name }}</p>
                     </div>
                 </div>
                 {% if beatmap.tags %}
