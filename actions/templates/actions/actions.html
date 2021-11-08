@@ -57,10 +57,17 @@
     </div>
     <div class="row">
         <div class="col-4" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
-          <a class="btn btn-warning hvr-bounce-to-right-warning" href="{% url 'actions_update_beatmap' %}">Update all beatmaps metadata</a>
+            {% if update_beatmap_running %}
+            <a class="btn btn-warning hvr-bounce-to-right-warning disabled" href="#" aria-disabled="true">Update all beatmaps metadata</a>
+            {% else %}
+            <a class="btn btn-warning hvr-bounce-to-right-warning" href="{% url 'actions_update_beatmap' %}">Update all beatmaps metadata</a>
+            {% endif %}
         </div>
         <div class="col-8" data-aos="fade-up" data-aos-duration="850" data-aos-once="true">
           <p>Update all beatmap metadata in the server.</p>
+            {% if update_beatmap_running %}
+            <p class="text-warning"><i class="fas fa-ban"></i> Cannot start the new worker now : other worker are working on this task.</p>
+            {% endif %}
         </div>
     </div>
 
@@ -101,6 +108,12 @@
     {% if action.get_log_url %}
     <p><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{{ action.log.url }}"><i class="fas fa-file-download icon-menu hvr-icon"></i> Download log</a></p>
     {% endif %}
+
+    {% if action.status == 2 or action.status == 3 %}
+    <a class="btn btn-danger hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="{% url 'delete_action_log' action.id %}" role="button"><i class="fas fa-trash"></i> Delete Log</a>
+    {% else %}
+    <a class="btn btn-danger disabled hvr-sweep-to-right-danger" id="delete_log_{{ action.id }}" href="#" role="button" aria-disabled="true"><i class="fas fa-trash"></i> Delete Log</a>
+    {% endif %}
     </div>
     <p></p>
     {% endfor %}
@@ -128,6 +141,7 @@
                 const status_action0id = document.getElementById("status_{{ action.id }}");
                 const status_running_log_action0id = document.getElementById("running_log_{{ action.id }}");
                 const status_duration_action0id = document.getElementById("duration_{{ action.id }}");
+                const delete_button_action0id = document.getElementById("delete_log_{{ action.id }}");
 
                 // If response, update HTML
                 if (response) {
@@ -154,6 +168,16 @@
                         }
 
                         status_action0id.innerHTML = status_message;
+
+                        if (Data['status'] === 3 || Data['status'] === 2) {
+                            delete_button_action0id.classList.remove("disabled");
+                            delete_button_action0id.aria_disabled = "true";
+                            delete_button_action0id.href = "{% url 'delete_action_log' action.id %}";
+                        } else {
+                            delete_button_action0id.classList.add("disabled");
+                            delete_button_action0id.aria_disabled = "false";
+                            delete_button_action0id.href = "#";
+                        }
                     }
                 }
             }

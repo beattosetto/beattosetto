@@ -43,5 +43,5 @@ class ActionLog(models.Model):
     def get_log_url(self):
         try:
             return self.log.url
-        except IOError:
+        except ValueError:
             return None
