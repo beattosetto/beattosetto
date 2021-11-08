@@ -262,7 +262,7 @@ a.dropdown-item {
 }
 
 .beatmap-artist {
-    line-height: 0.8;
+    line-height: normal;
 }
 
 .beatmap-source {
