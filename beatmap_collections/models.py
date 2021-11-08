@@ -5,6 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 from PIL import Image
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 
 FALLBACK_USER_KEY = 1
@@ -31,7 +32,7 @@ class Collection(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=250, blank=True)
-    tags = models.TextField(default="Pending", blank=True)
+    tags = TaggableManager()
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
 
