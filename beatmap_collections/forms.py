@@ -7,10 +7,11 @@ class CreateCollectionForm(forms.ModelForm):
     collection_list = forms.ImageField(required=False, label='Image')
     name = forms.CharField(required=True, label='Name', max_length=50)
     description = forms.CharField(required=True, widget=forms.Textarea, label='Description', max_length=500)
+    tags = forms.CharField(required=True, label='Tags', max_length=100)
 
     class Meta:
         model = Collection
-        fields = ['collection_list', 'name', 'description']
+        fields = ['collection_list', 'name', 'description', 'tags']
 
 
 class AddBeatmapForm(forms.Form):
