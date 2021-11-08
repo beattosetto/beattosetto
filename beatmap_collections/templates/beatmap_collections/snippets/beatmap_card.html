@@ -43,8 +43,6 @@
                 <span class="badge rounded-pill bold-font" style="background-color: rgb(0, 0, 0); color: rgb(83, 94, 101);">GRAVEYARD</span>
             {% endif %}
 
-            <p></p>
-              <p class="card-text text-muted" style="margin-top: -5px"><small>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap_entry.beatmap.creator_id }}" class="text-decoration-none spacing-hover-short">{{ beatmap_entry.beatmap.creator }}</a></small></p>
             </p>
               <p class="card-text text-muted beatmap-creator"><small>mapped by <a href="https://osu.ppy.sh/users/{{ beatmap_entry.beatmap.creator_id }}" class="text-decoration-none spacing-hover-short">{{ beatmap_entry.beatmap.creator }}</a></small></p>
           {% if beatmap_entry.comment != '' %}
