@@ -44,7 +44,7 @@ class ActionLog(models.Model):
         return f'{self.name} [{status_text}]'
 
     def get_log_url(self):
-        """Method that returns log url."""
+        """Method that return a log url."""
         try:
             return self.log.url
         except ValueError:
