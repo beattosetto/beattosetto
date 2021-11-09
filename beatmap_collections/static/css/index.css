@@ -244,6 +244,18 @@ a.dropdown-item {
     border-color: var(--bs-primary)!important;
 }
 
+.btn-facebook {
+    background-color: #1977F2 !important;
+    color: white !important;
+    border-color: #1977F2 !important;;
+}
+
+.btn-twitter {
+    background-color: #1977F2 !important;
+    color: white !important;
+    border-color: #1977F2 !important;
+}
+
 .form-error {
     color: red!important;
 }
