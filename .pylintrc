@@ -23,7 +23,11 @@ disable=undefined-variable,
         import-self,
         unspecified-encoding,
         consider-using-with,
+        too-many-locals,
+        broad-except,
+
 
 
 [FORMAT]
-max-line-length=120
+max-line-length=150
+max-statements=150
