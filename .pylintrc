@@ -1,5 +1,6 @@
 [MASTER]
 ignore=migrations
+ignore-patterns=**/migrations/*.py
 
 [MESSAGES CONTROL]
 
@@ -30,8 +31,6 @@ disable=undefined-variable,
         broad-except,
         reimported,
         consider-using-in,
-
-
 
 [FORMAT]
 max-line-length=150
