@@ -1,6 +1,13 @@
 [MASTER]
+
+# Add files or directories to the blacklist. They should be base names, not
+# paths.
 ignore=migrations
+
+# Add files or directories matching the regex patterns to the blacklist. The
+# regex matches against base names, not paths.
 ignore-patterns=**/migrations/*.py
+
 
 [MESSAGES CONTROL]
 
@@ -32,6 +39,11 @@ disable=undefined-variable,
         reimported,
         consider-using-in,
 
+
 [FORMAT]
+
+# Maximum number of characters on a single line.
 max-line-length=150
+
+# Maximum number of statements in a function.
 max-statements=150
