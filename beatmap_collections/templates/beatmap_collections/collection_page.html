@@ -1,5 +1,6 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+{%  load social_share %}
 
     {% block meta_tags %}
     <!-- Facebook Meta Tags -->
@@ -92,6 +93,11 @@
         <h3 class="text-center">Let's add one!</h3>
     </div>
     {% endif %}
+    <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+        {% url 'collection' collection.id as collection_url %}
+        {% post_to_facebook collection_url "Post to Facebook" "btn btn-beattosetto" %}
+        {% post_to_twitter "" collection_url "Share to Twitter" "btn btn-beattosetto" %}
+    </div>
 </div>
 
     {% if user.is_authenticated %}
