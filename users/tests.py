@@ -1,3 +1,6 @@
+"""
+This tests.py contain SettingViewTest class which tests for the settings views.
+"""
 from django.test import TestCase
 from django.urls import reverse
 from .models import *
