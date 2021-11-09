@@ -1,13 +1,18 @@
+"""
+This forms.py contain ProfileUpdateForm & UserUpdateForm class.
+"""
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """Form in user's settings page to update image of that user."""
     profile_picture = forms.ImageField(required=False, label='Profile Picture')
     cover_image = forms.ImageField(required=False, label='Cover Image')
 
     class Meta:
+        """Create field that contain profile picture & cover image."""
         model = Profile
         fields = ['profile_picture', 'cover_image']
 
@@ -18,5 +23,6 @@ class UserUpdateForm(forms.ModelForm):
     username = forms.CharField(required=True, label='Username')
 
     class Meta:
+        """Create field that contain username & email."""
         model = User
         fields = ['username', 'email']
