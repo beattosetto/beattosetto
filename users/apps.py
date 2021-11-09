@@ -5,7 +5,7 @@ from django.apps import AppConfig
 
 
 class UsersConfig(AppConfig):
-    """UserConfig class contain default auto field & import user's signal."""
+    """Class for users app configuration."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'users'
 
