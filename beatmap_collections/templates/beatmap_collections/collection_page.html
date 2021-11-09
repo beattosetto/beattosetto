@@ -95,8 +95,10 @@
     {% endif %}
     <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         {% url 'collection' collection.id as collection_url %}
-        {% post_to_facebook collection_url "Post to Facebook" "btn btn-beattosetto" %}
-        {% post_to_twitter "" collection_url "Share to Twitter" "btn btn-beattosetto" %}
+        <div class="hstack gap-3">
+            {% post_to_facebook collection_url "Post to Facebook" "btn btn-facebook" %}
+            {% post_to_twitter "" collection_url "Share to Twitter" "btn btn-twitter" %}
+        </div>
     </div>
 </div>
 
