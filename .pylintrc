@@ -13,4 +13,8 @@ disable=undefined-variable,
         wildcard-import,
         relative-beyond-top-level,
         import-outside-toplevel,
-        unused-import
+        unused-import,
+        no-member
+
+[FORMAT]
+max-line-length=120
