@@ -1,3 +1,6 @@
+"""
+Views for using in actions app.
+"""
 import threading
 from django.contrib.auth.decorators import user_passes_test
 from django.core.checks import messages
@@ -100,5 +103,5 @@ def delete_action_log(request, log_id):
         messages.error(request, "Cannot delete the Action log that is running or in idle state!")
         return redirect('actions')
     action.delete()
-    messages.success(request, f"Delete action log successfully!")
+    messages.success(request, "Delete action log successfully!")
     return redirect('actions')
