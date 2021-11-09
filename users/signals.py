@@ -1,3 +1,6 @@
+"""
+This signals.py manage the signal which send by user.
+"""
 import requests
 from allauth.socialaccount.models import SocialAccount
 from django.core.files import File
