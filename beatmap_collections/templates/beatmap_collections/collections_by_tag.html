@@ -54,9 +54,17 @@
   </div>
     <section class="py-4 container">
         <div class="row g-4 py-4">
+        {% if collections %}
         {% for collection in collections %}
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
+        {% else %}
+            <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+                <h1 class="text-center" ><img src="{% static "img/no-tag-collection.gif" %}" style="max-width: 500px" class="w-100" alt="No collection in this tag"></h1>
+                <h3 class="text-center">No collection found with {{ tag }}!</h3>
+                <h3 class="text-center">Maybe the case?</h3>
+            </div>
+        {% endif %}
         </div>
     </section>
 </main>
