@@ -14,7 +14,13 @@
               {% with beatmaps_count=collection.beatmaps_count %}
               <p class="card-text">{{ beatmaps_count }} beatmap{{ beatmaps_count | pluralize  }}</p>
               {% endwith %}
-              <span class="badge rounded-pill bg-primary">Tag</span>
+              {% if collection.all_tags %}
+              {% for tag in collection.all_tags %}
+              <span class="badge rounded-pill bg-primary">{{ tag }}</span>
+              {% endfor %}
+              {% else %}
+              <p>&nbsp;</p>
+              {% endif %}
           </div>
         </div>
       </div>
