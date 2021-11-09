@@ -1,5 +1,6 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+{% load social_share %}
 
     {% block meta_tags %}
     <!-- Facebook Meta Tags -->
@@ -61,11 +62,21 @@
     </div>
   </div>
     <section class="py-4 container">
+        {% if collections %}
         <h1 class="display-4 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">{{ profile_owner.username }}'s Collections</h1>
         <div class="row g-4 py-4">
         {% for collection in collections %}
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
+        </div>
+        {% endif %}
+        <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+            {% url 'profile' profile.id as profile_url %}
+            <p><i class="fas fa-share"></i> Share your beattosetto profile to other circle clicker</p>
+            <div class="hstack gap-3">
+                {% post_to_facebook profile_url "<i class='fab fa-facebook'></i> Make a new post" "btn btn-facebook" %}
+                {% post_to_twitter "" profile_url "<i class='fab fa-twitter'></i> Tweet this" "btn btn-twitter" %}
+            </div>
         </div>
     </section>
 </main>
