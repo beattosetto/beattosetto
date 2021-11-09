@@ -1,3 +1,6 @@
+"""
+This views.py manage about user's request actions for their profile view.
+"""
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -20,6 +23,7 @@ COOL_SETTINGS_WORD = [
 
 @login_required()
 def settings(request):
+    """Update user's profile data."""
     if request.method == 'POST':
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         user_form = UserUpdateForm(request.POST, instance=request.user)
