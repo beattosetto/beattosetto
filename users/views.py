@@ -1,5 +1,5 @@
 """
-This views.py manage about user's request actions for their profile view.
+Views for using in users app.
 """
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
@@ -17,7 +17,9 @@ COOL_SETTINGS_WORD = [
     'OOoOoooOOooOOO!',
     'But I think your profile is looking cool now!',
     "You love Pepe? That's a good idea! I like Pepe.",
-    "And if you ask me how I'm feeling. Don't tell me you're too blind to see."
+    "And if you ask me how I'm feeling. Don't tell me you're too blind to see.",
+    "I love osu! so much. I want to try it but I doesn't try it yet. Overall I should tried it,"
+    " But I still not try it. I hope someday I will have try it except I didn't try it."
 ]
 
 

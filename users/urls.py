@@ -1,5 +1,5 @@
 """
-This urls.py manage about redirect path in urlpattern.
+File contain url path for users app.
 """
 from django.contrib import admin
 from django.urls import path, include

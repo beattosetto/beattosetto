@@ -1,5 +1,5 @@
 """
-This tests.py contain SettingViewTest class which tests for the settings views.
+Tests for views in users app.
 """
 from django.test import TestCase
 from django.urls import reverse

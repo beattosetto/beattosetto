@@ -1,5 +1,5 @@
 """
-This models.py contain Profile class.
+Model for users app.
 """
 from django.db import models
 from django.core.validators import FileExtensionValidator

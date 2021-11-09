@@ -1,5 +1,5 @@
 """
-This admin.py manage about the profile for adding to admin page.
+Add users database model to admin page.
 """
 from django.contrib import admin
 from .models import *

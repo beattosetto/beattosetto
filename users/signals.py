@@ -1,5 +1,5 @@
 """
-This signals.py manage the signal which send by user.
+Signal for using in account registration & login.
 """
 import requests
 from allauth.socialaccount.models import SocialAccount
