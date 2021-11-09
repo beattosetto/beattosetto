@@ -11,4 +11,6 @@
 # --disable=W"
 disable=undefined-variable,
         wildcard-import,
-        relative-beyond-top-level
+        relative-beyond-top-level,
+        import-outside-toplevel,
+        unused-import
