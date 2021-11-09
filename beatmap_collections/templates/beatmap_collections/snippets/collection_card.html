@@ -16,7 +16,7 @@
               {% endwith %}
               {% if collection.all_tags %}
               {% for tag in collection.all_tags %}
-              <span class="badge rounded-pill bg-primary">{{ tag }}</span>
+              <a href="{% url 'collection_by_tag' tag %}"><span class="badge rounded-pill bg-primary">{{ tag }}</span></a>
               {% endfor %}
               {% else %}
               <p>&nbsp;</p>
