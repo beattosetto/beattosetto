@@ -1,3 +1,6 @@
+"""
+This file contain the database of actions app.
+"""
 from django.contrib.auth.models import User
 from django.db import models
 from beatmap_collections.models import FALLBACK_USER_KEY
@@ -41,6 +44,7 @@ class ActionLog(models.Model):
         return f'{self.name} [{status_text}]'
 
     def get_log_url(self):
+        """Method that returns log url."""
         try:
             return self.log.url
         except ValueError:
