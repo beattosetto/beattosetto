@@ -47,6 +47,18 @@ class Collection(models.Model):
         if cover_image.height > 1080 or cover_image.width > 1920:
             cover_image.thumbnail((1920, 1080))
             cover_image.save(self.collection_list.path)
+
+    def all_tags(self):
+        """Return all tags of this collection as a list."""
+        return self.tags.all()
+
+    def all_tags_string(self):
+        """Return all tags of this collection as a string."""
+        tag_string = ""
+        for tag in self.tags.all():
+            tag_string += tag.name + ","
+        # Remove the last comma
+        return tag_string[:-1]
     
     @property
     def beatmaps_count(self):
