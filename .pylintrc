@@ -15,7 +15,10 @@ disable=undefined-variable,
         import-outside-toplevel,
         unused-import,
         no-member,
-        too-few-public-methods
+        too-few-public-methods,
+        unused-argument,
+        wrong-import-order,
+        ungrouped-imports,
 
 [FORMAT]
 max-line-length=120
