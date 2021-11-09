@@ -19,7 +19,7 @@ COOL_SETTINGS_WORD = [
     "You love Pepe? That's a good idea! I like Pepe.",
     "And if you ask me how I'm feeling. Don't tell me you're too blind to see.",
     "I love osu! so much. I want to try it but I doesn't try it yet. Overall I should tried it,"
-    " But I still not try it. I hope someday I will have try it except I didn't try it."
+    " But I still not try it. I hope someday I will have try it except I didn't try it - Some random member."
 ]
 
 
