@@ -25,6 +25,8 @@ disable=undefined-variable,
         consider-using-with,
         too-many-locals,
         broad-except,
+        reimported,
+        consider-using-in,
 
 
 
