@@ -95,9 +95,10 @@
     {% endif %}
     <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         {% url 'collection' collection.id as collection_url %}
+        <p><i class="fas fa-share"></i> Share your collection to other circle clicker</p>
         <div class="hstack gap-3">
-            {% post_to_facebook collection_url "Post to Facebook" "btn btn-facebook" %}
-            {% post_to_twitter "" collection_url "Share to Twitter" "btn btn-twitter" %}
+            {% post_to_facebook collection_url "<i class='fab fa-facebook'></i> Make a new post" "btn btn-facebook" %}
+            {% post_to_twitter "" collection_url "<i class='fab fa-twitter'></i> Make a new tweet" "btn btn-twitter" %}
         </div>
     </div>
 </div>
