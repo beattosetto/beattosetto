@@ -20,6 +20,10 @@ disable=undefined-variable,
         wrong-import-order,
         ungrouped-imports,
         consider-using-f-string,
+        import-self,
+        unspecified-encoding,
+        consider-using-with,
+
 
 [FORMAT]
 max-line-length=120
