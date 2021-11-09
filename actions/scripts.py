@@ -1,3 +1,6 @@
+"""
+Script for using in worker.
+"""
 import logging
 import os
 import time
@@ -25,7 +28,8 @@ def update_beatmap_action_script(action: ActionLog):
             os.mkdir('actions_logs_debug')
         # Setup the new logger
         info_logger = setup_logger(f'info_log_{action.id}', f'media/{action.log}', 'a+', logging.INFO, LOG_FORMAT)
-        debug_logger = setup_logger(f'debug_log_{action.id}', f'actions_logs_debug/log_{action.id}_debug.log', 'a+', logging.DEBUG, LOG_DEBUG_FORMAT)
+        debug_logger = setup_logger(f'debug_log_{action.id}', f'actions_logs_debug/log_{action.id}_debug.log',
+                                    'a+', logging.DEBUG, LOG_DEBUG_FORMAT)
         log_two_handler(info_logger, debug_logger, logging.INFO, "Setup logger complete.")
         beatmap_count = Beatmap.objects.all().count()
         log_two_handler(info_logger, debug_logger, logging.INFO, f"Prepare to update {beatmap_count} beatmaps.")
@@ -36,32 +40,40 @@ def update_beatmap_action_script(action: ActionLog):
             count += 1
             action.running_text = f"Updating {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
             action.save()
-            log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})")
+            log_two_handler(info_logger, debug_logger, logging.INFO,
+                            f"Updating {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})")
             beatmap_id = beatmap.beatmap_id
             parameter = {'b': beatmap.beatmap_id, 'k': OSU_API_V1_KEY}
-            log_two_handler(info_logger, debug_logger, logging.INFO, f'Requesting beatmap data for {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})')
+            log_two_handler(info_logger, debug_logger, logging.INFO,
+                            f'Requesting beatmap data for {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})')
             request_data = requests.get("https://osu.ppy.sh/api/get_beatmaps", params=parameter)
             if (request_data.status_code == 200) and (request_data.json() != []):
                 try:
                     beatmap_json = request_data.json()[0]
-                    log_two_handler(info_logger, debug_logger, logging.INFO, f'Beatmap data received for {beatmap.title}[{beatmap.version}]')
+                    log_two_handler(info_logger, debug_logger, logging.INFO,
+                                    f'Beatmap data received for {beatmap.title}[{beatmap.version}]')
                     debug_logger.debug(f"{beatmap.title}[{beatmap.version}] JSON Data : {beatmap_json}")
 
-                    action.running_text = f"Fetching the new beatmap picture of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
+                    action.running_text = f"Fetching the new beatmap picture of" \
+                                          f" {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                     action.save()
 
                     # Try to delete the old beatmap picture and replace it with a new one
                     try:
                         os.remove(f"media/{beatmap.beatmap_card}")
-                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Deleted old beatmap card picture of {beatmap.title}[{beatmap.version}]")
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"Deleted old beatmap card picture of {beatmap.title}[{beatmap.version}]")
                     except FileNotFoundError:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"No old beatmap card picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                        log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                        f"No old beatmap card picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
 
                     try:
                         os.remove(f"media/{beatmap.beatmap_list}")
-                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Deleted old beatmap list picture of {beatmap.title}[{beatmap.version}]")
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"Deleted old beatmap list picture of {beatmap.title}[{beatmap.version}]")
                     except FileNotFoundError:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"No old beatmap list picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                        log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                        f"No old beatmap list picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
 
                     card_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/card.jpg")
@@ -126,12 +138,14 @@ def update_beatmap_action_script(action: ActionLog):
                     log_two_handler(info_logger, debug_logger, logging.INFO,
                                     f"Saved new metadata of {beatmap.title}[{beatmap.version}]")
                     success += 1
-                except Exception as e:
-                    log_two_handler(info_logger, debug_logger, logging.ERROR, f"Error while updating the metadata of {beatmap.title}[{beatmap.version}] : {str(e)}")
+                except Exception as error:
+                    log_two_handler(info_logger, debug_logger, logging.ERROR,
+                                    f"Error while updating the metadata of {beatmap.title}[{beatmap.version}] : {str(error)}")
                     log_two_handler(info_logger, debug_logger, logging.ERROR, f"Traceback detail: \n {traceback.format_exc()}")
                     failed += 1
             else:
-                log_two_handler(info_logger, debug_logger, logging.ERROR, f"Failed to fetch beatmap data of {beatmap.title}[{beatmap.version}] from osu! API")
+                log_two_handler(info_logger, debug_logger, logging.ERROR,
+                                f"Failed to fetch beatmap data of {beatmap.title}[{beatmap.version}] from osu! API")
                 debug_logger.error(f"Status Code: {request_data.status_code}")
                 debug_logger.error(f"JSON Data: {request_data.json()}")
                 failed += 1
@@ -144,8 +158,8 @@ def update_beatmap_action_script(action: ActionLog):
         log_two_handler(info_logger, debug_logger, logging.INFO,
                         f"Task running successfully with {success} success and {failed} failed!")
         log_two_handler(info_logger, debug_logger, logging.INFO, "Action finished! Thanks for using beatto-chan services.")
-    except Exception as e:
+    except Exception as error:
         action.status = 3
-        action.running_text = f"Start Action failed : {str(e)}"
+        action.running_text = f"Start Action failed : {str(error)}"
         action.time_finish = timezone.now()
         action.save()
