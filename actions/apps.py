@@ -1,5 +1,5 @@
 """
-This apps.py is for Django apps configuration.
+This apps.py manage for Django apps configuration.
 """
 from django.apps import AppConfig
 

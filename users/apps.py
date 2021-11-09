@@ -1,5 +1,5 @@
 """
-This apps.py contain UserConfig class.
+This apps.py manage for Django apps configuration.
 """
 from django.apps import AppConfig
 
