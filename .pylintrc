@@ -14,7 +14,8 @@ disable=undefined-variable,
         relative-beyond-top-level,
         import-outside-toplevel,
         unused-import,
-        no-member
+        no-member,
+        too-few-public-methods
 
 [FORMAT]
 max-line-length=120
