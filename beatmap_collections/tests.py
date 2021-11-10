@@ -139,6 +139,16 @@ class CollectionListingViewTest(TestCase):
         self.assertContains(response, collection_2.name)
 
 
+class CollectionListingByTagViewTest(TestCase):
+    def test_with_tag(self):
+        author = User.objects.create_user(username="test", password="test")
+        collection_with_tag = Collection.objects.create(name="Test", author=author)
+        collection_with_tag.tags.add("tag")
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['collections'], [collection_with_tag])
+
+
 class CollectionModelTest(TestCase):
     """Test methods in collection model."""
 
