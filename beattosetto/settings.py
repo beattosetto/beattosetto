@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.osu',
     'crispy_forms',
     'taggit'
+    'django_social_share'
 ]
 
 MIDDLEWARE = [
