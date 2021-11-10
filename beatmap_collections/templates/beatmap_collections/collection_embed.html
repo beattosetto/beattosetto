@@ -31,9 +31,9 @@
         </div>
         <div class="col-md-8" style="background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">
           <div class="card-body collection-background">
-              <a href="{% url 'collection' collection.id %}" class="text-decoration-none spacing-hover-short"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
+              <a target="_blank" href="{% url 'collection' collection.id %}" class="text-decoration-none spacing-hover-short"><h2 class="card-title text-primary">{{ collection.name }}</h2></a>
               <div class="card-content">
-                  <p class="text-muted">made by <a href="{% url 'profile' collection.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ collection.author.username }}</a></p>
+                  <p class="text-muted">made by <a target="_blank" href="{% url 'profile' collection.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ collection.author.username }}</a></p>
                   <p class="description">{{ collection.description }}</p>
               </div>
               {% with beatmaps_count=collection.beatmaps_count %}
@@ -41,7 +41,7 @@
               {% endwith %}
               {% if collection.all_tags %}
               {% for tag in collection.all_tags %}
-              <a href="{% url 'collection_by_tag' tag %}"><span class="badge rounded-pill bg-primary">{{ tag }}</span></a>
+              <a target="_blank" href="{% url 'collection_by_tag' tag %}"><span class="badge rounded-pill bg-primary">{{ tag }}</span></a>
               {% endfor %}
               {% else %}
               <p>&nbsp;</p>
