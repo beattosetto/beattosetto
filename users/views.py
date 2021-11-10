@@ -1,3 +1,6 @@
+"""
+Views for using in users app.
+"""
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -14,12 +17,15 @@ COOL_SETTINGS_WORD = [
     'OOoOoooOOooOOO!',
     'But I think your profile is looking cool now!',
     "You love Pepe? That's a good idea! I like Pepe.",
-    "And if you ask me how I'm feeling. Don't tell me you're too blind to see."
+    "And if you ask me how I'm feeling. Don't tell me you're too blind to see.",
+    "I love osu! so much. I want to try it but I doesn't try it yet. Overall I should tried it,"
+    " But I still not try it. I hope someday I will have try it except I didn't try it - Some random member."
 ]
 
 
 @login_required()
 def settings(request):
+    """Update user's profile data."""
     if request.method == 'POST':
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         user_form = UserUpdateForm(request.POST, instance=request.user)

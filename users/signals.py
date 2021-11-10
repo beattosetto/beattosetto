@@ -1,3 +1,6 @@
+"""
+Signal for using in account registration & login.
+"""
 import requests
 from allauth.socialaccount.models import SocialAccount
 from django.core.files import File
