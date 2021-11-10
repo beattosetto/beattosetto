@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 from PIL import Image
 from django.utils import timezone
-
+from taggit.managers import TaggableManager
 
 FALLBACK_USER_KEY = 1
 
@@ -31,7 +31,7 @@ class Collection(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=250, blank=True)
-    tags = models.TextField(default="Pending", blank=True)
+    tags = TaggableManager(blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
 
@@ -46,7 +46,19 @@ class Collection(models.Model):
         if cover_image.height > 1080 or cover_image.width > 1920:
             cover_image.thumbnail((1920, 1080))
             cover_image.save(self.collection_list.path)
-    
+
+    def all_tags(self):
+        """Return all tags of this collection as a list."""
+        return self.tags.all()
+
+    def all_tags_string(self):
+        """Return all tags of this collection as a string."""
+        tag_string = ""
+        for tag in self.tags.all():
+            tag_string += tag.name + ","
+        # Remove the last comma
+        return tag_string[:-1]
+
     @property
     def beatmaps_count(self):
         """Count beatmaps in the collection."""
@@ -200,6 +212,7 @@ class Beatmap(models.Model):
 
     def __str__(self):
         return f"{self.title} [{self.version}]"
+
 
 class BeatmapEntry(models.Model):
     """This model acts as a pointer to a beatmap.

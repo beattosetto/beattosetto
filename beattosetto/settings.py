@@ -29,6 +29,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default="localhost")
 
+TAGGIT_CASE_INSENSITIVE = True
+
 
 # Application definition
 
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.osu',
     'crispy_forms',
+    'taggit',
     'django_social_share'
 ]
 

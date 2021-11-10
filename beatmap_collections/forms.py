@@ -1,4 +1,5 @@
 from django import forms
+from taggit.managers import TaggableManager
 from .models import Collection
 
 
@@ -10,7 +11,7 @@ class CreateCollectionForm(forms.ModelForm):
 
     class Meta:
         model = Collection
-        fields = ['collection_list', 'name', 'description']
+        fields = ['collection_list', 'name', 'description', 'tags']
 
 
 class AddBeatmapForm(forms.Form):

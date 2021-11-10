@@ -1,0 +1,73 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/tags/{{ tag }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ tag }} in collections | beattosetto">
+    <meta property="og:description" content="List of collections that has '{{ tag }}' in collection's tags">
+    <meta property="og:image" content="{% static "img/hero-collections-by-tag.jpg" %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/tags/{{ tag }}">
+    <meta property="twitter:title" content="{{ tag }} in collections | beattosetto">
+    <meta property="twitter:description" content="List of collections that has '{{ tag }}' in collection's tags">
+    <meta property="twitter:image" content="{% static "img/hero-collections-by-tag.jpg" %}">
+    {% endblock %}
+
+    {% block title %}
+  <title>{{ tag }} in collections | beattosetto</title>
+   {% endblock %}
+
+
+{% block content %}
+<main class="text-light">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-collections-by-tag.jpg" %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">{{ tag }} in collections</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">List of collections that has '{{ tag }}' in collection's tags</p>
+            </div>
+        </div>
+    </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+    <section class="py-4 container">
+        <div class="row g-4 py-4">
+        {% if collections %}
+        {% for collection in collections %}
+            {% include "beatmap_collections/snippets/collection_card.html" %}
+        {% endfor %}
+        {% else %}
+            <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
+                <h1 class="text-center" ><img src="{% static "img/no-tag-collection.gif" %}" style="max-width: 500px" class="w-100" alt="No collection in this tag"></h1>
+                <h3 class="text-center">No collection found with {{ tag }}!</h3>
+                <h3 class="text-center">Maybe the case?</h3>
+            </div>
+        {% endif %}
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}

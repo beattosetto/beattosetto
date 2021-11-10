@@ -192,3 +192,13 @@ def delete_beatmap(request, collection_id, beatmap_entry_id):
     beatmap_entry.delete()
     messages.success(request, 'Delete beatmap from collection successfully!')
     return redirect('manage_beatmap', collection_id=collection_id)
+
+
+def collections_by_tag(request, tag):
+    """View for collection by tag"""
+    collections = Collection.objects.filter(tags__name__in=[tag])
+    context = {
+        'collections': collections,
+        'tag': tag,
+    }
+    return render(request, 'beatmap_collections/collections_by_tag.html', context)
