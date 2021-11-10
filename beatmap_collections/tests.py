@@ -57,16 +57,28 @@ class CollectionCreateViewTest(TestCase):
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertTrue(collection_form.is_valid())
 
+    def test_form_valid_with_tag_missing(self):
+        """Test the create collection form is valid despite the collection tags field is missing."""
+        collection_form_data = {'collection_list': 'collection_list/placeholder.png',
+                                'name': 'Test',
+                                'description': 'This is test',
+                                'tags': ''}
+
+        collection_form = CreateCollectionForm(collection_form_data)
+        self.assertTrue(collection_form.is_valid())
+
     def test_form_invalid(self):
         """Test the create collection form is invalid if required field is missing."""
         collection_form_data = {'collection_list': 'collection_list/placeholder.png',
                                 'name': '',
-                                'description': "It's missing!"}
+                                'description': "It's missing!",
+                                'tags': 'test'}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
         collection_form_data = {'collection_list': 'collection_list/placeholder.png',
                                 'name': 'Missing',
-                                'description': ''}
+                                'description': '',
+                                'tags': 'test'}
         collection_form = CreateCollectionForm(collection_form_data)
         self.assertFalse(collection_form.is_valid())
 
