@@ -99,6 +99,32 @@
         <div class="hstack gap-3">
             {% post_to_facebook collection_url "<i class='fab fa-facebook'></i> Make a new post" "btn btn-facebook" %}
             {% post_to_twitter "" collection_url "<i class='fab fa-twitter'></i> Tweet this" "btn btn-twitter" %}
+            <button class="btn btn-beattosetto" data-bs-toggle="modal" data-bs-target="#embedModal">
+                Embed in website
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="embedModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Embed code</h3>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <code>
+                        &lt;iframe src="{{ request.scheme }}://{{ request.get_host }}{% url 'collection_embed' collection.id %}" width="400" height="300"&gt;&lt;/iframe&gt;
+                        </code>
+                    </p>
+                    <div style="max-width:100%">
+                        <iframe src="{% url 'collection_embed' collection.id %}" width="400" height="300"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-beattosetto" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
