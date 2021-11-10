@@ -7,7 +7,6 @@ from PIL import Image
 from django.utils import timezone
 from taggit.managers import TaggableManager
 
-
 FALLBACK_USER_KEY = 1
 
 
@@ -59,7 +58,7 @@ class Collection(models.Model):
             tag_string += tag.name + ","
         # Remove the last comma
         return tag_string[:-1]
-    
+
     @property
     def beatmaps_count(self):
         """Count beatmaps in the collection."""
@@ -213,6 +212,7 @@ class Beatmap(models.Model):
 
     def __str__(self):
         return f"{self.title} [{self.version}]"
+
 
 class BeatmapEntry(models.Model):
     """This model acts as a pointer to a beatmap.
