@@ -263,7 +263,7 @@ class TemplateTagsFunctionTest(TestCase):
         self.assertEqual(round_up(199.99), 200)
 
 
-@skip("Unerror occured")
+# @skip("Unerror occured")
 class ListCollectionFromUserTest(TestCase):
     """Test for listing collection from a user."""
 
@@ -274,21 +274,19 @@ class ListCollectionFromUserTest(TestCase):
 
     def test_list_only_owner(self):
         """This page only lists collection from specific user."""
-        collections = [
-            create_collection("Taiko", user=self.owner),
-            create_collection("Mono", user=self.owner)
-        ]
+        collection_one = create_collection("Taiko", user=self.owner)
+        collection_two = create_collection("Mono", user=self.owner)
         create_collection("Mone", user=self.not_owner)
-        response = self.client.get(reverse("profile_collections", args=[self.owner_id]))
+        response = self.client.get(reverse("profile", args=[self.owner_id]))
         self.assertQuerysetEqual(
             response.context['collections'],
-            collections,
+            [collection_one, collection_two],
             ordered=False
         )
 
     def test_redirect_404(self):
         """If the user does not exist, it redirects to 404."""
-        response = self.client.get(reverse("profile_collections", args=[9999]), follow=True)
+        response = self.client.get(reverse("profile", args=[9999]), follow=True)
         self.assertEqual(response.status_code, 404)
 
 
