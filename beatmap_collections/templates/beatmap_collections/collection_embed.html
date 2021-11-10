@@ -1,6 +1,16 @@
 {% extends 'beatmap_collections/base_generic.html' %}
+{% load static %}
 {% block content %}
-    <div class="row">
-    {% include 'beatmap_collections/snippets/collection_card.html' with width='12' %}
+    <div class="embed p-4">
+    <div class="border-primary border embed-box  collection-card " style="background-image: url({{ collection.collection_list.url }});" >
+       <div class="p-4 collection-background" style="height:100%" >
+        <h1 class="text-primary h3">{{ collection.name }}</h1>
+        <p>mapped by {{ collection.author }}</p>
+        <p>{{ collection.beatmaps_count }} beatmap{{ collection.beatmaps_count|pluralize }}</p>
+        {% for tag in collection.all_tags %}
+            <span class="badge rounded-pill bg-primary">{{ tag }}</span>
+        {% endfor %}
+        </div>
+    </div>
     </div>
 {% endblock %}
