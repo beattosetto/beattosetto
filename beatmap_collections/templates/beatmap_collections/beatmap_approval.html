@@ -76,7 +76,10 @@
 {% endblock %}
 
 {% block js %}
-  <script src="https://code.jquery.com/jquery.min.js"></script>
+  <script
+        src="https://code.jquery.com/jquery-1.11.2.min.js"
+        integrity="sha256-Ls0pXSlb7AYs7evhd+VLnWsZ/AqEHcXBeMZUycz/CcA="
+        crossorigin="anonymous"></script>
   <script src="{% static "js/player.js" %}"></script>
     <script>
     $(document).ready(function () {
