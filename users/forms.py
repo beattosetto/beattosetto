@@ -3,6 +3,7 @@ This file contain form class that get the user input from template to views.
 """
 from django import forms
 from django.contrib.auth.models import User
+
 from .models import Profile
 
 

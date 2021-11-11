@@ -1,11 +1,12 @@
 """Views of beatmap collection app."""
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import *
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .forms import *
 from .functions import *
+from .models import *
 
 
 def home(request):

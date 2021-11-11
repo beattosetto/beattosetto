@@ -2,14 +2,15 @@
 Signal for using in account registration & login.
 """
 import requests
+from allauth.account.signals import user_logged_in
 from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth.models import User
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-from django.dispatch import receiver
-from .models import Profile
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User
-from allauth.account.signals import user_logged_in
+from django.dispatch import receiver
+
+from .models import Profile
 
 
 @receiver(post_save, sender=User)

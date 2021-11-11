@@ -4,7 +4,9 @@ This template is shared between actual beatmap card and demo card.
 In demo card, the input is string while it is int in beatmap card.
 """
 from typing import Union
+
 from django import template
+
 from beatmap_collections import constants
 
 register = template.Library()

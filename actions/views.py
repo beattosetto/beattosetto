@@ -2,13 +2,15 @@
 Views for using in actions app.
 """
 import threading
+
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.core.checks import messages
 from django.core.files.base import ContentFile
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+
 from .models import ActionLog
 from .scripts import update_beatmap_action_script
 

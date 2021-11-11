@@ -1,16 +1,15 @@
+import io
 from unittest import skip
 from unittest.mock import MagicMock, patch
 
-from django.test import TestCase
+from django.db import models
 from django.http import HttpRequest
+from django.test import TestCase
 from django.urls import reverse
 
-from .models import *
 from .forms import *
-from django.db import models
 from .functions import *
-import io
-
+from .models import *
 from .templatetags import *
 
 

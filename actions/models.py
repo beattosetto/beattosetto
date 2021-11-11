@@ -3,6 +3,7 @@ This file contain the database of actions app.
 """
 from django.contrib.auth.models import User
 from django.db import models
+
 from beatmap_collections.models import FALLBACK_USER_KEY
 
 

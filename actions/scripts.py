@@ -4,17 +4,21 @@ Script for using in worker.
 import logging
 import os
 import time
-import requests
 import traceback
+
+import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
 from django.utils import timezone
-from .logging import setup_logger, log_two_handler, LOG_FORMAT, LOG_DEBUG_FORMAT
-from .models import ActionLog
+from django.utils.timezone import make_aware
+
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
-from django.utils.timezone import make_aware
+
+from .logging import (LOG_DEBUG_FORMAT, LOG_FORMAT, log_two_handler,
+                      setup_logger)
+from .models import ActionLog
 
 
 def update_beatmap_action_script(action: ActionLog):

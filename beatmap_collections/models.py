@@ -1,10 +1,10 @@
 """Models for the beatmap collections app."""
 
-from django.db import models
-from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
-from PIL import Image
+from django.core.validators import FileExtensionValidator
+from django.db import models
 from django.utils import timezone
+from PIL import Image
 from taggit.managers import TaggableManager
 
 FALLBACK_USER_KEY = 1

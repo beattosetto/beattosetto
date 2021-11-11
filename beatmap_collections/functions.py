@@ -2,11 +2,11 @@ import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.db.models.functions import datetime
+from django.utils.timezone import make_aware
 
 from beatmap_collections import constants
 from beatmap_collections.models import Beatmap
 from beattosetto.settings import OSU_API_V1_KEY
-from django.utils.timezone import make_aware
 
 
 def create_beatmap(beatmap_id):

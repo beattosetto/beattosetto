@@ -1,5 +1,6 @@
 from django import forms
 from taggit.managers import TaggableManager
+
 from .models import Collection
 
 

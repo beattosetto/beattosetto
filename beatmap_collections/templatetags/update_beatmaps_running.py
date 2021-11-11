@@ -1,4 +1,5 @@
 from django import template
+
 from actions.models import ActionLog
 
 register = template.Library()

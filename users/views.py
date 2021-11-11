@@ -1,14 +1,17 @@
 """
 Views for using in users app.
 """
+import random
+
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from beatmap_collections.models import Collection
-from .forms import *
+from django.shortcuts import get_object_or_404, redirect, render
 from random_username.generate import generate_username
-import random
+
+from beatmap_collections.models import Collection
+
+from .forms import *
 
 COOL_SETTINGS_WORD = [
     'Maybe your Discord profile is looking cool!',

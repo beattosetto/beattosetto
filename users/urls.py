@@ -2,7 +2,8 @@
 File contain url path for users app.
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+
 from . import views
 
 urlpatterns = [
