@@ -27,7 +27,7 @@
 {% endblock %}
 {% block content %}
 <main class="bg-dark text-light">
-    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url('{{ collection.collection_list.url }}'); background-position: center;">
+    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url('{{ collection.collection_list.url }}'); background-position: {{ collection.background_align }};">
         <p></p>
         <p></p>
         <h1 class="display-5 fw-bold text-break" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">{{ collection.name }}</h1>
