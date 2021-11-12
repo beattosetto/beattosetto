@@ -21,6 +21,16 @@ def home(request):
     return render(request, 'beatmap_collections/index.html', context)
 
 
+def listing(request):
+    """The listing page that listing all of the collection in the website."""
+    collections = Collection.objects.all()
+    context = {
+        "collections": collections,
+        'hero_image': random_hero_image()
+    }
+    return render(request, 'beatmap_collections/listing.html', context)
+
+
 @login_required
 def create_collection(request):
     """View for collection creation page."""
