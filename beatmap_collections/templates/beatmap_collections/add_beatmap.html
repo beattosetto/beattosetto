@@ -7,14 +7,14 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="add beatmap to {{ collection.name }} | beattosetto">
     <meta property="og:description" content="Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye">
-    <meta property="og:image" content="{% static wallpaper %}">
+    <meta property="og:image" content="{% static hero_image %}">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/add/beatmap/">
     <meta property="twitter:title" content="add beatmap to {{ collection.name }} | beattosetto">
     <meta property="twitter:description" content="Let's add your beatmap!!! Hooyaya Oya Oyaya Yeye">
-    <meta property="twitter:image" content="{% static wallpaper %}">
+    <meta property="twitter:image" content="{% static hero_image %}">
     {% endblock %}
 
     {% block title %}
@@ -26,7 +26,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static wallpaper %});">
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
     <div class="container align-middle">
         <div class="row">
             <p></p>

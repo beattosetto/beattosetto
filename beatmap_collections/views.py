@@ -9,10 +9,14 @@ from .functions import *
 import random
 
 
+def random_hero_image():
+    return f"img/hero/{random.randint(1, 42)}.jpg"
+
+
 def home(request):
     """The homepage of the website. It contains a list of beatmaps chosen semi-randomly."""
     collections = Collection.objects.all()
-    context = {"collections": collections}
+    context = {"collections": collections, 'hero_image': random_hero_image()}
     return render(request, 'beatmap_collections/index.html', context)
 
 
@@ -30,6 +34,7 @@ def create_collection(request):
         form = CreateCollectionForm()
     context = {
         'form': form,
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/create_collection.html', context)
 
@@ -94,6 +99,7 @@ def add_beatmap(request, collection_id):
     context = {
         'form': form,
         'collection': collection,
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/add_beatmap.html', context)
 
@@ -117,6 +123,7 @@ def edit_collection(request, collection_id):
     context = {
         'form': form,
         'collection': collection,
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
@@ -130,6 +137,7 @@ def manage_beatmap(request, collection_id):
     context = {
         'collection': collection,
         'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/manage_beatmap.html', context)
 
@@ -143,7 +151,8 @@ def beatmap_approval(request, collection_id):
         return redirect('collection', collection_id=collection_id)
     context = {
         'collection': collection,
-        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection, owner_approved=False)
+        'beatmap_approve': BeatmapEntry.objects.filter(collection=collection, owner_approved=False),
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/beatmap_approval.html', context)
 
@@ -204,6 +213,7 @@ def collections_by_tag(request, tag):
     context = {
         'collections': collections,
         'tag': tag,
+        'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/collections_by_tag.html', context)
 
