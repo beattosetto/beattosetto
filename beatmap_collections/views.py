@@ -66,7 +66,7 @@ def create_collection(request):
             form.instance.author = request.user
             form.save()
             messages.success(request, 'Collection created!')
-            return redirect("home")
+            return redirect("collection", form.instance.id)
     else:
         form = CreateCollectionForm()
     context = {
