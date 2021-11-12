@@ -1,3 +1,6 @@
+"""
+This file use to manage time length in beatmap.
+"""
 from django import template
 from time import strftime, gmtime
 

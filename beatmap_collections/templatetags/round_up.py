@@ -1,3 +1,6 @@
+"""
+This file use to round up some float value.
+"""
 from django import template
 import math
 

@@ -1,5 +1,5 @@
 {% load static %}
-<div class="col-lg-6" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+<div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
     <div class="card mb-3 bg-dark text-light border border-primary collection-card">
       <div class="row g-0" style="font-size: 90%">
         <div class="col-md-4" style="min-height: 150px; background-image: url({{ collection.collection_list.url }}); background-size: cover; background-position: center;">

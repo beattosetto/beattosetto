@@ -428,5 +428,18 @@ a.disabled {
         width: 211px;
         height: 211px;
     }
+}
 
+.fix-transition {
+    /*This class is used to fix some animation that is slower than expected.*/
+    transition: 0.05s!important;
+}
+
+.embed {
+    width: 400px;
+    height: 300px;
+}
+
+.embed-box {
+    height: 100%;
 }

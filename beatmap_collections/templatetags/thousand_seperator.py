@@ -1,3 +1,6 @@
+"""
+This file use to convert int value to sting with thousand seperator.
+"""
 from django import template
 
 register = template.Library()

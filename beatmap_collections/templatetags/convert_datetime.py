@@ -1,3 +1,6 @@
+"""
+This file use to convert datetime value in database to value that show in infobox.
+"""
 import datetime
 
 from django import template

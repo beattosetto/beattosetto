@@ -1,3 +1,6 @@
+"""
+File contain url path for beatmap collection app.
+"""
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -8,6 +11,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('new/', views.create_collection, name='new_collection'),
     path('collections/<int:collection_id>/', views.collection_page, name='collection'),
+    path('collections/<int:collection_id>/embed/', views.collection_embed, name='collection_embed'),
+    path('collections/<int:collection_id>/embed/<int:beatmap_entry_id>', views.beatmap_embed, name='beatmap_embed'),
     path('collections/<int:collection_id>/add/beatmap', views.add_beatmap, name='add_beatmap'),
     path('collections/<int:collection_id>/edit', views.edit_collection, name='edit_collection'),
     path('collections/<int:collection_id>/manage/', views.manage_beatmap, name='manage_beatmap'),
