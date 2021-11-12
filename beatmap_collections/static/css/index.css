@@ -156,6 +156,10 @@ footer {
     transition: var(--transition-time);
 }
 
+#profile-picture {
+    object-fit: cover;
+}
+
 .modal-header,
 .modal-body,
 .modal-footer {
@@ -401,24 +405,28 @@ a.disabled {
     font-size: 90%;
 }
 
-/* Styling use in profile page */
-@media (max-width: 1009px) {
-    #profile-pic {
-        flex: 0 0 auto;
-        width: 25%;
-    }
+.fix-transition {
+    /*This class is used to fix some animation that is slower than expected.*/
+    transition: 0.05s!important;
+}
 
-    #profile-detail {
-        flex: 0 0 auto;
-        width: 75%;
-    }
+.profile-container > * {
+    display: inherit;
+    justify-content: center;
+    text-align: center;
+}
 
-    #profile-container {
-        margin-top: -120px;
-    }
+.profile-page-pic {
+    object-fit: cover;
+    width: 105px;
+    height: 105px;
+    margin-bottom: 2rem;
+}
 
-    .hero-profile {
-        background-position: center;
+@media screen and (min-width: 992px) {
+    .profile-page-pic {
+        width: 211px;
+        height: 211px;
     }
 }
 
