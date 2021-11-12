@@ -1,5 +1,5 @@
 """
-Tests for views in create collection app.
+Tests for views in collection app.
 """
 from unittest import skip
 from unittest.mock import MagicMock, patch
