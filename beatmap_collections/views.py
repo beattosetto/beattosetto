@@ -15,9 +15,35 @@ def random_hero_image():
 
 
 def home(request):
-    """The homepage of the website. It contains a list of beatmaps chosen semi-randomly."""
-    collections = Collection.objects.all()
-    context = {"collections": collections, 'hero_image': random_hero_image()}
+    """The homepage of the website."""
+    latest_added = []
+    for i in range(4):
+        # Get latest 4 created collection from database.
+        try:
+            latest_added.append(Collection.objects.order_by('-create_date')[i])
+        except IndexError:
+            # If there is no more collection in database, just break the loop.
+            break
+    collection_count = Collection.objects.count()
+    if collection_count < 4:
+        # To escape the error, if the collection count is less than 4 -> return all collection
+        random_collection = Collection.objects.all()
+    else:
+        random_collection = []
+        random_count = 0
+        while random_count < 4:
+            random_collection_object = Collection.objects.all()[random.randint(0, collection_count - 1)]
+            if random_collection_object in random_collection:
+                continue
+            else:
+                random_count += 1
+                random_collection.append(random_collection_object)
+
+    context = {
+        "latest_added": latest_added,
+        "random_collection": random_collection,
+        'hero_image': random_hero_image()
+    }
     return render(request, 'beatmap_collections/index.html', context)
 
 
