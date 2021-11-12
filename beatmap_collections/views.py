@@ -35,9 +35,8 @@ def home(request):
             random_collection_object = Collection.objects.all()[random.randint(0, collection_count - 1)]
             if random_collection_object in random_collection:
                 continue
-            else:
-                random_count += 1
-                random_collection.append(random_collection_object)
+            random_count += 1
+            random_collection.append(random_collection_object)
 
     context = {
         "latest_added": latest_added,
