@@ -91,16 +91,20 @@
                 </div>
             </div>
         </div>
+        {% if collection.allow_comment %}
         <div class="fieldWrapper">
                 <div class="mb-3 row">
                     <label for="id_comment" class="col-form-label col-lg-3">{{ form.comment.label_tag }}</label>
                     <div class="col-lg-9">
-                        <input type="text" id="id_comment" name="comment" class="form-control" placeholder="Add your comment here" required>
+                        <input type="text" id="id_comment" name="comment" class="form-control" placeholder="Add your comment here">
                         <p class="form-error">{{ form.comment.errors }}</p>
-                        <p class="text-muted">Short explanation about beatmap.</p>
+                        <p class="text-muted">Short explanation about beatmap. (Not required)</p>
                     </div>
                 </div>
             </div>
+        {% else %}
+        <p class="text-muted"><i class="fas fa-lock"></i> The collection maintainer not allowed to commented on beatmap</p>
+        {% endif %}
         <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Add</button>
     </form>
 </main>
