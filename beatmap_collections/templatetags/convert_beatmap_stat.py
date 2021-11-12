@@ -1,5 +1,5 @@
 """
-This file use to convert value in database to value that show in infobox.
+This file use to convert beatmap stat value in database to value that show in infobox.
 """
 from django import template
 
