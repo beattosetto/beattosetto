@@ -119,6 +119,7 @@ def edit_collection(request, collection_id):
 
 
 def manage_beatmap(request, collection_id):
+    """Views for manage beatmap."""
     collection = get_object_or_404(Collection, id=collection_id)
     if request.user != collection.author:
         messages.error(request, "Get out! Get out! GET OUT! You idiot.")
