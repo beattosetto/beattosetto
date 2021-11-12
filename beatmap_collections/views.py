@@ -49,7 +49,7 @@ def home(request):
 
 def listing(request):
     """The listing page that listing all of the collection in the website."""
-    collections = Collection.objects.all()
+    collections = Collection.objects.order_by('name')
     context = {
         "collections": collections,
         'hero_image': random_hero_image()
