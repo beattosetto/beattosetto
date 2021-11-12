@@ -92,8 +92,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'beattosetto.wsgi.application'
 
-# This required for new admin interface
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+# This required for new admin interface and embed system
+X_FRAME_OPTIONS = 'ALLOWALL'
 SILENCED_SYSTEM_CHECKS = ['security.W019']
 
 # Database
