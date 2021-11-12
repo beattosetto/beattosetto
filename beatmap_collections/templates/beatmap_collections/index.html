@@ -1,5 +1,22 @@
 {% extends "beatmap_collections/base.html" %}
 {% load static %}
+
+        {% block meta_tags %}
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://beatsets.info">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Welcome to beattosetto!">
+        <meta property="og:description" content="Beatmap collection sharing website for osu!">
+        <meta property="og:image" content="{% static wallpaper %}">
+
+        <!-- Twitter Meta Tags -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://beatsets.info">
+        <meta property="twitter:title" content="home | beattosetto">
+        <meta property="twitter:description" content="Beatmap collection sharing website for osu!">
+        <meta property="twitter:image" content="{% static wallpaper %}">
+        {% endblock %}
+
     {% block title %}
   <title>home | beattosetto</title>
    {% endblock %}
