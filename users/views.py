@@ -9,6 +9,7 @@ from beatmap_collections.models import Collection
 from .forms import *
 from random_username.generate import generate_username
 import random
+from beatmap_collections.views import random_hero_image
 
 COOL_SETTINGS_WORD = [
     'Maybe your Discord profile is looking cool!',
@@ -49,7 +50,8 @@ def settings(request):
         'profile_form': profile_form,
         'user_form': user_form,
         'social_account': SocialAccount.objects.filter(user=request.user).exists(),
-        'osu_confirm_username': osu_confirm_username
+        'osu_confirm_username': osu_confirm_username,
+        'hero_image': random_hero_image()
     }
     return render(request, 'users/settings.html', context)
 
