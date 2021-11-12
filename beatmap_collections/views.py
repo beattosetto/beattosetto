@@ -95,6 +95,7 @@ def add_beatmap(request, collection_id):
     context = {
         'form': form,
         'collection': collection,
+        "wallpaper": f"img/hero-add-beatmap-{random.randint(1, 5)}.jpg"
     }
     return render(request, 'beatmap_collections/add_beatmap.html', context)
 
