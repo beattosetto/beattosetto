@@ -180,11 +180,12 @@ class CollectionModelTest(TestCase):
     def test_count_beatmaps(self):
         """Test count beatmaps function."""
 
+        # The actual create_beatmap function interact with API.
+        # That's why we don't use it in tests.
+        # pylint: disable=redefined-outer-name
         def create_beatmap(beatmap_id: int):
-            """Create beatmap without using API.
-
-            Calling API is irrelevant to the test.
-            """
+            """Utility function for creating beatmap without interacting with API."""
+            return Beatmap.objects.create(beatmap_id=beatmap_id)
 
         user = User.objects.create(username="SurinBoyInwZaa", id=85)
         dummy_collection = Collection.objects.create(name="Prayuth the collection",
