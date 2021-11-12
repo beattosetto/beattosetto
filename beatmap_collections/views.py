@@ -133,6 +133,7 @@ def manage_beatmap(request, collection_id):
     context = {
         'collection': collection,
         'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+        "wallpaper": f"img/hero-manage-beatmap-{random.randint(1, 5)}.jpg"
     }
     return render(request, 'beatmap_collections/manage_beatmap.html', context)
 
