@@ -1,3 +1,6 @@
+"""
+This file use to create beatmap from beatmap id.
+"""
 import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
@@ -95,8 +98,8 @@ def create_beatmap(beatmap_id):
 
             beatmap_object.save()
             return beatmap_object
-        except Exception as e:
-            print(e)
+        except Exception as exception:
+            print(exception)
             return None
     else:
         return None
