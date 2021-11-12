@@ -84,7 +84,8 @@ def add_beatmap(request, collection_id):
                 messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
                 return redirect('collection', collection_id=collection_id)
             beatmap_entry.save()
-            messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list! Please wait for cool person name {collection.author.username} to approve it.')
+            messages.success(request,
+                             f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list! Please wait for cool person name {collection.author.username} to approve it.')
             return redirect('collection', collection_id=collection_id)
     else:
         form = AddBeatmapForm()
@@ -202,3 +203,30 @@ def collections_by_tag(request, tag):
         'tag': tag,
     }
     return render(request, 'beatmap_collections/collections_by_tag.html', context)
+
+
+def collection_embed(request, collection_id):
+    """Embed for a collection.
+
+    It's meant to be embedded as iframe tag.
+    """
+    collection = get_object_or_404(Collection, id=collection_id)
+    context = {
+        'collection': collection,
+    }
+    return render(request, 'beatmap_collections/collection_embed.html', context)
+
+
+def beatmap_embed(request, collection_id, beatmap_entry_id):
+    """Embed for a beatmap entry.
+
+    It's meant to be embedded as iframe tag.
+    """
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    context = {
+        'collection': collection,
+        'beatmap_entry': beatmap_entry,
+    }
+    return render(request, 'beatmap_collections/beatmap_embed.html', context)
+
