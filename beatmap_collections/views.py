@@ -30,6 +30,7 @@ def create_collection(request):
         form = CreateCollectionForm()
     context = {
         'form': form,
+        "wallpaper": f"img/hero-create-collection-{random.randint(1, 5)}.jpg"
     }
     return render(request, 'beatmap_collections/create_collection.html', context)
 
