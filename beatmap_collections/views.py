@@ -6,12 +6,14 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from .functions import *
+import random
 
 
 def home(request):
     """The homepage of the website. It contains a list of beatmaps chosen semi-randomly."""
     collections = Collection.objects.all()
-    context = {"collections": collections}
+    wallpaper = random.randint(1, 7)
+    context = {"collections": collections, "wallpaper": f"img/hero-home-{wallpaper}.jpg"}
     return render(request, 'beatmap_collections/index.html', context)
 
 
