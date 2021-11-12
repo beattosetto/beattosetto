@@ -12,8 +12,7 @@ import random
 def home(request):
     """The homepage of the website. It contains a list of beatmaps chosen semi-randomly."""
     collections = Collection.objects.all()
-    wallpaper = random.randint(1, 7)
-    context = {"collections": collections, "wallpaper": f"img/hero-home-{wallpaper}.jpg"}
+    context = {"collections": collections, "wallpaper": f"img/hero-home-{random.randint(1, 7)}.jpg"}
     return render(request, 'beatmap_collections/index.html', context)
 
 
@@ -117,7 +116,8 @@ def edit_collection(request, collection_id):
         form = CreateCollectionForm(instance=collection)
     context = {
         'form': form,
-        'collection': collection
+        'collection': collection,
+        "wallpaper": f"img/hero-edit-collection-{random.randint(1, 5)}.jpg"
     }
     return render(request, 'beatmap_collections/edit_collection.html', context)
 
