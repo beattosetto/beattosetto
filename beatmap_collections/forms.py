@@ -22,7 +22,7 @@ class CreateCollectionForm(forms.ModelForm):
 class AddBeatmapForm(forms.Form):
     """Form for adding beatmap using beatmap ID to the collection"""
     beatmap_id = forms.IntegerField(required=True, label='Beatmap ID')
-    comment = forms.CharField(required=True, label='Comment', max_length=500)
+    comment = forms.CharField(required=False, label='Comment', max_length=500)
 
     class Meta:
         """Create field that contain beatmap id & comment."""
