@@ -1,3 +1,6 @@
+"""
+Tests for views in create collection app.
+"""
 from unittest import skip
 from unittest.mock import MagicMock, patch
 
