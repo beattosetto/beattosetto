@@ -1,3 +1,4 @@
+"""Make all templatetags available."""
 from .convert_beatmap_stat import convert_beatmap_stat
 from .convert_progress_bar import convert_progress_bar
 from .convert_star_rating import convert_star_rating

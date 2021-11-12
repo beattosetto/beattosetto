@@ -1,3 +1,6 @@
+"""
+This file use to random heart emoji.
+"""
 from django import template
 import random
 

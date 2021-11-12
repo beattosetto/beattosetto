@@ -1,3 +1,6 @@
+"""
+This file contain form class that get the Collection and Beatmap from template to views.
+"""
 from django import forms
 from taggit.managers import TaggableManager
 from .models import Collection
@@ -10,6 +13,7 @@ class CreateCollectionForm(forms.ModelForm):
     description = forms.CharField(required=True, widget=forms.Textarea, label='Description', max_length=500)
 
     class Meta:
+        """Create field that contain collection list, name , description and tags."""
         model = Collection
         fields = ['collection_list', 'name', 'description', 'tags']
 
@@ -20,6 +24,7 @@ class AddBeatmapForm(forms.Form):
     comment = forms.CharField(required=True, label='Comment', max_length=500)
 
     class Meta:
+        """Create field that contain beatmap id & comment."""
         fields = ['beatmap', 'comment']
 
 
@@ -28,4 +33,5 @@ class AddCommentForm(forms.Form):
     comment = forms.CharField(required=True, label='Comment', max_length=500)
 
     class Meta:
+        """Create field that contain comment."""
         fields = ['comment']

@@ -84,6 +84,7 @@ def add_beatmap(request, collection_id):
                 messages.success(request, f'Added {beatmap.title} [{beatmap.version}] to collection successfully!')
                 return redirect('collection', collection_id=collection_id)
             beatmap_entry.save()
+            # pylint: disable=line-too-long
             messages.success(request,
                              f'Added {beatmap.title} [{beatmap.version}] to beatmap approval list! Please wait for cool person name {collection.author.username} to approve it.')
             return redirect('collection', collection_id=collection_id)
@@ -120,6 +121,7 @@ def edit_collection(request, collection_id):
 
 
 def manage_beatmap(request, collection_id):
+    """Views for manage beatmap."""
     collection = get_object_or_404(Collection, id=collection_id)
     if request.user != collection.author:
         messages.error(request, "Get out! Get out! GET OUT! You idiot.")
@@ -229,4 +231,3 @@ def beatmap_embed(request, collection_id, beatmap_entry_id):
         'beatmap_entry': beatmap_entry,
     }
     return render(request, 'beatmap_collections/beatmap_embed.html', context)
-

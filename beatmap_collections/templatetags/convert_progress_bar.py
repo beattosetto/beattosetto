@@ -1,3 +1,6 @@
+"""
+This file use to convert progress bar value in database to value that show in infobox.
+"""
 from django import template
 
 register = template.Library()

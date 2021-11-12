@@ -1,3 +1,6 @@
+"""
+This file use to update beatmap metadata on Action task.
+"""
 from django import template
 from actions.models import ActionLog
 

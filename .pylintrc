@@ -2,11 +2,11 @@
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=migrations
+ignore-paths=venv
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=**/migrations/*.py
+ignore-patterns=\d{4}_.*?.py
 
 
 [MESSAGES CONTROL]
@@ -24,6 +24,8 @@ disable=undefined-variable,
         wildcard-import,
         relative-beyond-top-level,
         import-outside-toplevel,
+        unused-wildcard-import,
+        logging-fstring-interpolation,
         unused-import,
         no-member,
         too-few-public-methods,
@@ -38,6 +40,9 @@ disable=undefined-variable,
         broad-except,
         reimported,
         consider-using-in,
+        invalid-str-returned,
+        f-string-without-interpolation,
+        unidiomatic-typecheck,
 
 
 [FORMAT]

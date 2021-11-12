@@ -1,3 +1,6 @@
+"""
+Tests for views in collection app.
+"""
 from unittest import skip
 from unittest.mock import MagicMock, patch
 
@@ -140,7 +143,9 @@ class CollectionListingViewTest(TestCase):
 
 
 class CollectionListingByTagViewTest(TestCase):
+    """Test collection listing on tag view."""
     def test_with_tag(self):
+        """Test crete collection with tag."""
         author = User.objects.create_user(username="test", password="test")
         collection_with_tag = Collection.objects.create(name="Test", author=author)
         collection_with_tag.tags.add("tag")
@@ -175,12 +180,12 @@ class CollectionModelTest(TestCase):
     def test_count_beatmaps(self):
         """Test count beatmaps function."""
 
+        # The actual create_beatmap function interact with API.
+        # That's why we don't use it in tests.
+        # pylint: disable=redefined-outer-name
         def create_beatmap(beatmap_id: int):
-            """Create beatmap without using API.
-
-            Calling API is irrelevant to the test.
-            """
-            beatmap = Beatmap.objects.create(beatmap_id=beatmap_id)
+            """Utility function for creating beatmap without interacting with API."""
+            return Beatmap.objects.create(beatmap_id=beatmap_id)
 
         user = User.objects.create(username="SurinBoyInwZaa", id=85)
         dummy_collection = Collection.objects.create(name="Prayuth the collection",
@@ -410,94 +415,92 @@ class BeatmapApprovalTest(TestCase):
     def test_approve_beatmap(self):
         """Test approve beatmap"""
         self.client.login(username='mrekk', password='test')
-        self.beatmap_entry = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        beatmap_entry = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                          collection=self.collection)
-        self.beatmap_entry.save()
-        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry.id}')
+        beatmap_entry.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry.id).owner_approved, True)
+        self.assertTrue(BeatmapEntry.objects.get(id=beatmap_entry.id).owner_approved)
 
     def test_deny_beatmap(self):
         """Test deny beatmap"""
         self.client.login(username='mrekk', password='test')
-        self.beatmap_entry_2 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        beatmap_entry_2 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection)
-        self.beatmap_entry_2.save()
-        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_2.id}')
+        beatmap_entry_2.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_2.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
-        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_2.id).exists(), False)
+        self.assertFalse(BeatmapEntry.objects.filter(id=beatmap_entry_2.id).exists())
 
     def test_approve_beatmap_not_owner(self):
         """Test approve beatmap but not owner"""
         self.client.login(username='pippi', password='test')
-        self.beatmap_entry_3 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
+        beatmap_entry_3 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
                                                            collection=self.collection)
-        self.beatmap_entry_3.save()
-        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_3.id}')
+        beatmap_entry_3.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_3.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_3.id).owner_approved, False)
-        self.beatmap_entry_4 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        self.assertFalse(BeatmapEntry.objects.get(id=beatmap_entry_3.id).owner_approved)
+        beatmap_entry_4 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection,
                                                            owner_approved=True)
-        self.beatmap_entry_4.save()
-        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_4.id}')
+        beatmap_entry_4.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_4.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_4.id).owner_approved, True)
+        self.assertTrue(BeatmapEntry.objects.get(id=beatmap_entry_4.id).owner_approved)
 
     def test_deny_beatmap_not_owner(self):
         """Test deny beatmap but not owner"""
         self.client.login(username='pippi', password='test')
-        self.beatmap_entry_5 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
+        beatmap_entry_5 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
                                                            collection=self.collection)
-        self.beatmap_entry_5.save()
-        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_5.id}')
+        beatmap_entry_5.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_5.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
-        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_5.id).exists(), True)
-        self.beatmap_entry_6 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        self.assertTrue(BeatmapEntry.objects.filter(id=beatmap_entry_5.id).exists())
+        beatmap_entry_6 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection, owner_approved=True)
-        self.beatmap_entry_6.save()
-        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_6.id}')
+        beatmap_entry_6.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_6.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
-        self.assertEqual(BeatmapEntry.objects.filter(id=self.beatmap_entry_6.id).exists(), True)
+        self.assertTrue(BeatmapEntry.objects.filter(id=beatmap_entry_6.id).exists())
 
     def test_approve_beatmap_already_approve(self):
         """Test approve beatmap that is already approved"""
         self.client.login(username='mrekk', password='test')
-        self.beatmap_entry_7 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        beatmap_entry_7 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection, owner_approved=True)
-        self.beatmap_entry_7.save()
-        response = self.client.get(f'/collections/{self.collection.id}/approve/{self.beatmap_entry_7.id}')
+        beatmap_entry_7.save()
+        response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_7.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_7.id).owner_approved, True)
+        self.assertTrue(BeatmapEntry.objects.get(id=beatmap_entry_7.id).owner_approved)
 
     def test_approve_cross_collection(self):
         """Test approving beatmap that has same id in the different collection."""
         self.client.login(username="mrekk", password="test")
-        self.beatmap_entry_8 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
-                                                           collection=self.collection, owner_approved=False)
         another_collection = Collection.objects.create(author=self.normal_user)
-        self.beatmap_entry_9 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        beatmap_entry_9 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=another_collection, owner_approved=False)
-        another_collection_url = reverse("approve_beatmap", args=[another_collection.id, self.beatmap_entry_9.id])
+        another_collection_url = reverse("approve_beatmap", args=[another_collection.id, beatmap_entry_9.id])
         response = self.client.get(another_collection_url)
         self.assertEqual(response.status_code, 302)
-        self.assertFalse(self.beatmap_entry_9.owner_approved)
+        self.assertFalse(beatmap_entry_9.owner_approved)
 
     def test_deny_beatmap_already_approve(self):
         """Test deny beatmap that is already approved"""
         self.client.login(username='mrekk', password='test')
-        self.beatmap_entry_8 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
+        beatmap_entry_8 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
                                                            collection=self.collection,
                                                            owner_approved=True)
-        self.beatmap_entry_8.save()
-        response = self.client.get(f'/collections/{self.collection.id}/deny/{self.beatmap_entry_8.id}')
+        beatmap_entry_8.save()
+        response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_8.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
-        self.assertEqual(BeatmapEntry.objects.get(id=self.beatmap_entry_8.id).owner_approved, True)
+        self.assertTrue(BeatmapEntry.objects.get(id=beatmap_entry_8.id).owner_approved)
