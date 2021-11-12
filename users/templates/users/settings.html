@@ -7,21 +7,21 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="settings | beattosetto">
     <meta property="og:description" content="Let's setting up your cool profile! {{ cool_description }}">
-    <meta property="og:image" content="{% static "img/settings-cover.jpg" %}">
+    <meta property="og:image" content="{% static hero_image %}">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://beatsets.info/settings/">
     <meta property="twitter:title" content="settings | beattosetto">
     <meta property="twitter:description" content="Let's setting up your cool profile! {{ cool_description }}">
-    <meta property="twitter:image" content="{% static "img/settings-cover.jpg" %}">
+    <meta property="twitter:image" content="{% static hero_image %}">
     {% endblock %}
 
     {% block title %}
   <title>settings | beattosetto</title>
    {% endblock %}
 {% block content %}
-<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/settings-cover.jpg" %});">
+<div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
     <div class="container align-middle">
         <div class="row">
             <p></p>

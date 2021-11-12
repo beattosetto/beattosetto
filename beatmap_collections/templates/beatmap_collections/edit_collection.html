@@ -7,21 +7,21 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="edit {{ collection.name }} | beattosetto">
     <meta property="og:description" content='You are currently edit "{{ collection.name }}" collection.'>
-    <meta property="og:image" content="{% static "img/hero-edit-collection.jpg" %}">
+    <meta property="og:image" content="{% static hero_image %}">
 
     <!-- Twitter Meta Tags -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/edit/">
     <meta property="twitter:title" content="edit {{ collection.name }} | beattosetto">
     <meta property="twitter:description" content='You are currently edit "{{ collection.name }}" collection.'>
-    <meta property="twitter:image" content="{% static "img/hero-edit-collection.jpg" %}">
+    <meta property="twitter:image" content="{% static hero_image %}">
     {% endblock %}
 
     {% block title %}
   <title>edit {{ collection.name }} | beattosetto</title>
    {% endblock %}
 {% block content %}
-    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/hero-edit-collection.jpg" %});">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
         <div class="container align-middle">
             <div class="row">
                 <p></p>
