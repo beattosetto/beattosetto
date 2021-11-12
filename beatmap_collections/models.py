@@ -8,6 +8,11 @@ from django.utils import timezone
 from taggit.managers import TaggableManager
 
 FALLBACK_USER_KEY = 1
+BACKGROUND_ALIGNMENT_CHOICES = (
+    ('top', 'Top'),
+    ('center', 'Center'),
+    ('bottom', 'Bottom'),
+)
 
 
 class Collection(models.Model):
@@ -34,6 +39,8 @@ class Collection(models.Model):
     tags = TaggableManager(blank=True)
     create_date = models.DateTimeField(auto_now_add=True)
     edit_date = models.DateTimeField(auto_now=True)
+    allow_comment = models.BooleanField(default=False)
+    background_align = models.CharField(max_length=20, choices=BACKGROUND_ALIGNMENT_CHOICES, default="center")
 
     def __str__(self):
         """Return the name of the Collection model."""
