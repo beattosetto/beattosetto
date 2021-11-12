@@ -1,3 +1,6 @@
+"""
+This file use to convert string value in database to float value.
+"""
 from django import template
 
 register = template.Library()
