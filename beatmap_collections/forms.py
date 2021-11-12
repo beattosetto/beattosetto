@@ -11,7 +11,7 @@ class CreateCollectionForm(forms.ModelForm):
     name = forms.CharField(required=True, label='Name', max_length=50)
     description = forms.CharField(required=True, widget=forms.Textarea, label='Description', max_length=500)
     allow_comment = forms.BooleanField(required=False, label='Allow Comments', widget=forms.CheckboxInput(attrs={'class': "form-check-input"}))
-    background_align = forms.ChoiceField(label="", choices=BACKGROUND_ALIGNMENT_CHOICES, required=False, widget=forms.Select(attrs={'class': "form-select form-select-sm"}))
+    background_align = forms.ChoiceField(label="", choices=BACKGROUND_ALIGNMENT_CHOICES, required=False, widget=forms.Select(attrs={'class': "form-select"}))
 
     class Meta:
         """Create field that contain collection list, name , description and tags."""
