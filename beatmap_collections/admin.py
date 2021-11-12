@@ -1,5 +1,5 @@
 """
-Add beatmap database model to admin page.
+Add Collection database model to admin page.
 """
 from django.contrib import admin
 from .models import *
