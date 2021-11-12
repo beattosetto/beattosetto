@@ -24,13 +24,16 @@
 
 {% block content %}
 <main class="text-light">
-    <div class="px-4 py-4 my-4 text-center align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
-        <img class="d-block mx-auto mb-4" id="home-logo" src="{% static 'logo/beattosetto-icon-white.svg' %}" alt="Beattosetto Logo" height="65" data-aos="zoom-in" data-aos-duration="600" data-aos-once="true">
-        <h1 class="display-5 fw-bold" id="home-welcome" data-aos="fade-up" data-aos-duration="700" data-aos-once="true">Welcome to beattosetto!</h1>
-        <div class="col-lg-4 mx-auto">
-          <p class="lead mb-4" id="home-description" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">Beatmap collection sharing website for osu!</p>
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Listing</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">A place that contain all collections in beattosetto world!</p>
+            </div>
         </div>
-  </div>
+    </div>
   <div class="container">
       <div class="row">
          {% if messages %}
@@ -49,7 +52,18 @@
           {% endif %}
     </div>
   </div>
-
+    {% if user.is_authenticated %}
+  <div class="container">
+        <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
+    </div>
+    {% endif %}
+    <section class="py-4 container">
+        <div class="row g-4 py-4">
+        {% for collection in collections %}
+            {% include "beatmap_collections/snippets/collection_card.html" %}
+        {% endfor %}
+        </div>
+    </section>
 </main>
 
 
