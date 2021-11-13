@@ -22,6 +22,7 @@ def home(request):
         # To escape the error, if the collection count is less than 4 -> return all collection
         random_collection = Collection.objects.all()
     else:
+        # The method Collection.objects.order_by('?')[0] make it so slow when the database is very large
         random_collection = []
         random_count = 0
         while random_count < 4:
