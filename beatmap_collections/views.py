@@ -16,14 +16,7 @@ def random_hero_image():
 
 def home(request):
     """The homepage of the website."""
-    latest_added = []
-    for i in range(4):
-        # Get latest 4 created collection from database.
-        try:
-            latest_added.append(Collection.objects.order_by('-create_date')[i])
-        except IndexError:
-            # If there is no more collection in database, just break the loop.
-            break
+    latest_added = Collection.objects.order_by('-create_date')[:4]
     collection_count = Collection.objects.count()
     if collection_count < 4:
         # To escape the error, if the collection count is less than 4 -> return all collection
