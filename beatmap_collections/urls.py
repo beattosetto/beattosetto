@@ -9,6 +9,7 @@ from . import views_api
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('listing', views.listing, name='listing'),
     path('new/', views.create_collection, name='new_collection'),
     path('collections/<int:collection_id>/', views.collection_page, name='collection'),
     path('collections/<int:collection_id>/embed/', views.collection_embed, name='collection_embed'),

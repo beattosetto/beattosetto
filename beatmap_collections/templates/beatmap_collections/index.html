@@ -5,7 +5,7 @@
         <!-- Facebook Meta Tags -->
         <meta property="og:url" content="https://beatsets.info">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="Welcome to beattosetto!">
+        <meta property="og:title" content="home | beattosetto">
         <meta property="og:description" content="Beatmap collection sharing website for osu!">
         <meta property="og:image" content="{% static hero_image %}">
 
@@ -49,15 +49,18 @@
           {% endif %}
     </div>
   </div>
-    {% if user.is_authenticated %}
-  <div class="container">
-        <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
-    </div>
-    {% endif %}
     <section class="py-4 container">
-        <h2 class="display-2 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">Collections</h2>
+        <h2 class="display-5 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">Latest created</h2>
         <div class="row g-4 py-4">
-        {% for collection in collections %}
+        {% for collection in latest_added %}
+            {% include "beatmap_collections/snippets/collection_card.html" %}
+        {% endfor %}
+        </div>
+    </section>
+    <section class="py-4 container">
+        <h2 class="display-5 text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true">Maybe you like this(?)</h2>
+        <div class="row g-4 py-4">
+        {% for collection in random_collection %}
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
         </div>

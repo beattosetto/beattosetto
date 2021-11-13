@@ -1,0 +1,70 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+        {% block meta_tags %}
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://beatsets.info/listing">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="listing | beattosetto">
+        <meta property="og:description" content="A place that contain all collections in beattosetto world!">
+        <meta property="og:image" content="{% static hero_image %}">
+
+        <!-- Twitter Meta Tags -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://beatsets.info/listing">
+        <meta property="twitter:title" content="listing | beattosetto">
+        <meta property="twitter:description" content="A place that contain all collections in beattosetto world!">
+        <meta property="twitter:image" content="{% static hero_image %}">
+        {% endblock %}
+
+    {% block title %}
+  <title>listing | beattosetto</title>
+   {% endblock %}
+
+
+{% block content %}
+<main class="text-light">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Listing</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">A place that contain all collections in beattosetto world!</p>
+            </div>
+        </div>
+    </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+    {% if user.is_authenticated %}
+  <div class="container">
+        <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
+    </div>
+    {% endif %}
+    <section class="py-4 container">
+        <div class="row g-4 py-4">
+        {% for collection in collections %}
+            {% include "beatmap_collections/snippets/collection_card.html" %}
+        {% endfor %}
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}

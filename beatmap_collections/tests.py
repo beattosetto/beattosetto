@@ -334,20 +334,20 @@ class BeatmapAdditionTest(TestCase):
         self.assertTrue(BeatmapEntry.objects.filter(beatmap__beatmap_id=12).exists())
 
     def test_add_beatmap_without_comment(self):
-        """User cannot add beatmap without comment"""
+        """User can now add beatmap without comment"""
         self.client.login(username="test", password="test")
         collection_url = reverse("add_beatmap", args=[self.collection.id])
         # Comment omitted.
         self.client.post(collection_url, {
             "beatmap_id": 12,
         })
-        self.assertEqual(self.collection.beatmaps_count, 0)
+        self.assertEqual(self.collection.beatmaps_count, 1)
         # Empty comment
         self.client.post(collection_url, {
             "beatmap_id": 12,
             "comment": ""
         })
-        self.assertEqual(self.collection.beatmaps_count, 0)
+        self.assertEqual(self.collection.beatmaps_count, 1)
 
     def test_add_beatmap_without_login(self):
         """User cannot add beatmap without logging in."""
