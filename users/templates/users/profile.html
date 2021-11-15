@@ -38,7 +38,7 @@
         </div>
           {% if osu_username %}
         <div class="col-sm-2 hvr-icon-bounce" data-aos="fade-up" data-aos-duration="800">
-            <a class="text-decoration-none text-center spacing-hover-short" target="_blank" href="https://osu.ppy.sh/users/HelloYeew"><img src="{% static 'logo/osu-logo-pink.png' %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> HelloYeew</a>
+            <a class="text-decoration-none text-center spacing-hover-short" target="_blank" href="https://osu.ppy.sh/users/{{ osu_username }}"><img src="{% static 'logo/osu-logo-pink.png' %}" alt="osu! logo" width="20px" height="20px" class="icon-menu hvr-icon"> {{ osu_username }}</a>
         </div>
           {% endif %}
         </div>
