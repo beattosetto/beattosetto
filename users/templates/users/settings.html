@@ -91,7 +91,7 @@
                 <div class="mb-3 row">
                     <label for="id_profile_picture" class="col-form-label col-lg-3">{{ profile_form.profile_picture.label_tag }}</label>
                     <div class="col-lg-9">
-                        <p>Current profile image: <img alt="{{ user.username }}'s profile image" src="{{ user.profile.profile_picture.url }}" class="profile-pic-preview"></p>
+                        <p>Current profile image: <img alt="{{ user.username }}'s profile image" src="{{ user.profile.profile_picture.url }}" class="maintain-ratio" width="105" height="105"></p>
                         <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture" class="form-control">
                         <p class="form-error">{{ profile_form.profile_picture.errors }}</p>
                         <p class="text-muted">Your cool or cute profile image.</p>
@@ -100,7 +100,7 @@
                 <div class="mb-3 row">
                     <label for="id_cover_image" class="col-form-label col-lg-3">{{ profile_form.cover_image.label_tag }}</label>
                     <div class="col-lg-9">
-                        <p>Current cover image: <img alt="{{ user.username }}'s cover image" src="{{ user.profile.cover_image.url }}" class="cover-image-preview"></p>
+                        <p>Current cover image: <img alt="{{ user.username }}'s cover image" src="{{ user.profile.cover_image.url }}" class="maintain-ratio" width="200"></p>
                         <input type="file" name="cover_image" accept="image/*" id="id_cover_image" class="form-control">
                         <p class="form-error">{{ profile_form.cover_image.errors }}</p>
                         <p class="text-muted">Your cool or cute cover image.</p>
