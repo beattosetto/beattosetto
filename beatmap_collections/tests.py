@@ -185,6 +185,16 @@ class CollectionListingByTagViewTest(TestCase):
         response = self.client.get(url)
         self.assertQuerysetEqual(response.context['collections'], [collection_with_tag])
 
+    def test_paginated(self):
+        """Test that the collections are paginated."""
+        collections = [create_collection(chr(67 + i), days_difference=-i) for i in range(20)]
+        for collection in collections:
+            collection.tags.add("tag")
+            collection.save()
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['collections'], collections[:10])
+
 
 class CollectionModelTest(TestCase):
     """Test methods in collection model."""
