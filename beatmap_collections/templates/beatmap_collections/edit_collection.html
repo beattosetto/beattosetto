@@ -67,7 +67,7 @@
                 <div class="mb-3 row">
                     <label for="id_collection_list" class="col-form-label col-lg-3">{{ form.collection_list.label_tag }}</label>
                     <div class="col-lg-9">
-                        <p>Current collection image: <img alt="{{ collection.name }}'s collection image" src="{{ collection.collection_list.url }}" style="max-height: 300px"></p>
+                        <p>Current collection image: <img alt="{{ collection.name }}'s collection image" src="{{ collection.collection_list.url }}" class="maintain-ratio" width="200"></p>
                         <input type="file" name="collection_list" accept="image/*" id="id_collection_list" class="form-control">
                         <p class="form-error">{{ form.collection_list.errors }}</p>
                         <p class="text-muted">Image that will show on your collection card. This is not required.</p>
