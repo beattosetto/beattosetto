@@ -1,0 +1,25 @@
+<nav>
+<ul class="pagination">
+    {% if paged.has_previous  %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ paged.previous_page_number }}">
+              Previous
+          </a>
+        </li>
+    {% endif %}
+    {% for page in paged.paginator.page_range %}
+        <li class="page-item {% if paged.number == page %} active {% endif %}">
+          <a class="page-link" href="?page={{ page }}">
+              {{ page }}
+          </a>
+        </li>
+    {% endfor %}
+    {% if paged.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ paged.next_page_number }}">
+              Next
+          </a>
+        </li>
+    {% endif %}
+</ul>
+</nav>

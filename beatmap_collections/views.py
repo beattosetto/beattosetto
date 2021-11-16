@@ -1,5 +1,5 @@
 """Views of beatmap collection app."""
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -43,6 +43,15 @@ def home(request):
 def listing(request):
     """The listing page that listing all of the collection in the website."""
     collections = Collection.objects.order_by('name')
+    page = request.GET.get('page', 1)
+    # Paginated by 10
+    paginator = Paginator(collections, 1)
+    try:
+        collections = paginator.page(page)
+    except PageNotAnInteger:
+        collections = paginator.page(1)
+    except EmptyPage:
+        collections = paginator.page(paginator.num_pages)
     context = {
         "collections": collections,
         'hero_image': random_hero_image()
