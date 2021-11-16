@@ -78,6 +78,11 @@
         </div>
         {% endif %}
         {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'admin:beatmap_collections_collection_change' collection.id %}"><i class="fas fa-user-shield icon-menu hvr-icon"></i> Go to admin page</a></p>
+        </div>
+        {% endif %}
     </div>
 <div class="row g-4 py-4">
     {% if all_beatmap %}
@@ -147,7 +152,7 @@
 
         <a href="{% url 'profile' comment_object.user.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover profile-link fix-transition">
             <p style="font-size: 200%">
-                <img src="{{ comment_object.user.profile.profile_picture.url }}" alt="{{ comment_object.user.username }}" width="50" height="50" class="rounded-circle hvr-icon"> {{ comment_object.user.username }}
+                <img src="{{ comment_object.user.profile.profile_picture.url }}" alt="{{ comment_object.user.username }}" class="rounded-circle maintain-ratio hvr-icon" width="50" height="50"> {{ comment_object.user.username }}
             </p>
         </a>
         <p class="text-muted">Commented at {{ comment_object.create_date | date:"F j, Y h:i A" }}</p>

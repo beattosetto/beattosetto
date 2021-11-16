@@ -416,10 +416,11 @@ a.disabled {
     text-align: center;
 }
 
-.profile-page-pic {
+.maintain-ratio {
     object-fit: cover;
-    width: 105px;
-    height: 105px;
+}
+
+.profile-page-pic {
     margin-bottom: 2rem;
 }
 
