@@ -16,25 +16,8 @@ def random_hero_image():
 
 def home(request):
     """The homepage of the website."""
-    latest_added = Collection.objects.order_by('-create_date')[:4]
-    collection_count = Collection.objects.count()
-    if collection_count < 4:
-        # To escape the error, if the collection count is less than 4 -> return all collection
-        random_collection = Collection.objects.all()
-    else:
-        # The method Collection.objects.order_by('?')[0] make it so slow when the database is very large
-        random_collection = []
-        random_count = 0
-        while random_count < 4:
-            random_collection_object = Collection.objects.all()[random.randint(0, collection_count - 1)]
-            if random_collection_object in random_collection:
-                continue
-            random_count += 1
-            random_collection.append(random_collection_object)
-
     context = {
-        "latest_added": latest_added,
-        "random_collection": random_collection,
+        "latest_added": Collection.objects.order_by('-create_date')[:4],
         'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/index.html', context)

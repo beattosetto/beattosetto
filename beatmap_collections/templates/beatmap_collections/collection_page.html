@@ -78,6 +78,11 @@
         </div>
         {% endif %}
         {% endif %}
+        {% if user.is_superuser or user.is_staff %}
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url 'admin:beatmap_collections_collection_change' collection.id %}"><i class="fas fa-user-shield icon-menu hvr-icon"></i> Go to admin page</a></p>
+        </div>
+        {% endif %}
     </div>
 <div class="row g-4 py-4">
     {% if all_beatmap %}
