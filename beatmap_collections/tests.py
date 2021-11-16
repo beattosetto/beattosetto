@@ -37,6 +37,21 @@ def create_collection(name, user=None, days_difference=0) -> Collection:
     return collection
 
 
+def prepare_collections(amount=20, tag="tag"):
+    """Create 20 collections with a tag for testing.
+    Args:
+        amount: Amount of collection to create
+        tag: A tag to add to the collections
+    Returns:
+        List[Collection]: List of collections
+    """
+    collections = [create_collection(chr(67 + i), days_difference=-i) for i in range(amount)]
+    for collection in collections:
+        collection.tags.add(tag)
+        collection.save()
+    return collections
+
+
 class CreateCollectionViewTests(TestCase):
     """Tests for the create_collection_page view."""
 
@@ -131,7 +146,7 @@ class HomeListingTest(TestCase):
 
     def test_up_to_four_collections(self):
         """The homepage should list upto 4 collections sorted by creation date."""
-        collections = [create_collection(chr(67 + i), days_difference=-i) for i in range(10)]
+        collections = prepare_collections(amount=10)
         response = self.client.get(reverse("home"))
         self.assertQuerysetEqual(response.context['latest_added'], collections[:4])
 
@@ -139,61 +154,62 @@ class HomeListingTest(TestCase):
 class CollectionListingViewTest(TestCase):
     """Test collection listing on the homepage."""
 
-    def test_with_one_collection(self):
-        """Test with one collection.
+    @classmethod
+    def setUpTestData(cls):
+        """Create lists of collections for testing.
 
-        It should display collection name.
+        Because it is inefficient to create lots of collections and delete them,
+        it's better to create in one time.
         """
-
-        collection_1 = create_collection("Easy")
-        response = self.client.get(reverse("listing"))
-        self.assertContains(response, collection_1.name)
-
-    def test_with_two_collections(self):
-        """Test with two collection.
-
-        It should contain both collections' name.
-        """
-        collection_1 = create_collection("Easy")
-        collection_2 = create_collection("Hard")
-        response = self.client.get(reverse("listing"))
-        self.assertContains(response, collection_1.name)
-        self.assertContains(response, collection_2.name)
+        cls.collections = prepare_collections(amount=25)
 
     def test_paginated(self):
         """Test that collections are paginated.
 
         It should be paginated by 10.
         """
-        # It is ordered by name. The chr function can make it sorted by name already.
-        collections = [create_collection(chr(i)) for i in range(20)]
+        # Without argument, it means page 1.
         response = self.client.get(reverse("listing"))
-        self.assertQuerysetEqual(response.context['collections'], collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
         response = self.client.get(reverse("listing"), {'page': 2})
-        self.assertQuerysetEqual(response.context['collections'], collections[10:])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[10:20])
+
+    def test_paginated_not_integer(self):
+        """If the page number is not an integer, it uses the first page."""
+        response = self.client.get(reverse("listing"), {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+
+    def test_paginated_exceed_maximum(self):
+        """If the page number exceeds the maximum, it uses the last page."""
+        response = self.client.get(reverse("listing"), {'page': 999})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[20:])
 
 
 class CollectionListingByTagViewTest(TestCase):
     """Test collection listing on tag view."""
 
-    def test_with_tag(self):
-        """Test crete collection with tag."""
-        author = User.objects.create_user(username="test", password="test")
-        collection_with_tag = Collection.objects.create(name="Test", author=author)
-        collection_with_tag.tags.add("tag")
-        url = reverse("collection_by_tag", args=["tag"])
-        response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['collections'], [collection_with_tag])
+    @classmethod
+    def setUpTestData(cls):
+        """Create lists of collections for testing."""
+        cls.collections = prepare_collections(amount=30)
 
     def test_paginated(self):
         """Test that the collections are paginated."""
-        collections = [create_collection(chr(67 + i), days_difference=-i) for i in range(20)]
-        for collection in collections:
-            collection.tags.add("tag")
-            collection.save()
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['collections'], collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+
+    def test_paginated_not_integer(self):
+        """If the page is not an integer, it display the first page."""
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url, {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+
+    def test_paginated_exceed_max(self):
+        """If the page requested exceeds the maximum, it displays the last page."""
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url, {'page': 23})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[20:])
 
 
 class CollectionModelTest(TestCase):
