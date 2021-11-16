@@ -29,7 +29,6 @@ def create_collection(name, user=None, days_difference=0) -> Collection:
 
     The test user will have both username and password set to "test".
     """
-    now = timezone.now()
     if user is None:
         user, _ = User.objects.get_or_create(username="test")
         user.set_password("test")
