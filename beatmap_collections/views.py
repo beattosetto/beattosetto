@@ -28,7 +28,7 @@ def listing(request):
     collections = Collection.objects.order_by('name')
     page = request.GET.get('page', 1)
     # Paginated by 10
-    paginator = Paginator(collections, 1)
+    paginator = Paginator(collections, 10)
     try:
         collections = paginator.page(page)
     except PageNotAnInteger:
