@@ -39,6 +39,9 @@ def create_collection(name, user=None, days_difference=0) -> Collection:
 
 def prepare_collections(amount=20, tag="tag"):
     """Create 20 collections with a tag for testing.
+
+    Created collections are sorted by create_date.
+
     Args:
         amount: Amount of collection to create
         tag: A tag to add to the collections
@@ -50,6 +53,21 @@ def prepare_collections(amount=20, tag="tag"):
         collection.tags.add(tag)
         collection.save()
     return collections
+
+
+def prepare_beatmap_entries(author, amount=20):
+    """Create list of beatmap entries for testing.
+
+    Created beatmap entries are sorted by title.
+
+    Args:
+        author (User): Author of beatmap entries
+        amount: Amount of beatmap entries
+    """
+    beatmaps = [Beatmap.objects.create(beatmap_id=i, title=chr(67 + i)) for i in range(amount)]
+    beatmap_entries = [BeatmapEntry.objects.create(beatmap=beatmap, author=author, owner_approved=True) for beatmap in
+                       beatmaps]
+    return beatmap_entries
 
 
 class CreateCollectionViewTests(TestCase):
@@ -72,7 +90,7 @@ class CreateCollectionViewTests(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
-class CollectionCreateViewTest(TestCase):
+class CollectionCreateFormTest(TestCase):
     """Tests for the create collection by form and its value after create."""
 
     def test_form_valid_with_image_missing(self):
@@ -210,6 +228,41 @@ class CollectionListingByTagViewTest(TestCase):
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url, {'page': 23})
         self.assertQuerysetEqual(response.context['collections'], self.collections[20:])
+
+
+class CollectionViewTest(TestCase):
+    """Test listing beatmaps in collection view."""
+
+    beatmap_entries = []
+    collection = []
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.collection = create_collection("Test Collection")
+        test_user = User.objects.create_user(username="author", password="test")
+        cls.beatmap_entries = prepare_beatmap_entries(test_user, amount=20)
+        cls.collection.beatmapentry_set.add(*cls.beatmap_entries)
+
+    def test_paginated(self):
+        """Beatmap entries are paginated."""
+        url = reverse('collection', args=[self.collection.id])
+        # Page 1
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:10])
+        response = self.client.get(url, {'page': 2})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[10:])
+
+    def test_paginated_not_integer(self):
+        """If the page number is not an integer, it uses the first page."""
+        url = reverse('collection', args=[self.collection.id])
+        response = self.client.get(url, {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:10])
+
+    def test_paginated_exceed_maximum(self):
+        """If the page number exceeds the maximum, it uses the last page."""
+        url = reverse('collection', args=[self.collection.id])
+        response = self.client.get(url, {'page': 999})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[10:])
 
 
 class CollectionModelTest(TestCase):
