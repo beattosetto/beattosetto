@@ -7,7 +7,6 @@ from unittest.mock import MagicMock, patch
 
 from django.test import TestCase
 from django.http import HttpRequest
-from django.utils import timezone
 from django.urls import reverse
 
 from .models import *
