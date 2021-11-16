@@ -23,6 +23,7 @@ You can compare beatmap set collection to playlist and beatmap set to a song.
 - [Iteration 3](../../wiki/Iteration-3)
 - [Iteration 4](../../wiki/Iteration-4)
 - [Iteration 5](../../wiki/Iteration-5)
+- [Iteration 6](../../wiki/Iteration-6)
 
 ## Licensing
 This repository is licensed under the MIT License. We recommend you to go check out [the LICENSE file itself](LICENSE), 
