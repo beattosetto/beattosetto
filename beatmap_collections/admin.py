@@ -25,7 +25,5 @@ class CollectionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Comment)
-admin.site.register(Rating)
-admin.site.register(RatingLog)
 admin.site.register(Beatmap)
 admin.site.register(BeatmapEntry)
