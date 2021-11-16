@@ -95,36 +95,6 @@ class Comment(models.Model):
             return f"Unknown comment"
 
 
-class Rating(models.Model):
-    """This model stores the rating information of a collection.
-
-    Attributes:
-        collection: The collection this rating data belongs to.
-        rating: The rating of a collection.
-        count: The number people who rated the collection.
-    """
-
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    rating = models.IntegerField(default=0)
-    count = models.IntegerField(default=0)
-
-
-class RatingLog(models.Model):
-    """This model represents a single rating made by a user. It contains the metadata of the rating.
-
-    Attributes:
-        collection: The collection this rating belongs to.
-        user: The user who made this rating.
-        user_rating: The score that the user gave.
-        create_date: The date when this rating was made.
-    """
-
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    user_rating = models.IntegerField(default=0)
-    create_date = models.DateTimeField(auto_now_add=True)
-
-
 class Beatmap(models.Model):
     """This model represents a beatmap. It contains the beatmap's metadata.
 
