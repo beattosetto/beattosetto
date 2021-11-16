@@ -231,7 +231,15 @@ def delete_beatmap(request, collection_id, beatmap_entry_id):
 
 def collections_by_tag(request, tag):
     """View for collection by tag"""
-    collections = Collection.objects.filter(tags__name__in=[tag])
+    collections = Collection.objects.filter(tags__name__in=[tag]).order_by('-create_date')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(collections, 10)
+    try:
+        collections = paginator.page(page)
+    except PageNotAnInteger:
+        collections = paginator.page(1)
+    except EmptyPage:
+        collections = paginator.page(paginator.num_pages)
     context = {
         'collections': collections,
         'tag': tag,
