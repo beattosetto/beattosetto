@@ -75,9 +75,18 @@ def collection_page(request, collection_id):
             return redirect("collection", collection_id)
     else:
         form = AddCommentForm()
+    all_beatmap = BeatmapEntry.objects.filter(collection=collection, owner_approved=True).order_by('beatmap__title')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_beatmap, 10)
+    try:
+        all_beatmap = paginator.page(page)
+    except PageNotAnInteger:
+        all_beatmap = paginator.page(1)
+    except EmptyPage:
+        all_beatmap = paginator.page(paginator.num_pages)
     context = {
         'collection': collection,
-        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+        'all_beatmap': all_beatmap,
         'form': form,
         'comment': Comment.objects.filter(collection=collection)
     }

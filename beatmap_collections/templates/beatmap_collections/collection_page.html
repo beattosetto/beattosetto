@@ -91,6 +91,7 @@
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
             </div>
         {% endfor %}
+        {% include 'snippets/paginator.html' with paged=all_beatmap %}
     {% else %}
     <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
         <h1 class="text-center" ><img src="{% static "img/no-beatmap.gif" %}" style="max-width: 500px" class="w-100" alt="No beatmap"></h1>
