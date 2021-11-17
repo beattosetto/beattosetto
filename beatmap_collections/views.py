@@ -255,3 +255,8 @@ def beatmap_embed(request, collection_id, beatmap_entry_id):
         'beatmap_entry': beatmap_entry,
     }
     return render(request, 'beatmap_collections/beatmap_embed.html', context)
+
+
+def team(request):
+    """View for member page"""
+    return render(request, 'beatmap_collections/team.html')

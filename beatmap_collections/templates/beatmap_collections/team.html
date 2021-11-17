@@ -1,0 +1,63 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+        {% block meta_tags %}
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://beatsets.info/team">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="the team | beattosetto">
+        <meta property="og:description" content="This is our team!">
+        <meta property="og:image" content="{% static hero_image %}">
+
+        <!-- Twitter Meta Tags -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://beatsets.info/team">
+        <meta property="twitter:title" content="the team | beattosetto">
+        <meta property="twitter:description" content="This is our team!">
+        <meta property="twitter:image" content="{% static hero_image %}">
+        {% endblock %}
+
+    {% block title %}
+  <title>listing | beattosetto</title>
+   {% endblock %}
+
+
+{% block content %}
+<main class="text-light">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">The team</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">This is our team!</p>
+            </div>
+        </div>
+    </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+    <section class="py-4 container">
+        <div class="row g-4 py-4">
+
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}
