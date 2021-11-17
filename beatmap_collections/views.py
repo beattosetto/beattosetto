@@ -11,7 +11,7 @@ import random
 
 def random_hero_image():
     """Random the image from hero folder and return the location use in static tag"""
-    return f"img/hero/{random.randint(1, 42)}.jpg"
+    return f"img/hero/{random.randint(1, 43)}.jpg"
 
 
 def home(request):

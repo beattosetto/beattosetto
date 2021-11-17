@@ -21,6 +21,12 @@
     transition: var(--transition-time);
 }
 
+*::selection {
+    /* Change the selection color to pink based on osu! */
+    background-color: #ff66aa;
+    color: white;
+}
+
 body {
     background-color: var(--bg-color);
 }
