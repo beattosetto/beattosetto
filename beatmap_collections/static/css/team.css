@@ -1,8 +1,37 @@
+.saint {
+    border-color: #7602f2!important;
+}
+
 .saint::after {
     border: 1px solid #7602f2!important;
 }
 
 .bg-saint {
     background-color:#3bf5ff!important;
+    color: black!important;
+}
+
+.pontakorn {
+    border-color: #667EEA!important;
+}
+
+.pontakorn::after {
+    border: 1px solid #667EEA!important;
+}
+
+.bg-pontakorn {
+    background-color:#2345e1!important;
+}
+
+.jub {
+    border-color: #FFC0CB!important;
+}
+
+.jub::after {
+    border: 1px solid #FFC0CB!important;
+}
+
+.bg-jub {
+    background-color:#FFFFFF!important;
     color: black!important;
 }
