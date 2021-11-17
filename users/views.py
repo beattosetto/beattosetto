@@ -3,6 +3,7 @@ Views for using in users app.
 """
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from beatmap_collections.models import Collection
@@ -60,7 +61,15 @@ def profile(request, user_id: int):
     """View for profile page."""
     profile_owner = get_object_or_404(User, pk=user_id)
     profile_object = profile_owner.profile
-    collections = Collection.objects.filter(author=profile_owner)
+    collections = Collection.objects.filter(author=profile_owner).order_by('-create_date')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(collections, 10)
+    try:
+        collections = paginator.page(page)
+    except PageNotAnInteger:
+        collections = paginator.page(1)
+    except EmptyPage:
+        collections = paginator.page(paginator.num_pages)
     # Try to get rid of error from API value
     try:
         if SocialAccount.objects.filter(user=profile_owner).exists():
