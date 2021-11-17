@@ -5,6 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from beatmap_collections.tests import prepare_collections
 from .models import *
+from .views import ITEMS_PER_PAGE
 
 
 class SettingsViewTest(TestCase):
@@ -71,16 +72,16 @@ class ProfileViewTests(TestCase):
     def test_paginated(self):
         """Collections should be paginated."""
         response = self.client.get(self.profile_url)
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
         response = self.client.get(self.profile_url, {'page': 2})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[10:])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE:])
 
     def test_paginated_not_integer(self):
         """If the page number is not an integer, it uses the first page."""
         response = self.client.get(self.profile_url, {'page': 'ninja'})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
 
     def test_paginated_exceed_maximum(self):
         """If the page number exceeds the maximum, it uses the last page."""
         response = self.client.get(self.profile_url, {'page': 999})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[10:])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE:])

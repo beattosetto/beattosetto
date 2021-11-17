@@ -24,6 +24,8 @@ COOL_SETTINGS_WORD = [
     " But I still not try it. I hope someday I will have try it except I didn't try it - Some random member."
 ]
 
+ITEMS_PER_PAGE = 10
+
 
 @login_required()
 def settings(request):
@@ -63,7 +65,7 @@ def profile(request, user_id: int):
     profile_object = profile_owner.profile
     collections = Collection.objects.filter(author=profile_owner).order_by('-create_date')
     page = request.GET.get('page', 1)
-    paginator = Paginator(collections, 10)
+    paginator = Paginator(collections, ITEMS_PER_PAGE)
     try:
         collections = paginator.page(page)
     except PageNotAnInteger:
