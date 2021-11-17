@@ -35,3 +35,16 @@
     background-color:#FFFFFF!important;
     color: black!important;
 }
+
+.rally {
+    border-color: #FF8300!important;
+}
+
+.rally::after {
+    border: 1px solid #FF8300!important;
+}
+
+.bg-rally {
+    background-color:#FFFFFF!important;
+    color: black!important;
+}
