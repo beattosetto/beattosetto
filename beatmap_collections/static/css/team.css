@@ -1,0 +1,8 @@
+.saint::after {
+    border: 1px solid #7602f2!important;
+}
+
+.bg-saint {
+    background-color:#3bf5ff!important;
+    color: black!important;
+}
