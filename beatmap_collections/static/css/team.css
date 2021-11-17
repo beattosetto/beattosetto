@@ -48,3 +48,16 @@
     background-color:#FFFFFF!important;
     color: black!important;
 }
+
+.helloyeew {
+    border-color: #ff469a !important;
+}
+
+.helloyeew::after {
+    border: 1px solid #ff469a!important;
+}
+
+.bg-helloyeew {
+    background-color: #deb1c2!important;
+    color: black!important;
+}
