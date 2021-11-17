@@ -37,7 +37,7 @@ def create_collection(name, user=None, days_difference=0) -> Collection:
     return collection
 
 
-def prepare_collections(amount=20, tag="tag"):
+def prepare_collections(amount=20, tag="tag", user=None):
     """Create 20 collections with a tag for testing.
 
     Created collections are sorted by create_date.
@@ -45,10 +45,11 @@ def prepare_collections(amount=20, tag="tag"):
     Args:
         amount: Amount of collection to create
         tag: A tag to add to the collections
+        user (User): The owner of collections
     Returns:
         List[Collection]: List of collections
     """
-    collections = [create_collection(chr(67 + i), days_difference=-i) for i in range(amount)]
+    collections = [create_collection(chr(67 + i), days_difference=-i, user=user) for i in range(amount)]
     for collection in collections:
         collection.tags.add(tag)
         collection.save()
