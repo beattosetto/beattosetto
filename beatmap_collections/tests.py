@@ -11,6 +11,7 @@ from django.urls import reverse
 
 from .models import *
 from .forms import *
+from .views import ITEMS_PER_PAGE
 from django.db import models
 from .functions import *
 import io
@@ -37,7 +38,7 @@ def create_collection(name, user=None, days_difference=0) -> Collection:
     return collection
 
 
-def prepare_collections(amount=20, tag="tag", user=None):
+def prepare_collections(amount=ITEMS_PER_PAGE * 2, tag="tag", user=None):
     """Create 20 collections with a tag for testing.
 
     Created collections are sorted by create_date.
@@ -56,7 +57,7 @@ def prepare_collections(amount=20, tag="tag", user=None):
     return collections
 
 
-def prepare_beatmap_entries(author, amount=20):
+def prepare_beatmap_entries(author, amount=ITEMS_PER_PAGE * 2):
     """Create list of beatmap entries for testing.
 
     Created beatmap entries are sorted by title.
@@ -189,19 +190,19 @@ class CollectionListingViewTest(TestCase):
         """
         # Without argument, it means page 1.
         response = self.client.get(reverse("listing"))
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
         response = self.client.get(reverse("listing"), {'page': 2})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[10:20])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE:ITEMS_PER_PAGE + 10])
 
     def test_paginated_not_integer(self):
         """If the page number is not an integer, it uses the first page."""
         response = self.client.get(reverse("listing"), {'page': 'ninja'})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
 
     def test_paginated_exceed_maximum(self):
         """If the page number exceeds the maximum, it uses the last page."""
         response = self.client.get(reverse("listing"), {'page': 999})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[20:])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE + 10:])
 
 
 class CollectionListingByTagViewTest(TestCase):
@@ -210,25 +211,25 @@ class CollectionListingByTagViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         """Create lists of collections for testing."""
-        cls.collections = prepare_collections(amount=30)
+        cls.collections = prepare_collections(amount=ITEMS_PER_PAGE*3)
 
     def test_paginated(self):
         """Test that the collections are paginated."""
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
 
     def test_paginated_not_integer(self):
         """If the page is not an integer, it display the first page."""
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url, {'page': 'ninja'})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[:10])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
 
     def test_paginated_exceed_max(self):
         """If the page requested exceeds the maximum, it displays the last page."""
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url, {'page': 23})
-        self.assertQuerysetEqual(response.context['collections'], self.collections[20:])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE + 10:])
 
 
 class CollectionViewTest(TestCase):
@@ -241,7 +242,7 @@ class CollectionViewTest(TestCase):
     def setUpTestData(cls):
         cls.collection = create_collection("Test Collection")
         test_user = User.objects.create_user(username="author", password="test")
-        cls.beatmap_entries = prepare_beatmap_entries(test_user, amount=20)
+        cls.beatmap_entries = prepare_beatmap_entries(test_user, amount=ITEMS_PER_PAGE * 2)
         cls.collection.beatmapentry_set.add(*cls.beatmap_entries)
 
     def test_paginated(self):
@@ -249,21 +250,21 @@ class CollectionViewTest(TestCase):
         url = reverse('collection', args=[self.collection.id])
         # Page 1
         response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:10])
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:ITEMS_PER_PAGE])
         response = self.client.get(url, {'page': 2})
-        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[10:])
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[ITEMS_PER_PAGE:])
 
     def test_paginated_not_integer(self):
         """If the page number is not an integer, it uses the first page."""
         url = reverse('collection', args=[self.collection.id])
         response = self.client.get(url, {'page': 'ninja'})
-        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:10])
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:ITEMS_PER_PAGE])
 
     def test_paginated_exceed_maximum(self):
         """If the page number exceeds the maximum, it uses the last page."""
         url = reverse('collection', args=[self.collection.id])
         response = self.client.get(url, {'page': 999})
-        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[10:])
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[ITEMS_PER_PAGE:])
 
 
 class CollectionModelTest(TestCase):

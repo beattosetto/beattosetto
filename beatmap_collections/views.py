@@ -8,6 +8,8 @@ from .forms import *
 from .functions import *
 import random
 
+ITEMS_PER_PAGE = 10
+
 
 def random_hero_image():
     """Random the image from hero folder and return the location use in static tag"""
@@ -28,7 +30,7 @@ def listing(request):
     collections = Collection.objects.order_by('name')
     page = request.GET.get('page', 1)
     # Paginated by 10
-    paginator = Paginator(collections, 10)
+    paginator = Paginator(collections, ITEMS_PER_PAGE)
     try:
         collections = paginator.page(page)
     except PageNotAnInteger:
@@ -77,7 +79,7 @@ def collection_page(request, collection_id):
         form = AddCommentForm()
     all_beatmap = BeatmapEntry.objects.filter(collection=collection, owner_approved=True).order_by('beatmap__title')
     page = request.GET.get('page', 1)
-    paginator = Paginator(all_beatmap, 10)
+    paginator = Paginator(all_beatmap, ITEMS_PER_PAGE)
     try:
         all_beatmap = paginator.page(page)
     except PageNotAnInteger:
@@ -242,7 +244,7 @@ def collections_by_tag(request, tag):
     """View for collection by tag"""
     collections = Collection.objects.filter(tags__name__in=[tag]).order_by('-create_date')
     page = request.GET.get('page', 1)
-    paginator = Paginator(collections, 10)
+    paginator = Paginator(collections, ITEMS_PER_PAGE)
     try:
         collections = paginator.page(page)
     except PageNotAnInteger:
