@@ -68,6 +68,7 @@
         {% for collection in collections %}
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
+        {% include 'snippets/paginator.html' with paged=collections %}
         </div>
         {% endif %}
         <div class="col-12" data-aos="fade-up" data-aos-duration="500" data-aos-once="true">

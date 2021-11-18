@@ -450,3 +450,14 @@ a.disabled {
 .embed-box {
     height: 100%;
 }
+
+/* Pagination */
+.pagination .page-link {
+    background: var(--bs-primary);
+    color: white;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--bs-primary-dark);
+    border-color: var(--bs-primary-dark);
+}
