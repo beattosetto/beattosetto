@@ -302,9 +302,9 @@ def delete_collection(request, collection_id):
     if request.user != collection.author:
         messages.error(request, "This is not yours. You can't delete this collection.")
         return redirect('collection', collection_id=collection.id)
-    input_collection_name = request.POST.get('collection_name')
-    if input_collection_name != collection.name:
-        messages.error(request, "Please input the correct collection name to delete.")
+    input_collection_name = request.POST.get('collection-name', '')
+    if input_collection_name.strip() != collection.name:
+        messages.error(request, "Please input the correct collection name to delete. ")
         return redirect('collection', collection_id=collection.id)
     # After this point, everything is valid now.
     # It is safe to delete the collection

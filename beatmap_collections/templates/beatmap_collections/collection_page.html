@@ -71,6 +71,9 @@
         <div class="col-sm-2">
             <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short-2 hvr-icon-bounce" href="{% url 'manage_beatmap' collection.id %}"><i class="fas fa-cogs icon-menu hvr-icon"></i> Manage beatmap</a></p>
         </div>
+        <div class="col-sm-2">
+            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short-2 hvr-icon-bounce" data-bs-toggle="modal" data-bs-target="#deleteModal" href="#deleteModal"><i class="fas fa-trash icon-menu hvr-icon"></i>Delete collection</a></p>
+        </div>
         {% else %}
         {% if user.is_authenticated %}
         <div class="col-sm-2">
@@ -164,6 +167,30 @@
     {% endfor %}
     {% endif %}
     <p></p>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete collection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">This is permanent. You can't bring it back.</p>
+                    <form id="delete-form" action="{% url 'delete_collection' collection.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="collection-name" class="form-label">Collection Name</label>
+                            <input type="text" name="collection-name" class="form-control" placeholder="{{ collection.name }}" pattern="{{ collection.name }}" id="collection-name"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="delete-form" class="btn btn-danger">Delete collection</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 
