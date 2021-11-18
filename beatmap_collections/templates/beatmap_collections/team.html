@@ -1,0 +1,176 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+        {% block meta_tags %}
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://beatsets.info/team">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="the team | beattosetto">
+        <meta property="og:description" content="This is our team!">
+        <meta property="og:image" content="{% static "img/team/hero-team.jpg" %}">
+
+        <!-- Twitter Meta Tags -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://beatsets.info/team">
+        <meta property="twitter:title" content="the team | beattosetto">
+        <meta property="twitter:description" content="This is our team!">
+        <meta property="twitter:image" content="{% static "img/team/hero-team.jpg" %}">
+        {% endblock %}
+
+    {% block title %}
+  <title>the team | beattosetto</title>
+   {% endblock %}
+
+    {% block css %}
+    <link rel="stylesheet" href="{% static "css/team.css" %}">
+    {% endblock %}
+
+
+{% block content %}
+<main class="text-light">
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/team/hero-team.jpg" %}); background-position: top 20% center;">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">The team</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">The beginning of everything!</p>
+            </div>
+        </div>
+    </div>
+  <div class="container">
+      <div class="row">
+         {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "success"%}
+                    <div class="alert alert-success">
+                        <i class="fas fa-check"></i> {{ message }}
+                    </div>
+                {% endif %}
+                {% if message.tags == "error"%}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-times"></i> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+          {% endif %}
+    </div>
+  </div>
+    <section class="py-4 container">
+        <div class="row g-4 py-4">
+            <div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                <div class="card mb-3 bg-dark text-light border collection-card helloyeew">
+                  <div class="row g-0" style="font-size: 90%">
+                    <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/team/helloyeew-background.png" %}); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-8" style="background-image: url({% static "img/team/helloyeew-background.png" %}); background-size: cover; background-position: center;">
+                      <div class="card-body collection-background">
+                          <a href="https://youtu.be/kDxmi6ZHZWQ" class="text-decoration-none spacing-hover-short"><h2 class="card-title" style="color:#deb1c2!important;">Kasumi the origin</h2></a>
+                          <div class="card-content">
+                              <p class="text-muted">sharing circle clicking game by <a href="https://github.com/HelloYeew" class="hvr-picture-bounce text-decoration-none spacing-hover" style="color:#deb1c2!important"><img src="{% static "img/team/helloyeew-profile.jpeg" %}" alt="mmknightx" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> HelloYeew</a></p>
+                              <p class="description">The beginning of everything about circle and pinky thing.</p>
+                          </div>
+                          <p class="card-text">488 Circle clicked more</p>
+                          <span class="badge rounded-pill bg-helloyeew">HelloYeew</span>
+                          <span class="badge rounded-pill bg-helloyeew">Kasumi</span>
+                          <span class="badge rounded-pill bg-helloyeew">Weeb</span>
+                          <span class="badge rounded-pill bg-helloyeew">Why</span>
+                          <span class="badge rounded-pill bg-helloyeew">Aquors</span>
+                          <span class="badge rounded-pill bg-helloyeew">BAKA</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                <div class="card mb-3 bg-dark text-light border collection-card saint">
+                  <div class="row g-0" style="font-size: 90%">
+                    <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/team/saint-background.jpg" %}); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-8" style="background-image: url({% static "img/team/saint-background.jpg" %}); background-size: cover; background-position: center;">
+                      <div class="card-body collection-background">
+                          <a href="https://youtu.be/vR6f9B_qASw" class="text-decoration-none spacing-hover-short"><h2 class="card-title" style="color:#3bf5ff!important;">SainTurDaY27's Collection</h2></a>
+                          <div class="card-content">
+                              <p class="text-muted">start journey by <a href="https://github.com/SainTurDaY27" class="hvr-picture-bounce text-decoration-none spacing-hover" style="color:#3bf5ff!important"><img src="{% static "img/team/saint-profile.jpg" %}" alt="HIRAISHIN" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> HIRAISHIN</a></p>
+                              <p class="description">Saint on the move!!!</p>
+                          </div>
+                          <p class="card-text">27 Destinations</p>
+                          <span class="badge rounded-pill bg-saint">Saint</span>
+                          <span class="badge rounded-pill bg-saint">HIRAISHIN</span>
+                          <span class="badge rounded-pill bg-saint">QUALITY</span>
+                          <span class="badge rounded-pill bg-saint">Rakchard</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                <div class="card mb-3 bg-dark text-light border collection-card pontakorn">
+                  <div class="row g-0" style="font-size: 90%">
+                    <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/team/pontakorn-background.jpg" %}); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-8" style="background-image: url({% static "img/team/pontakorn-background.jpg" %}); background-size: cover; background-position: center;">
+                      <div class="card-body collection-background">
+                          <a href="https://www.youtube.com/watch?v=8ywlhKFWAzg" class="text-decoration-none spacing-hover-short"><h2 class="card-title" style="color:#a9b7f3!important;">MMKNIGHTX</h2></a>
+                          <div class="card-content">
+                              <p class="text-muted">go stonks by <a href="https://github.com/pontakornth" class="hvr-picture-bounce text-decoration-none spacing-hover" style="color:#a9b7f3!important"><img src="{% static "img/team/pontakorn-profile.jpg" %}" alt="mmknightx" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> mmknightx</a></p>
+                              <p class="description">Super idol</p>
+                          </div>
+                          <p class="card-text">99 Cats</p>
+                          <span class="badge rounded-pill bg-pontakorn">Most</span>
+                          <span class="badge rounded-pill bg-pontakorn">Isekai</span>
+                          <span class="badge rounded-pill bg-pontakorn">Hero</span>
+                          <span class="badge rounded-pill bg-pontakorn">Demon Lord</span>
+                          <span class="badge rounded-pill bg-pontakorn">Nonnn</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                <div class="card mb-3 bg-dark text-light border collection-card jub">
+                  <div class="row g-0" style="font-size: 90%">
+                    <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/team/jub-background.jpg" %}); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-8" style="background-image: url({% static "img/team/jub-background.jpg" %}); background-size: cover; background-position: center;">
+                      <div class="card-body collection-background">
+                          <a href="https://www.youtube.com/watch?v=ktFsDWii0QA" class="text-decoration-none spacing-hover-short"><h2 class="card-title" style="color:white!important">PpWinter🤍🖤</h2></a>
+                          <div class="card-content">
+                              <p class="text-muted">made the world by <a href="https://github.com/Siraphop4Nene" class="hvr-picture-bounce text-decoration-none spacing-hover" style="color:white!important"><img src="{% static "img/team/jub-profile.jpg" %}" alt="PpWinter" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> PpWinter</a></p>
+                              <p class="description">PpWinter World</p>
+                          </div>
+                          <p class="card-text">31/05/44 Happy birthday</p>
+                          <span class="badge rounded-pill bg-jub">Love</span>
+                          <span class="badge rounded-pill bg-jub">Sad</span>
+                          <span class="badge rounded-pill bg-jub">Alone</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-{{ width|default:'6' }}" data-aos="fade-up" data-aos-duration="800" data-aos-once="true">
+                <div class="card mb-3 bg-dark text-light border collection-card rally">
+                  <div class="row g-0" style="font-size: 90%">
+                    <div class="col-md-4" style="min-height: 150px; background-image: url({% static "img/team/rally-background.jpg" %}); background-size: cover; background-position: center;">
+                    </div>
+                    <div class="col-md-8" style="background-image: url({% static "img/team/rally-background.jpg" %}); background-size: cover; background-position: center;">
+                      <div class="card-body collection-background">
+                          <a href="https://www.youtube.com/watch?v=8B-CuoHhWZk" class="text-decoration-none spacing-hover-short"><h2 class="card-title" style="color:#FF8300!important;">Mogus</h2></a>
+                          <div class="card-content">
+                              <p class="text-muted">idiot by <a href="https://github.com/some-random-idiot" class="hvr-picture-bounce text-decoration-none spacing-hover" style="color:#FF8300!important"><img src="{% static "img/team/rally-profile.jpg" %}" alt="PpWinter" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> some random idiot</a></p>
+                              <p class="description">Susmogusmangocus</p>
+                          </div>
+                          <p class="card-text">19 Sussy</p>
+                          <span class="badge rounded-pill bg-rally">Synthpop</span>
+                          <span class="badge rounded-pill bg-rally">Keter</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}

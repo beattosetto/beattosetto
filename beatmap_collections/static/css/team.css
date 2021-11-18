@@ -1,0 +1,63 @@
+.saint {
+    border-color: #7602f2!important;
+}
+
+.saint::after {
+    border: 1px solid #7602f2!important;
+}
+
+.bg-saint {
+    background-color:#3bf5ff!important;
+    color: black!important;
+}
+
+.pontakorn {
+    border-color: #667EEA!important;
+}
+
+.pontakorn::after {
+    border: 1px solid #667EEA!important;
+}
+
+.bg-pontakorn {
+    background-color:#a9b7f3!important;
+    color: black!important;
+}
+
+.jub {
+    border-color: #FFC0CB!important;
+}
+
+.jub::after {
+    border: 1px solid #FFC0CB!important;
+}
+
+.bg-jub {
+    background-color:#FFFFFF!important;
+    color: black!important;
+}
+
+.rally {
+    border-color: #FF8300!important;
+}
+
+.rally::after {
+    border: 1px solid #FF8300!important;
+}
+
+.bg-rally {
+    background-color:#FF8300!important;
+}
+
+.helloyeew {
+    border-color: #ff469a !important;
+}
+
+.helloyeew::after {
+    border: 1px solid #ff469a!important;
+}
+
+.bg-helloyeew {
+    background-color: #deb1c2!important;
+    color: black!important;
+}
