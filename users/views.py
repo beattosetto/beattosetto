@@ -30,7 +30,7 @@ def settings(request):
     if request.method == 'POST':
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        if profile_form.is_valid():
+        if profile_form.is_valid() and user_form.is_valid():
             profile_form.save()
             user_form.save()
             messages.success(request, 'Update your cool profile successfully!')
