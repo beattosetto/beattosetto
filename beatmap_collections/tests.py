@@ -638,7 +638,7 @@ class DeleteCollectionViewTest(TestCase):
 
         User will be redirected to the collection page with an error message.
         """
-        response = self.client.post(self.delete_url, {'collection_name': self.collection.name}, follow=True)
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name}, follow=True)
         self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
         self.assertFalse(self.is_test_collection_deleted())
 
@@ -648,7 +648,7 @@ class DeleteCollectionViewTest(TestCase):
         User will be redirected to the collection page with an error message.
         """
         self.client.login(username='test2', password='test2')
-        response = self.client.post(self.delete_url, {'collection_name': self.collection.name}, follow=True)
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name}, follow=True)
         self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
         self.assertFalse(self.is_test_collection_deleted())
 
@@ -658,7 +658,7 @@ class DeleteCollectionViewTest(TestCase):
         This is to prevent accidentally deletion. User needs to fill a form with collection name.
         This method is also used on various sites such as GitHub.
         """
-        response = self.client.post(self.delete_url, {'collection_name': 'ninja'})
+        response = self.client.post(self.delete_url, {'collection-name': 'ninja'})
         self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
         self.assertFalse(self.is_test_collection_deleted())
 
@@ -668,7 +668,7 @@ class DeleteCollectionViewTest(TestCase):
         The user will be redirected to the homepage with a success message.
         """
         self.client.login(username="test", password="test")
-        response = self.client.post(self.delete_url, {'collection_name': self.collection.name})
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name})
         self.assertRedirects(response, reverse('home'))
         self.assertTrue(self.is_test_collection_deleted())
 
