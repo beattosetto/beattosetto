@@ -72,7 +72,7 @@
             <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short-2 hvr-icon-bounce" href="{% url 'manage_beatmap' collection.id %}"><i class="fas fa-cogs icon-menu hvr-icon"></i> Manage beatmap</a></p>
         </div>
         <div class="col-sm-2">
-            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short-2 hvr-icon-bounce" data-bs-toggle="modal" data-bs-target="#deleteModal" href="#deleteModal"><i class="fas fa-trash icon-menu hvr-icon"></i>Delete collection</a></p>
+            <p data-aos="fade-up" data-aos-duration="900" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short-2 hvr-icon-bounce" data-bs-toggle="modal" data-bs-target="#deleteModal" href="#deleteModal"><i class="fas fa-trash icon-menu hvr-icon"></i> Delete collection</a></p>
         </div>
         {% else %}
         {% if user.is_authenticated %}
@@ -168,7 +168,7 @@
     {% endif %}
     <p></p>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Delete collection</h5>
