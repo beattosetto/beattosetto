@@ -671,4 +671,3 @@ class DeleteCollectionViewTest(TestCase):
         response = self.client.post(self.delete_url, {'collection-name': self.collection.name})
         self.assertRedirects(response, reverse('home'))
         self.assertTrue(self.is_test_collection_deleted())
-
