@@ -667,6 +667,7 @@ class DeleteCollectionViewTest(TestCase):
 
         The user will be redirected to the homepage with a success message.
         """
+        self.client.login(username="test", password="test")
         response = self.client.post(self.delete_url, {'collection_name': self.collection.name})
         self.assertRedirects(response, reverse('home'))
         self.assertTrue(self.is_test_collection_deleted())
