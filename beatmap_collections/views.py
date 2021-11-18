@@ -1,5 +1,5 @@
 """Views of beatmap collection app."""
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -7,6 +7,8 @@ from .models import *
 from .forms import *
 from .functions import *
 import random
+
+ITEMS_PER_PAGE = 10
 
 
 def random_hero_image():
@@ -26,6 +28,15 @@ def home(request):
 def listing(request):
     """The listing page that listing all of the collection in the website."""
     collections = Collection.objects.order_by('name')
+    page = request.GET.get('page', 1)
+    # Paginated by 10
+    paginator = Paginator(collections, ITEMS_PER_PAGE)
+    try:
+        collections = paginator.page(page)
+    except PageNotAnInteger:
+        collections = paginator.page(1)
+    except EmptyPage:
+        collections = paginator.page(paginator.num_pages)
     context = {
         "collections": collections,
         'hero_image': random_hero_image()
@@ -66,9 +77,18 @@ def collection_page(request, collection_id):
             return redirect("collection", collection_id)
     else:
         form = AddCommentForm()
+    all_beatmap = BeatmapEntry.objects.filter(collection=collection, owner_approved=True).order_by('beatmap__title')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_beatmap, ITEMS_PER_PAGE)
+    try:
+        all_beatmap = paginator.page(page)
+    except PageNotAnInteger:
+        all_beatmap = paginator.page(1)
+    except EmptyPage:
+        all_beatmap = paginator.page(paginator.num_pages)
     context = {
         'collection': collection,
-        'all_beatmap': BeatmapEntry.objects.filter(collection=collection, owner_approved=True),
+        'all_beatmap': all_beatmap,
         'form': form,
         'comment': Comment.objects.filter(collection=collection)
     }
@@ -222,7 +242,15 @@ def delete_beatmap(request, collection_id, beatmap_entry_id):
 
 def collections_by_tag(request, tag):
     """View for collection by tag"""
-    collections = Collection.objects.filter(tags__name__in=[tag])
+    collections = Collection.objects.filter(tags__name__in=[tag]).order_by('-create_date')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(collections, ITEMS_PER_PAGE)
+    try:
+        collections = paginator.page(page)
+    except PageNotAnInteger:
+        collections = paginator.page(1)
+    except EmptyPage:
+        collections = paginator.page(paginator.num_pages)
     context = {
         'collections': collections,
         'tag': tag,

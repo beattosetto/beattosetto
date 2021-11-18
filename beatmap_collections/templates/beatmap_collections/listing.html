@@ -63,6 +63,7 @@
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
         </div>
+        {% include 'snippets/paginator.html' with paged=collections %}
     </section>
 </main>
 

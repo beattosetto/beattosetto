@@ -1,6 +1,7 @@
 """
 Tests for views in collection app.
 """
+from datetime import timedelta
 from unittest import skip
 from unittest.mock import MagicMock, patch
 
@@ -10,6 +11,7 @@ from django.urls import reverse
 
 from .models import *
 from .forms import *
+from .views import ITEMS_PER_PAGE
 from django.db import models
 from .functions import *
 import io
@@ -17,15 +19,57 @@ import io
 from .templatetags import *
 
 
-def create_collection(name, user=None) -> Collection:
+def create_collection(name, user=None, days_difference=0) -> Collection:
     """Utility function for creating collection.
+
+    Args:
+        name: Collection name
+        user: Test user default to None
+        days_difference: Days difference from now to create collection
 
     The test user will have both username and password set to "test".
     """
     if user is None:
         user, _ = User.objects.get_or_create(username="test")
         user.set_password("test")
-    return Collection.objects.create(author=user, name=name)
+    collection = Collection.objects.create(author=user, name=name)
+    collection.create_date += timedelta(days=days_difference)
+    collection.save()
+    return collection
+
+
+def prepare_collections(amount=ITEMS_PER_PAGE * 2, tag="tag", user=None):
+    """Create 20 collections with a tag for testing.
+
+    Created collections are sorted by create_date.
+
+    Args:
+        amount: Amount of collection to create
+        tag: A tag to add to the collections
+        user (User): The owner of collections
+    Returns:
+        List[Collection]: List of collections
+    """
+    collections = [create_collection(chr(67 + i), days_difference=-i, user=user) for i in range(amount)]
+    for collection in collections:
+        collection.tags.add(tag)
+        collection.save()
+    return collections
+
+
+def prepare_beatmap_entries(author, amount=ITEMS_PER_PAGE * 2):
+    """Create list of beatmap entries for testing.
+
+    Created beatmap entries are sorted by title.
+
+    Args:
+        author (User): Author of beatmap entries
+        amount: Amount of beatmap entries
+    """
+    beatmaps = [Beatmap.objects.create(beatmap_id=i, title=chr(67 + i)) for i in range(amount)]
+    beatmap_entries = [BeatmapEntry.objects.create(beatmap=beatmap, author=author, owner_approved=True) for beatmap in
+                       beatmaps]
+    return beatmap_entries
 
 
 class CreateCollectionViewTests(TestCase):
@@ -48,7 +92,7 @@ class CreateCollectionViewTests(TestCase):
         self.assertRedirects(response, '/accounts/login/?next=/new/')
 
 
-class CollectionCreateViewTest(TestCase):
+class CollectionCreateFormTest(TestCase):
     """Tests for the create collection by form and its value after create."""
 
     def test_form_valid_with_image_missing(self):
@@ -117,41 +161,110 @@ class CollectionEditViewTest(TestCase):
         self.assertTemplateUsed(response, "beatmap_collections/edit_collection.html")
 
 
+class HomeListingTest(TestCase):
+    """Tests for listing on the homepage."""
+
+    def test_up_to_four_collections(self):
+        """The homepage should list upto 4 collections sorted by creation date."""
+        collections = prepare_collections(amount=10)
+        response = self.client.get(reverse("home"))
+        self.assertQuerysetEqual(response.context['latest_added'], collections[:4])
+
+
 class CollectionListingViewTest(TestCase):
     """Test collection listing on the homepage."""
 
-    def test_with_one_collection(self):
-        """Test with one collection.
+    @classmethod
+    def setUpTestData(cls):
+        """Create lists of collections for testing.
 
-        It should display collection name.
+        Because it is inefficient to create lots of collections and delete them,
+        it's better to create in one time.
         """
+        cls.collections = prepare_collections(amount=25)
 
-        collection_1 = create_collection("Easy")
-        response = self.client.get(reverse("home"))
-        self.assertContains(response, collection_1.name)
+    def test_paginated(self):
+        """Test that collections are paginated.
 
-    def test_with_two_collections(self):
-        """Test with two collection.
-
-        It should contain both collections' name.
+        It should be paginated by 10.
         """
-        collection_1 = create_collection("Easy")
-        collection_2 = create_collection("Hard")
-        response = self.client.get(reverse("home"))
-        self.assertContains(response, collection_1.name)
-        self.assertContains(response, collection_2.name)
+        # Without argument, it means page 1.
+        response = self.client.get(reverse("listing"))
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
+        response = self.client.get(reverse("listing"), {'page': 2})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE:ITEMS_PER_PAGE + 10])
+
+    def test_paginated_not_integer(self):
+        """If the page number is not an integer, it uses the first page."""
+        response = self.client.get(reverse("listing"), {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
+
+    def test_paginated_exceed_maximum(self):
+        """If the page number exceeds the maximum, it uses the last page."""
+        response = self.client.get(reverse("listing"), {'page': 999})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE + 10:])
 
 
 class CollectionListingByTagViewTest(TestCase):
     """Test collection listing on tag view."""
-    def test_with_tag(self):
-        """Test crete collection with tag."""
-        author = User.objects.create_user(username="test", password="test")
-        collection_with_tag = Collection.objects.create(name="Test", author=author)
-        collection_with_tag.tags.add("tag")
+
+    @classmethod
+    def setUpTestData(cls):
+        """Create lists of collections for testing."""
+        cls.collections = prepare_collections(amount=ITEMS_PER_PAGE*3)
+
+    def test_paginated(self):
+        """Test that the collections are paginated."""
         url = reverse("collection_by_tag", args=["tag"])
         response = self.client.get(url)
-        self.assertQuerysetEqual(response.context['collections'], [collection_with_tag])
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
+
+    def test_paginated_not_integer(self):
+        """If the page is not an integer, it display the first page."""
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url, {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[:ITEMS_PER_PAGE])
+
+    def test_paginated_exceed_max(self):
+        """If the page requested exceeds the maximum, it displays the last page."""
+        url = reverse("collection_by_tag", args=["tag"])
+        response = self.client.get(url, {'page': 23})
+        self.assertQuerysetEqual(response.context['collections'], self.collections[ITEMS_PER_PAGE + 10:])
+
+
+class CollectionViewTest(TestCase):
+    """Test listing beatmaps in collection view."""
+
+    beatmap_entries = []
+    collection = []
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.collection = create_collection("Test Collection")
+        test_user = User.objects.create_user(username="author", password="test")
+        cls.beatmap_entries = prepare_beatmap_entries(test_user, amount=ITEMS_PER_PAGE * 2)
+        cls.collection.beatmapentry_set.add(*cls.beatmap_entries)
+
+    def test_paginated(self):
+        """Beatmap entries are paginated."""
+        url = reverse('collection', args=[self.collection.id])
+        # Page 1
+        response = self.client.get(url)
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:ITEMS_PER_PAGE])
+        response = self.client.get(url, {'page': 2})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[ITEMS_PER_PAGE:])
+
+    def test_paginated_not_integer(self):
+        """If the page number is not an integer, it uses the first page."""
+        url = reverse('collection', args=[self.collection.id])
+        response = self.client.get(url, {'page': 'ninja'})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[:ITEMS_PER_PAGE])
+
+    def test_paginated_exceed_maximum(self):
+        """If the page number exceeds the maximum, it uses the last page."""
+        url = reverse('collection', args=[self.collection.id])
+        response = self.client.get(url, {'page': 999})
+        self.assertQuerysetEqual(response.context['all_beatmap'], self.beatmap_entries[ITEMS_PER_PAGE:])
 
 
 class CollectionModelTest(TestCase):
@@ -416,7 +529,7 @@ class BeatmapApprovalTest(TestCase):
         """Test approve beatmap"""
         self.client.login(username='mrekk', password='test')
         beatmap_entry = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                         collection=self.collection)
+                                                    collection=self.collection)
         beatmap_entry.save()
         response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry.id}')
         self.assertEqual(response.status_code, 302)
@@ -427,7 +540,7 @@ class BeatmapApprovalTest(TestCase):
         """Test deny beatmap"""
         self.client.login(username='mrekk', password='test')
         beatmap_entry_2 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=self.collection)
+                                                      collection=self.collection)
         beatmap_entry_2.save()
         response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_2.id}')
         self.assertEqual(response.status_code, 302)
@@ -438,15 +551,15 @@ class BeatmapApprovalTest(TestCase):
         """Test approve beatmap but not owner"""
         self.client.login(username='pippi', password='test')
         beatmap_entry_3 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
-                                                           collection=self.collection)
+                                                      collection=self.collection)
         beatmap_entry_3.save()
         response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_3.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
         self.assertFalse(BeatmapEntry.objects.get(id=beatmap_entry_3.id).owner_approved)
         beatmap_entry_4 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=self.collection,
-                                                           owner_approved=True)
+                                                      collection=self.collection,
+                                                      owner_approved=True)
         beatmap_entry_4.save()
         response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_4.id}')
         self.assertEqual(response.status_code, 302)
@@ -457,14 +570,14 @@ class BeatmapApprovalTest(TestCase):
         """Test deny beatmap but not owner"""
         self.client.login(username='pippi', password='test')
         beatmap_entry_5 = BeatmapEntry.objects.create(author=self.author, beatmap=self.beatmap,
-                                                           collection=self.collection)
+                                                      collection=self.collection)
         beatmap_entry_5.save()
         response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_5.id}')
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/')
         self.assertTrue(BeatmapEntry.objects.filter(id=beatmap_entry_5.id).exists())
         beatmap_entry_6 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=self.collection, owner_approved=True)
+                                                      collection=self.collection, owner_approved=True)
         beatmap_entry_6.save()
         response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_6.id}')
         self.assertEqual(response.status_code, 302)
@@ -475,7 +588,7 @@ class BeatmapApprovalTest(TestCase):
         """Test approve beatmap that is already approved"""
         self.client.login(username='mrekk', password='test')
         beatmap_entry_7 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=self.collection, owner_approved=True)
+                                                      collection=self.collection, owner_approved=True)
         beatmap_entry_7.save()
         response = self.client.get(f'/collections/{self.collection.id}/approve/{beatmap_entry_7.id}')
         self.assertEqual(response.status_code, 302)
@@ -487,7 +600,7 @@ class BeatmapApprovalTest(TestCase):
         self.client.login(username="mrekk", password="test")
         another_collection = Collection.objects.create(author=self.normal_user)
         beatmap_entry_9 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=another_collection, owner_approved=False)
+                                                      collection=another_collection, owner_approved=False)
         another_collection_url = reverse("approve_beatmap", args=[another_collection.id, beatmap_entry_9.id])
         response = self.client.get(another_collection_url)
         self.assertEqual(response.status_code, 302)
@@ -497,8 +610,8 @@ class BeatmapApprovalTest(TestCase):
         """Test deny beatmap that is already approved"""
         self.client.login(username='mrekk', password='test')
         beatmap_entry_8 = BeatmapEntry.objects.create(author=self.normal_user, beatmap=self.beatmap,
-                                                           collection=self.collection,
-                                                           owner_approved=True)
+                                                      collection=self.collection,
+                                                      owner_approved=True)
         beatmap_entry_8.save()
         response = self.client.get(f'/collections/{self.collection.id}/deny/{beatmap_entry_8.id}')
         self.assertEqual(response.status_code, 302)
