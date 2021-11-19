@@ -68,6 +68,7 @@
             <div class="col-sm-6" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">
             {% include "beatmap_collections/snippets/beatmap_card.html" %}
             <a class="btn btn-danger hvr-sweep-to-right-danger" href="{% url 'delete_beatmap' collection.id beatmap_entry.id %}" role="button" style="margin-top: -10px"><i class="fas fa-trash color-white"></i> Delete</a>
+            <a class="btn btn-beattosetto hvr-sweep-to-right" href="{% url 'edit_beatmap_comment' collection.id beatmap_entry.id %}" role="button" style="margin-top: -10px"><i class="fas fa-edit color-white"></i> Edit comment</a>
             </div>
         {% endfor %}
     {% else %}
