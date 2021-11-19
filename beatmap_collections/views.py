@@ -289,7 +289,11 @@ def beatmap_embed(request, collection_id, beatmap_entry_id):
 
 def team(request):
     """View for member page"""
-    return render(request, 'beatmap_collections/team.html')
+    context = {
+        'activate_sus': random.choices([True, False], weights=[0.4, 0.6])[0],
+    }
+    print(context['activate_sus'])
+    return render(request, 'beatmap_collections/team.html', context)
 
 
 @csrf_protect
