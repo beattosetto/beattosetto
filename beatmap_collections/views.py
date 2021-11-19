@@ -326,5 +326,30 @@ def delete_comment(request, collection_id, comment_id):
     # After this point, everything is valid now.
     # It is safe to delete the comment
     comment.delete()
-    messages.success(request, f"The comment is deleted!")
+    messages.success(request, f"Comment deleted successfully!")
     return redirect('collection', collection_id=collection.id)
+
+
+@login_required
+def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
+    """View for edit beatmap comment in BeatmapEntry"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    if request.user != collection.author:
+        messages.error(request, 'BAKA! You are not the author of this collection!')
+        return redirect('collection', collection_id=collection_id)
+    if request.method == 'POST':
+        form = EditBeatmapEntryCommentForm(request.POST, instance=beatmap_entry)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"The comment is edited!")
+            return redirect('manage_beatmap', collection_id=collection.id)
+    else:
+        form = EditBeatmapEntryCommentForm(instance=beatmap_entry)
+    context = {
+        'collection': collection,
+        'beatmap_entry': beatmap_entry,
+        'form': form,
+        'hero_image': random_hero_image()
+    }
+    return render(request, 'beatmap_collections/edit_beatmap_comment.html', context)
