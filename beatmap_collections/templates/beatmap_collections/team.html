@@ -170,7 +170,19 @@
             </div>
         </div>
     </section>
+    <embed src="{% static "among-us.mp3" %}" loop="true" autostart="true" width="2" height="0" id="player-sus">
 </main>
 
 
+{% endblock %}
+
+
+{% block js %}
+<script>
+    window.addEventListener("load", function(){reloadSus()})
+
+    async function reloadSus() {
+        document.getElementById("hero-sus").style = "background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static "img/team/sus.jpg" %}); background-position: top 20% center;"
+    }
+</script>
 {% endblock %}
