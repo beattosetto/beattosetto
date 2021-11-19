@@ -297,10 +297,10 @@ def delete_collection(request, collection_id):
     """Delete the collection if the current user is the owner."""
     collection = get_object_or_404(Collection, id=collection_id)
     if not request.user.is_authenticated:
-        messages.error(request, "No, you can't delete a collection without logging in.")
+        messages.error(request, "BAKA! That's nonsense! You can't delete a collection without logging in!")
         return redirect('collection', collection_id=collection.id)
     if request.user != collection.author:
-        messages.error(request, "This is not yours. You can't delete this collection.")
+        messages.error(request, "Wait! This is not yours! You can't delete this collection!")
         return redirect('collection', collection_id=collection.id)
     input_collection_name = request.POST.get('collection-name', '')
     if input_collection_name.strip() != collection.name:
@@ -311,3 +311,20 @@ def delete_collection(request, collection_id):
     collection.delete()
     messages.success(request, f"The {collection.name} collection is deleted!")
     return redirect('home')
+
+
+def delete_comment(request, collection_id, comment_id):
+    """Delete comment if the staff or comment owner want to delete."""
+    collection = get_object_or_404(Collection, id=collection_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    if not request.user.is_authenticated:
+        messages.error(request, "Stop there! How dare you delete a comment without logging in?")
+        return redirect('collection', collection_id=collection.id)
+    if not request.user.is_staff and not request.user.is_superuser and request.user != comment.user:
+        messages.error(request, "Wait! This is not yours! You can't delete this comment!")
+        return redirect('collection', collection_id=collection.id)
+    # After this point, everything is valid now.
+    # It is safe to delete the comment
+    comment.delete()
+    messages.success(request, f"The comment is deleted!")
+    return redirect('collection', collection_id=collection.id)

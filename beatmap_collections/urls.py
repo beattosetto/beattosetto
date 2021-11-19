@@ -22,7 +22,8 @@ urlpatterns = [
     path('collections/<int:collection_id>/approval', views.beatmap_approval, name='beatmap_approval'),
     path('collections/<int:collection_id>/approve/<int:beatmap_entry_id>', views.approve_beatmap, name='approve_beatmap'),
     path('collections/<int:collection_id>/deny/<int:beatmap_entry_id>', views.deny_beatmap, name='deny_beatmap'),
-    path('collections/<int:collection_id>/delete/<int:beatmap_entry_id>', views.delete_beatmap, name='delete_beatmap'),
+    path('collections/<int:collection_id>/delete/beatmap/<int:beatmap_entry_id>', views.delete_beatmap, name='delete_beatmap'),
+    path('collections/<int:collection_id>/delete/comment/<int:comment_id>', views.delete_comment, name='delete_comment'),
     path('tag/<str:tag>', views.collections_by_tag, name='collection_by_tag'),
     path('api/get_demo_card/<int:beatmap_id>', views_api.live_beatmap_card, name='get_demo_card'),
 ]
