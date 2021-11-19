@@ -39,6 +39,16 @@ class AddCommentForm(forms.Form):
         fields = ['comment']
 
 
+class EditCommentForm(forms.ModelForm):
+    """Form for editing comment"""
+    detail = forms.CharField(required=False, label='Comment', max_length=500)
+
+    class Meta:
+        """Create field that contain comment."""
+        model = Collection
+        fields = ['detail']
+
+
 class EditBeatmapEntryCommentForm(forms.ModelForm):
     """Form for editing comment in beatmap card (BeatmapEntry)"""
     comment = forms.CharField(required=False, label='Comment', max_length=500)
