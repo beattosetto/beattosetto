@@ -783,4 +783,4 @@ class EditCommentTest(TestCase):
         """User can edit a comment if they are the owner."""
         self.client.login(username="test", password="test")
         response = self.client.get(self.edit_url)
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
