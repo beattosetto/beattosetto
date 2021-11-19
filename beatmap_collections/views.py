@@ -338,6 +338,9 @@ def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
     if request.user != collection.author:
         messages.error(request, 'BAKA! You are not the author of this collection!')
         return redirect('collection', collection_id=collection_id)
+    if not collection.allow_comment:
+        messages.error(request, 'The comment function for this collection is disabled. Please enable it first!')
+        return redirect('manage_beatmap', collection_id=collection_id)
     if request.method == 'POST':
         form = EditBeatmapEntryCommentForm(request.POST, instance=beatmap_entry)
         if form.is_valid():
