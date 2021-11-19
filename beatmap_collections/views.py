@@ -326,7 +326,7 @@ def delete_comment(request, collection_id, comment_id):
     # After this point, everything is valid now.
     # It is safe to delete the comment
     comment.delete()
-    messages.success(request, f"Comment deleted successfully!")
+    messages.success(request, f"Delete comment successfully!")
     return redirect('collection', collection_id=collection.id)
 
 
@@ -345,7 +345,7 @@ def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
         form = EditBeatmapEntryCommentForm(request.POST, instance=beatmap_entry)
         if form.is_valid():
             form.save()
-            messages.success(request, f"The comment is edited!")
+            messages.success(request, f"Edit comment successfully!")
             return redirect('manage_beatmap', collection_id=collection.id)
     else:
         form = EditBeatmapEntryCommentForm(instance=beatmap_entry)
@@ -356,3 +356,28 @@ def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
         'hero_image': random_hero_image()
     }
     return render(request, 'beatmap_collections/edit_beatmap_comment.html', context)
+
+
+@login_required
+def edit_comment(request, collection_id, comment_id):
+    """View for edit comment form"""
+    collection = get_object_or_404(Collection, id=collection_id)
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.user != comment.user:
+        messages.error(request, "That's your comment? NO!")
+        return redirect('collection', collection_id=collection_id)
+    if request.method == 'POST':
+        form = EditCommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Edit comment successfully!")
+            return redirect('collection', collection_id=collection.id)
+    else:
+        form = EditCommentForm(instance=comment)
+    context = {
+        'collection': collection,
+        'comment': comment,
+        'form': form,
+        'hero_image': random_hero_image()
+    }
+    return render(request, 'beatmap_collections/edit_comment.html', context)

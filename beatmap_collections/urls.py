@@ -17,6 +17,7 @@ urlpatterns = [
     path('collections/<int:collection_id>/embed/<int:beatmap_entry_id>', views.beatmap_embed, name='beatmap_embed'),
     path('collections/<int:collection_id>/add/beatmap', views.add_beatmap, name='add_beatmap'),
     path('collections/<int:collection_id>/edit', views.edit_collection, name='edit_collection'),
+    path('collections/<int:collection_id>/edit/comment/<int:comment_id>', views.edit_comment, name='edit_comment'),
     path('collections/<int:collection_id>/delete_collection/', views.delete_collection, name='delete_collection'),
     path('collections/<int:collection_id>/manage/', views.manage_beatmap, name='manage_beatmap'),
     path('collections/<int:collection_id>/manage/<int:beatmap_entry_id>', views.edit_beatmap_comment, name='edit_beatmap_comment'),
