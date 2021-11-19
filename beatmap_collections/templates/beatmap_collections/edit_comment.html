@@ -1,0 +1,51 @@
+{% extends "beatmap_collections/base.html" %}
+{% load static %}
+
+    {% block meta_tags %}
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://beatsets.info/collections/{{ collection.id }}/edit/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="edit {{ collection.name }} | beattosetto">
+    <meta property="og:description" content='You are currently edit "{{ collection.name }}" collection.'>
+    <meta property="og:image" content="{% static hero_image %}">
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://beatsets.info/collections/{{ collection.id }}/edit/">
+    <meta property="twitter:title" content="edit {{ collection.name }} | beattosetto">
+    <meta property="twitter:description" content='You are currently edit "{{ collection.name }}" collection.'>
+    <meta property="twitter:image" content="{% static hero_image %}">
+    {% endblock %}
+
+    {% block title %}
+  <title>edit {{ collection.name }} | beattosetto</title>
+   {% endblock %}
+{% block content %}
+    <div class="px-4 py-4 my-4 align-middle hero" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color)), url({% static hero_image %});">
+        <div class="container align-middle">
+            <div class="row">
+                <p></p>
+                <p></p>
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Edit beatmap comment</h1></div>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">You are currently editing your comment in {{ collection.name }}!</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p data-aos="fade-up" data-aos-duration="800"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "collection" collection.id %}"><i class="fas fa-chevron-circle-left icon-menu hvr-icon"></i> Back to collection</a></p>
+            </div>
+        </div>
+    </div>
+    <form class="py-4 container text-white" method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class="fieldWrapper">
+            <div class="mb-3 col-sm-12">
+                <textarea name="detail" cols="40" rows="5" class="form-control" id="id_detail" maxlength="600" placeholder="Post a lovely comment to collection here." required>{{ form.detail.value }}</textarea>
+                <p class="form-error">{{ form.detail.errors }}</p>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success hvr-sweep-to-right-success">Submit</button>
+    </form>
+{% endblock %}
