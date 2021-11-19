@@ -9,4 +9,4 @@ django-crispy-forms~=1.13.0
 random-username~=1.0.2
 django-admin-interface~=0.17.3
 django-social-share~=2.2.1
-django-taggit~=1.5.1
+django-taggit~=2.0.0
