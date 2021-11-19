@@ -163,9 +163,19 @@
         </a>
         <p class="text-muted">Commented at {{ comment_object.create_date | date:"F j, Y h:i A" }}</p>
         <p>{{ comment_object.detail }}</p>
-        {% if user.is_superuser or user.is_staff or user == comment_object.user %}
-        <p><a class="text-danger text-decoration-none text-center spacing-hover-short hvr-icon-bounce color-danger" href="{% url 'delete_comment' collection.id comment_object.id %}"><i class="fas fa-trash hvr-icon text-danger"></i> Delete comment</a></p>
-        {% endif %}
+        <div class="row">
+            {% if user == comment_object.user %}
+            <div class="col-sm-2">
+                <a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce color-danger" href="{% url 'edit_comment' collection.id comment_object.id %}"><i class="fas fa-edit hvr-icon icon-menu"></i> Edit comment</a>
+            </div>
+            {% endif %}
+            {% if user.is_superuser or user.is_staff or user == comment_object.user %}
+            <div class="col-sm-2">
+                <a class="text-danger text-decoration-none text-center spacing-hover-short hvr-icon-bounce color-danger" href="{% url 'delete_comment' collection.id comment_object.id %}"><i class="fas fa-trash hvr-icon text-danger"></i> Delete comment</a>
+            </div>
+            {% endif %}
+        </div>
+
 
     </div>
     <p></p>
