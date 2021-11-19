@@ -37,7 +37,7 @@
                 {% if activate_sus %}
                 <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">The beginning of everything! But one thing, you are SUS!</p>
                 {% else %}
-                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">The beginning of everything! Like Aqours</p>
+                <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">The beginning of everything! Like Aqours of Love Live! Sunshine!!</p>
                 {% endif %}
             </div>
         </div>
@@ -176,6 +176,8 @@
     </section>
     {% if activate_sus %}
     <embed src="{% static "among-us.mp3" %}" loop="true" autostart="true" width="2" height="0" id="player-sus">
+    {% else %}
+    <embed src="{% static "aozora-jumping-heart.mp3" %}" loop="true" autostart="true" width="2" height="0" id="player-sus">
     {% endif %}
 </main>
 
