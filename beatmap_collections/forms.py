@@ -2,7 +2,7 @@
 This file contain form class that get the Collection and Beatmap from template to views.
 """
 from django import forms
-from .models import Collection, BACKGROUND_ALIGNMENT_CHOICES
+from .models import Collection, BACKGROUND_ALIGNMENT_CHOICES, BeatmapEntry
 
 
 class CreateCollectionForm(forms.ModelForm):
@@ -36,4 +36,14 @@ class AddCommentForm(forms.Form):
 
     class Meta:
         """Create field that contain comment."""
+        fields = ['comment']
+
+
+class EditBeatmapEntryCommentForm(forms.ModelForm):
+    """Form for editing comment in beatmap card (BeatmapEntry)"""
+    comment = forms.CharField(required=False, label='Comment', max_length=500)
+
+    class Meta:
+        """Create field that contain comment."""
+        model = BeatmapEntry
         fields = ['comment']
