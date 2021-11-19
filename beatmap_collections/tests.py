@@ -723,3 +723,35 @@ class DeleteCommentTest(TestCase):
         response = self.client.get(self.delete_url)
         self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
         self.assertTrue(self.is_test_comment_deleted())
+
+
+class EditBeatmapCommentTest(TestCase):
+    """Test access to edit beatmap comment page"""
+
+    def setUp(self):
+        """Create a beatmap and beatmap comment for testing."""
+        self.author = User.objects.create_user(username="test", password="test")
+        self.collection = create_collection("Test collection", user=self.author)
+        self.other = User.objects.create_user(username="other", password="other")
+        self.beatmap_entry = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=self.collection,
+                                                         author=self.author, owner_approved=False)
+        self.edit_url = reverse('edit_beatmap_comment', args=[self.collection.id, self.beatmap_entry.id])
+
+    def test_edit_beatmap_comment_without_login(self):
+        """User cannot edit a beatmap comment without logging in."""
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, '/accounts/login/?next=/collections/1/manage/1')
+
+    def test_edit_beatmap_comment_not_owner(self):
+        """User cannot edit a beatmap comment without being the owner."""
+        self.client.login(username="other", password="other")
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+
+    def test_edit_beatmap_comment_with_collection_comment_off(self):
+        """User cannot edit a beatmap comment if collection comment is off, it will redirect insteaad."""
+        self.collection.allow_comment = False
+        self.collection.save()
+        self.client.login(username="test", password="test")
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 302)
