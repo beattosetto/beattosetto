@@ -1,4 +1,4 @@
-"""Program for running E2E test via Selenium"""
+"""Program for running E2E test via Selenium on collection creation on mobile device"""
 
 import time
 from selenium import webdriver
@@ -15,11 +15,13 @@ test_password = 'peppytest45'
 # Set the browser size to mobile size
 browser.set_window_size(480, 1000)
 browser.get(url)
+
+# Open collapse menu to login
 navbar_collapse = browser.find_element(By.CSS_SELECTOR, '.navbar-toggler')
 navbar_collapse.click()
+# Need to sleep due to need the collapse animation
 time.sleep(1)
-login_button = browser.find_element(By.CSS_SELECTOR, '#collapse-sign-in')
-login_button.click()
+browser.find_element(By.CSS_SELECTOR, '#collapse-sign-in').click()
 
 # Login
 browser.find_element(By.NAME, 'login').send_keys(test_username)
