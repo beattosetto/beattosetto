@@ -59,39 +59,50 @@ def update_beatmap_action_script(action: ActionLog):
                     action.save()
 
                     # Try to delete the old beatmap picture and replace it with a new one
-                    try:
-                        os.remove(f"media/{beatmap.beatmap_card}")
-                        log_two_handler(info_logger, debug_logger, logging.INFO,
-                                        f"Deleted old beatmap card picture of {beatmap.title}[{beatmap.version}]")
-                    except FileNotFoundError:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING,
-                                        f"No old beatmap card picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                    # But first, check that beatmap is not use the default picture
+                    if beatmap.beatmap_card == "default_beatmap_cover.jpg":
+                        try:
+                            os.remove(f"media/{beatmap.beatmap_card}")
+                            log_two_handler(info_logger, debug_logger, logging.INFO,
+                                            f"Deleted old beatmap card picture of {beatmap.title}[{beatmap.version}]")
+                        except FileNotFoundError:
+                            log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                            f"No old beatmap card picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
 
-                    try:
-                        os.remove(f"media/{beatmap.beatmap_list}")
-                        log_two_handler(info_logger, debug_logger, logging.INFO,
-                                        f"Deleted old beatmap list picture of {beatmap.title}[{beatmap.version}]")
-                    except FileNotFoundError:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING,
-                                        f"No old beatmap list picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                    if beatmap.beatmap_list == "default_beatmap_thumbnail.jpg":
+                        try:
+                            os.remove(f"media/{beatmap.beatmap_list}")
+                            log_two_handler(info_logger, debug_logger, logging.INFO,
+                                            f"Deleted old beatmap list picture of {beatmap.title}[{beatmap.version}]")
+                        except FileNotFoundError:
+                            log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                            f"No old beatmap list picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
 
                     card_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/card.jpg")
-                    card_temp = NamedTemporaryFile(delete=True)
-                    card_temp.write(card_pic.content)
-                    card_temp.flush()
-                    beatmap.beatmap_card.save(f"{beatmap_id}.jpg", File(card_temp), save=True)
-                    card_temp.close()
-                    log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap card picture of {beatmap.title}[{beatmap.version}]")
+                    debug_logger.info(f"Content of {beatmap.title}[{beatmap.version}] beatmap card picture :\n{str(card_pic.content)}")
+                    if "Access Denied" not in str(card_pic.content):
+                        card_temp = NamedTemporaryFile(delete=True)
+                        card_temp.write(card_pic.content)
+                        card_temp.flush()
+                        beatmap.beatmap_card.save(f"{beatmap_id}.jpg", File(card_temp), save=True)
+                        card_temp.close()
+                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap card picture of {beatmap.title}[{beatmap.version}]")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"Beatmap card picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
 
                     list_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/list.jpg")
-                    list_temp = NamedTemporaryFile(delete=True)
-                    list_temp.write(list_pic.content)
-                    list_temp.flush()
-                    beatmap.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
-                    list_temp.close()
-                    log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap list picture of {beatmap.title}[{beatmap.version}]")
+                    debug_logger.info(f"Content of {beatmap.title}[{beatmap.version}] beatmap list picture : \n{str(list_pic.content)}")
+                    if "Access Denied" not in str(list_pic.content):
+                        list_temp = NamedTemporaryFile(delete=True)
+                        list_temp.write(list_pic.content)
+                        list_temp.flush()
+                        beatmap.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
+                        list_temp.close()
+                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap list picture of {beatmap.title}[{beatmap.version}]")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"Beatmap list picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
 
                     action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                     log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
