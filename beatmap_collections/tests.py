@@ -211,7 +211,7 @@ class CollectionListingByTagViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         """Create lists of collections for testing."""
-        cls.collections = prepare_collections(amount=ITEMS_PER_PAGE*3)
+        cls.collections = prepare_collections(amount=ITEMS_PER_PAGE * 3)
 
     def test_paginated(self):
         """Test that the collections are paginated."""
@@ -617,3 +617,57 @@ class BeatmapApprovalTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f'/collections/{self.collection.id}/approval')
         self.assertTrue(BeatmapEntry.objects.get(id=beatmap_entry_8.id).owner_approved)
+
+
+class DeleteCollectionViewTest(TestCase):
+    """Test deleting collection by owner."""
+
+    def is_test_collection_deleted(self):
+        """Utility function for checking if the test collection is deleted."""
+        return not Collection.objects.filter(id=self.collection.id).exists()
+
+    def setUp(self):
+        """Create a collection and user for testing."""
+        self.author = User.objects.create_user(username="test", password="test")
+        self.not_author = User.objects.create_user(username="test2", password="test2")
+        self.collection = create_collection("Test collection", user=self.author)
+        self.delete_url = reverse('delete_collection', args=[self.collection.id])
+
+    def test_delete_without_login(self):
+        """User cannot delete a collection without logging in.
+
+        User will be redirected to the collection page with an error message.
+        """
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name}, follow=True)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertFalse(self.is_test_collection_deleted())
+
+    def test_delete_not_owner(self):
+        """User cannot delete a collection without being the owner.
+
+        User will be redirected to the collection page with an error message.
+        """
+        self.client.login(username='test2', password='test2')
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name}, follow=True)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertFalse(self.is_test_collection_deleted())
+
+    def test_delete_with_invalid_collection_name(self):
+        """Attempt to delete without inputting the correct collection name will fail.
+
+        This is to prevent accidentally deletion. User needs to fill a form with collection name.
+        This method is also used on various sites such as GitHub.
+        """
+        response = self.client.post(self.delete_url, {'collection-name': 'ninja'})
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertFalse(self.is_test_collection_deleted())
+
+    def test_with_valid_owner_and_collection_name(self):
+        """If the user is the owner and they input correct collection's name, the collection will be deleted.
+
+        The user will be redirected to the homepage with a success message.
+        """
+        self.client.login(username="test", password="test")
+        response = self.client.post(self.delete_url, {'collection-name': self.collection.name})
+        self.assertRedirects(response, reverse('home'))
+        self.assertTrue(self.is_test_collection_deleted())

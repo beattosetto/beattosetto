@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect
+
 from .models import *
 from .forms import *
 from .functions import *
@@ -288,3 +290,24 @@ def beatmap_embed(request, collection_id, beatmap_entry_id):
 def team(request):
     """View for member page"""
     return render(request, 'beatmap_collections/team.html')
+
+
+@csrf_protect
+def delete_collection(request, collection_id):
+    """Delete the collection if the current user is the owner."""
+    collection = get_object_or_404(Collection, id=collection_id)
+    if not request.user.is_authenticated:
+        messages.error(request, "No, you can't delete a collection without logging in.")
+        return redirect('collection', collection_id=collection.id)
+    if request.user != collection.author:
+        messages.error(request, "This is not yours. You can't delete this collection.")
+        return redirect('collection', collection_id=collection.id)
+    input_collection_name = request.POST.get('collection-name', '')
+    if input_collection_name.strip() != collection.name:
+        messages.error(request, "Please input the correct collection name to delete. ")
+        return redirect('collection', collection_id=collection.id)
+    # After this point, everything is valid now.
+    # It is safe to delete the collection
+    collection.delete()
+    messages.success(request, f"The {collection.name} collection is deleted!")
+    return redirect('home')
