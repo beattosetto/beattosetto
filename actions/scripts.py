@@ -109,7 +109,7 @@ def update_beatmap_action_script(action: ActionLog):
                         list_temp.flush()
                         beatmap.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
                         list_temp.close()
-                        log_two_handler(info_logger, debug_logger, logging.INFO, 
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
                                         f"Saved new beatmap list picture of {beatmap.title}[{beatmap.version}]")
                     else:
                         log_two_handler(info_logger, debug_logger, logging.WARNING,
