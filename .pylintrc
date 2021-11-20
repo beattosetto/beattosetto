@@ -2,8 +2,7 @@
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore-paths=venv,
-             actions
+ignore-paths=venv
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
@@ -53,3 +52,6 @@ max-line-length=150
 
 # Maximum number of statements in a function.
 max-statements=150
+
+# Maximum number of branch for function / method body.
+max-branches=20
