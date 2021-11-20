@@ -19,6 +19,7 @@ from django.utils.timezone import make_aware
 
 def update_beatmap_action_script(action: ActionLog):
     """An action script for updating a beatmap's data entire server.
+
     Parameters:
         action (ActionLog): The ActionLog for tracking the action.
     """
@@ -60,7 +61,7 @@ def update_beatmap_action_script(action: ActionLog):
 
                     # Try to delete the old beatmap picture and replace it with a new one
                     # But first, check that beatmap is not use the default picture
-                    if beatmap.beatmap_card == "default_beatmap_cover.jpg":
+                    if beatmap.beatmap_card != "default_beatmap_cover.png" and beatmap.beatmap_card != "default_beatmap_cover.jpg":
                         try:
                             os.remove(f"media/{beatmap.beatmap_card}")
                             log_two_handler(info_logger, debug_logger, logging.INFO,
@@ -68,8 +69,11 @@ def update_beatmap_action_script(action: ActionLog):
                         except FileNotFoundError:
                             log_two_handler(info_logger, debug_logger, logging.WARNING,
                                             f"No old beatmap card picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"{beatmap.title}[{beatmap.version}] use default beatmap card picture, pass it.")
 
-                    if beatmap.beatmap_list == "default_beatmap_thumbnail.jpg":
+                    if beatmap.beatmap_list != "default_beatmap_thumbnail.png" and beatmap.beatmap_list != "default_beatmap_thumbnail.jpg":
                         try:
                             os.remove(f"media/{beatmap.beatmap_list}")
                             log_two_handler(info_logger, debug_logger, logging.INFO,
@@ -77,6 +81,9 @@ def update_beatmap_action_script(action: ActionLog):
                         except FileNotFoundError:
                             log_two_handler(info_logger, debug_logger, logging.WARNING,
                                             f"No old beatmap list picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"{beatmap.title}[{beatmap.version}] use default beatmap list picture, pass it.")
 
                     card_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/card.jpg")
