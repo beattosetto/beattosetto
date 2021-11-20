@@ -1,20 +1,20 @@
-"""Program for running E2E test via Selenium on collection creation on mobile device"""
+"""Program for running E2E test via Selenium on collection creation on mobile device or small browser screen"""
 
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 # Configuration on test
-url = "http://127.0.0.1:8000/"
+URL = "http://127.0.0.1:8000/"
 browser = webdriver.Chrome('chromedriver.exe')
-test_username = 'test'
-test_password = 'peppytest45'
+TEST_USERNAME = 'test'
+TEST_PASSWORD = 'peppytest45'
 
 # Before run the test, don't forget to run the server
 
 # Set the browser size to mobile size
 browser.set_window_size(480, 1000)
-browser.get(url)
+browser.get(URL)
 
 # Open collapse menu to login
 navbar_collapse = browser.find_element(By.CSS_SELECTOR, '.navbar-toggler')
@@ -24,10 +24,10 @@ time.sleep(1)
 browser.find_element(By.CSS_SELECTOR, '#collapse-sign-in').click()
 
 # Login
-browser.find_element(By.NAME, 'login').send_keys(test_username)
-browser.find_element(By.NAME, 'password').send_keys(test_password)
+browser.find_element(By.NAME, 'login').send_keys(TEST_USERNAME)
+browser.find_element(By.NAME, 'password').send_keys(TEST_PASSWORD)
 browser.find_element(By.CSS_SELECTOR, '.btn-beattosetto').click()
-assert f"Successfully signed in as {test_username}" in browser.page_source
+assert f"Successfully signed in as {TEST_USERNAME}" in browser.page_source
 
 # Create collection
 browser.find_element(By.CSS_SELECTOR, '#create-collection').click()
