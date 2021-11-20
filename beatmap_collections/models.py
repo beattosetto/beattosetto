@@ -156,10 +156,12 @@ class Beatmap(models.Model):
 
     url = models.URLField(default="https://osu.ppy.sh/beatmapsets/1#osu/75")
 
-    beatmap_card = models.ImageField(default='default_beatmap_cover.jpeg', upload_to='beatmap_card', validators=[
-        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
-    beatmap_list = models.ImageField(default='default_beatmap_thumbnail.jpeg', upload_to='beatmap_list', validators=[
-        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])])
+    beatmap_card = models.ImageField(default='default_beatmap_cover.jpg', upload_to='beatmap_card', validators=[
+        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
+                                     null=True)
+    beatmap_list = models.ImageField(default='default_beatmap_thumbnail.jpg', upload_to='beatmap_list', validators=[
+        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
+                                     null=True)
 
     # New attributes starts here.
     count_normal = models.IntegerField(default=0)
