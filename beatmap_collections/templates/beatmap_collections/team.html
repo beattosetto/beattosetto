@@ -18,7 +18,12 @@
         {% endblock %}
 
     {% block title %}
-  <title>the team | beattosetto</title>
+    {% if activate_sus %}
+        <title>the team | beattosetto</title>
+    {% else %}
+        <title>you are sus | beattosetto</title>
+    {% endif %}
+
    {% endblock %}
 
     {% block css %}
