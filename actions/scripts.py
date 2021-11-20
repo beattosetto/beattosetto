@@ -94,9 +94,11 @@ def update_beatmap_action_script(action: ActionLog):
                         card_temp.flush()
                         beatmap.beatmap_card.save(f"{beatmap_id}.jpg", File(card_temp), save=True)
                         card_temp.close()
-                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap card picture of {beatmap.title}[{beatmap.version}]")
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"Saved new beatmap card picture of {beatmap.title}[{beatmap.version}]")
                     else:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"Beatmap card picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
+                        log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                        f"Beatmap card picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
 
                     list_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/list.jpg")
@@ -107,9 +109,11 @@ def update_beatmap_action_script(action: ActionLog):
                         list_temp.flush()
                         beatmap.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
                         list_temp.close()
-                        log_two_handler(info_logger, debug_logger, logging.INFO, f"Saved new beatmap list picture of {beatmap.title}[{beatmap.version}]")
+                        log_two_handler(info_logger, debug_logger, logging.INFO, 
+                                        f"Saved new beatmap list picture of {beatmap.title}[{beatmap.version}]")
                     else:
-                        log_two_handler(info_logger, debug_logger, logging.WARNING, f"Beatmap list picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
+                        log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                        f"Beatmap list picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
 
                     action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                     log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
