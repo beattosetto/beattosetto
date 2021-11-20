@@ -209,7 +209,7 @@ class BeatmapEntry(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, null=True)
     beatmap = models.ForeignKey(Beatmap, on_delete=models.SET_NULL, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=250)
+    comment = models.CharField(max_length=250, null=True, blank=True)
     add_date = models.DateTimeField(auto_now_add=True)
 
     # Fields originally from Beatmap model.
