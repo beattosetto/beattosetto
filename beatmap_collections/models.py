@@ -156,10 +156,10 @@ class Beatmap(models.Model):
 
     url = models.URLField(default="https://osu.ppy.sh/beatmapsets/1#osu/75")
 
-    beatmap_card = models.ImageField(default='default_beatmap_cover.jpg', upload_to='beatmap_card', validators=[
+    beatmap_card = models.ImageField(default='default_beatmap_cover.png', upload_to='beatmap_card', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
                                      null=True)
-    beatmap_list = models.ImageField(default='default_beatmap_thumbnail.jpg', upload_to='beatmap_list', validators=[
+    beatmap_list = models.ImageField(default='default_beatmap_thumbnail.png', upload_to='beatmap_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
                                      null=True)
 
