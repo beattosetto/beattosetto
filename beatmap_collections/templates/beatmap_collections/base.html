@@ -94,8 +94,8 @@
                 <img id="profile-picture" src="{% static 'img/guest-profile.jpeg' %}" alt="Guest" height="48" width="48" class="rounded-circle hvr-grow">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item spacing-hover" href="{% url 'account_login' %}">Sign in</a></li>
-                <li><a class="dropdown-item spacing-hover" href="{% url 'account_signup' %}">Register</a></li>
+                <li><a class="dropdown-item spacing-hover" href="{% url 'account_login' %}" id="profile-picture-login">Sign in</a></li>
+                <li><a class="dropdown-item spacing-hover" href="{% url 'account_signup' %}" id="profile-picture-register">Register</a></li>
               </ul>
             </div>
             {% endif %}
@@ -153,7 +153,7 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,let me back!</button>
                 <form method="post" action="{% url 'account_logout' %}">
                   {% csrf_token %}
-                  <button class="btn btn-secondary btn-beattosetto hvr-sweep-to-right" type="submit">Sign Out</button>
+                  <button class="btn btn-secondary btn-beattosetto hvr-sweep-to-right" type="submit" id="confirm-logout">Sign Out</button>
               </form>
             </div>
           </div>
