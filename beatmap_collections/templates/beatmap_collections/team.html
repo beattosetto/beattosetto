@@ -33,7 +33,11 @@
             <div class="row">
                 <p></p>
                 <p></p>
+                {% if activate_sus %}
+                <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">The SUS team</h1></div>
+                {% else %}
                 <div><h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">The team</h1></div>
+                {% endif %}
                 {% if activate_sus %}
                 <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true">The beginning of everything! But one thing, you are SUS!</p>
                 {% else %}
