@@ -120,11 +120,11 @@
             <div class="collapse" id="collapseProfileMenu">
               <div class="list-group border-0">
                   {% if user.is_superuser or user.is_staff %}
-                <a href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
-                <a href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
+                <a id="collapse-actions" href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
+                <a id="collapse-admin" href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
                   {% endif %}
-                <a href="{% url 'profile' user.id %}" class="list-group-item list-group-item-action mobile-header-text">Profile</a>
-                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
+                <a id="collapse-profile" href="{% url 'profile' user.id %}" class="list-group-item list-group-item-action mobile-header-text">Profile</a>
+                <a id="collapse-settings" href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
                 <a class="list-group-item list-group-item-action mobile-header-text" id="signout-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign out</a>
               </div>
             </div>
@@ -133,9 +133,9 @@
       {% else %}
           <div class="collapse fixed-top" id="navbarToggleExternalContent">
               <div class="list-group border-0">
-                <a href="{% url 'listing' %}" class="list-group-item list-group-item-action mobile-header-text">Listing</a>
-                <a href="{% url 'account_login' %}" class="list-group-item list-group-item-action mobile-header-text">Sign In</a>
-                <a href="{% url 'account_signup' %}" class="list-group-item list-group-item-action mobile-header-text">Register</a>
+                <a id="collapse-listing-not-login" href="{% url 'listing' %}" class="list-group-item list-group-item-action mobile-header-text">Listing</a>
+                <a id="collapse-sign-in" href="{% url 'account_login' %}" class="list-group-item list-group-item-action mobile-header-text">Sign In</a>
+                <a id="collapse-sign-up" href="{% url 'account_signup' %}" class="list-group-item list-group-item-action mobile-header-text">Register</a>
                 </div>
               </div>
       {% endif %}
