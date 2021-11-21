@@ -1,3 +1,5 @@
+"""Contains various end-to-end tests for desktop browsers and mobile browsers."""
+
 import unittest
 import time
 from selenium import webdriver
@@ -6,12 +8,14 @@ from selenium.webdriver.chrome.options import Options
 
 
 class E2ETestDesktop(unittest.TestCase):
+    """Tests for desktop browsers."""
+
     def setUp(self):
         """Sets up the browser driver and parameters."""
         # Set up a browser.
         browser_option = Options()
         browser_option.driver_path = "./"
-        browser_option.headless = False
+        browser_option.headless = True
         self.browser = webdriver.Chrome(options=browser_option)
         self.browser.set_window_size(1920, 1080)
 
@@ -21,13 +25,13 @@ class E2ETestDesktop(unittest.TestCase):
         self.test_password = 'peppytest45'
 
     def test_collection_creation(self):
-        """Tests usual steps taken in a collection creation process"""
+        """Tests the usual steps taken in a collection creation process"""
         # Open beattosetto.
         self.browser.get(self.url)
 
-        # Open collapse menu to login
+        # Open collapse menu to login.
         self.browser.find_element(By.CSS_SELECTOR, '#profile-picture').click()
-        # Need to sleep due to need the collapse animation
+        # Need to sleep due to need the collapse animation.
         time.sleep(1)
         self.browser.find_element(By.CSS_SELECTOR, '#profile-picture-login').click()
         time.sleep(1)
@@ -124,14 +128,16 @@ class E2ETestDesktop(unittest.TestCase):
 
 
 class E2ETestMobile(unittest.TestCase):
+    """Tests for mobile browsers."""
+
     def setUp(self):
         """Sets up the browser driver and parameters."""
         # Set up a browser.
         browser_option = Options()
         browser_option.driver_path = "./"
-        browser_option.headless = False
+        browser_option.headless = True
         self.browser = webdriver.Chrome(options=browser_option)
-        self.browser.set_window_size(1920, 1080)
+        self.browser.set_window_size(480, 1000)
 
         # Set up parameters.
         self.url = "http://127.0.0.1:8000/"
@@ -139,16 +145,16 @@ class E2ETestMobile(unittest.TestCase):
         self.test_password = 'peppytest45'
 
     def test_collection_creation(self):
-        """Tests usual steps taken in a collection creation process"""
+        """Tests the usual steps taken in a collection creation process"""
         # Open beattosetto.
         self.browser.get(self.url)
 
-        # Open collapse menu to login
-        self.browser.find_element(By.CSS_SELECTOR, '#profile-picture').click()
-        # Need to sleep due to need the collapse animation
+        # Open collapse menu to login.
+        navbar_collapse = self.browser.find_element(By.CSS_SELECTOR, '.navbar-toggler')
+        navbar_collapse.click()
+        # Need to sleep due to need the collapse animation.
         time.sleep(1)
-        self.browser.find_element(By.CSS_SELECTOR, '#profile-picture-login').click()
-        time.sleep(1)
+        self.browser.find_element(By.CSS_SELECTOR, '#collapse-sign-in').click()
 
         # Login
         self.browser.find_element(By.NAME, 'login').send_keys(self.test_user)
@@ -175,8 +181,12 @@ class E2ETestMobile(unittest.TestCase):
     def test_click_list(self):
         """Check whether clicking on the list link leads to the listing page."""
         self.browser.get(self.url)
-        list_link_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".nav-link.px-2.nav-text"
-                                                                                ".hvr-underline-from-center")
+        # Open collapse menu to login.
+        navbar_collapse = self.browser.find_element(By.CSS_SELECTOR, '.navbar-toggler')
+        navbar_collapse.click()
+        list_link_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".list-group-item"
+                                                                                ".list-group-item-action"
+                                                                                ".mobile-header-text")
         list_link_element.click()
         self.assertEqual(self.url + "listing", self.browser.current_url)
 
