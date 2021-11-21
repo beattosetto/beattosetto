@@ -53,17 +53,21 @@ def create_beatmap(beatmap_id):
             # Download beatmap cover from osu! server and save it to the media storage and put the address in the model
             card_pic = requests.get(
                 f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/card.jpg")
-            card_temp = NamedTemporaryFile(delete=True)
-            card_temp.write(card_pic.content)
-            card_temp.flush()
-            beatmap_object.beatmap_card.save(f"{beatmap_id}.jpg", File(card_temp), save=True)
+            # Check that beatmap card picture is exist
+            if "Access Denied" not in str(card_pic.content):
+                card_temp = NamedTemporaryFile(delete=True)
+                card_temp.write(card_pic.content)
+                card_temp.flush()
+                beatmap_object.beatmap_card.save(f"{beatmap_id}.jpg", File(card_temp), save=True)
 
             list_pic = requests.get(
                 f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/list.jpg")
-            list_temp = NamedTemporaryFile(delete=True)
-            list_temp.write(list_pic.content)
-            list_temp.flush()
-            beatmap_object.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
+            # Check that beatmap list picture is exist
+            if "Access Denied" not in str(card_pic.content):
+                list_temp = NamedTemporaryFile(delete=True)
+                list_temp.write(list_pic.content)
+                list_temp.flush()
+                beatmap_object.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
 
             beatmap_object.count_normal = beatmap_json['count_normal']
             beatmap_object.count_slider = beatmap_json['count_slider']
@@ -89,10 +93,13 @@ def create_beatmap(beatmap_id):
             beatmap_object.language_id = beatmap_json['language_id']
             beatmap_object.tags = beatmap_json['tags']
 
-            beatmap_object.submit_date = make_aware(datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S'))
+            beatmap_object.submit_date = make_aware(
+                datetime.datetime.strptime(beatmap_json['submit_date'], '%Y-%m-%d %H:%M:%S'))
             if beatmap_json['approved_date'] is not None:
-                beatmap_object.approved_date = make_aware(datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S'))
-            beatmap_object.last_update = make_aware(datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S'))
+                beatmap_object.approved_date = make_aware(
+                    datetime.datetime.strptime(beatmap_json['approved_date'], '%Y-%m-%d %H:%M:%S'))
+            beatmap_object.last_update = make_aware(
+                datetime.datetime.strptime(beatmap_json['last_update'], '%Y-%m-%d %H:%M:%S'))
 
             beatmap_object.save()
             return beatmap_object

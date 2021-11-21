@@ -52,3 +52,6 @@ max-line-length=150
 
 # Maximum number of statements in a function.
 max-statements=150
+
+# Maximum number of branch for function / method body.
+max-branches=20

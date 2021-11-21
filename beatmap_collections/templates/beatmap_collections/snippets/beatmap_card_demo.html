@@ -12,12 +12,12 @@
     <p>Here is your glorious and lovely beatmap.</p>
     <div class="card mb-3" style="max-width: 100%;">
       <div class="row g-0 rounded" style="background-image: url({{ beatmap.beatmap_card.url }}); background-size: cover; background-position: center">
-        <div class="col-md-4 position-relative" style="min-height: 200px; background-image: url('https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/list.jpg'); background-size: cover; background-position: center;">
+        <div class="col-md-4 position-relative" style="min-height: 200px; background-image: url('https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/list.jpg'), url({% static "img/default-beatmap.png" %}); background-size: cover; background-position: center;">
             <div class="mediPlayer position-absolute top-50 start-50 translate-middle">
                 <audio class="listen" preload="none" data-size="80" src="//b.ppy.sh/preview/{{ beatmap.beatmapset_id }}.mp3"></audio>
             </div>
         </div>
-        <div class="col-md-8 rounded-start" style="line-height: 0.3; background-image: url('https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/card.jpg'); background-size: cover; background-position: center;">
+        <div class="col-md-8 rounded-start" style="line-height: 0.3; background-image: url('https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/card.jpg'), url({% static "img/default-beatmap.png" %}); background-size: cover; background-position: center;">
           <div class="card-body beatmap-card rounded-start rounded-3">
             <a href="{{ beatmap.url }}" class="text-decoration-none"><h4 class="card-title spacing-hover-short beatmap-title fw-bold">{{ beatmap.title }}</h4></a>
             <p class="card-text beatmap-artist">by {{ beatmap.artist }}</p>
@@ -179,7 +179,7 @@
                                 <small>{{ beatmap.diff_overall | convert_beatmap_stat }}</small>
                             </div>
                         </div>
-                        {% if beatmap.mode == 0 or beatmap.mode == 2 %}
+                        {% if beatmap.mode == "0" or beatmap.mode == "2" %}
                         <div class="row">
                             <div class="col-sm-4">
                                 <small class="modal-small">Approach Rate</small>
