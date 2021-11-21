@@ -51,7 +51,7 @@
   </div>
     {% if user.is_authenticated %}
       <div class="container">
-            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
+            <p data-aos="fade-up" data-aos-duration="700" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "new_collection" %}" id="create-collection"><i class="fas fa-plus icon-menu hvr-icon"></i> Create a new collection</a></p>
         </div>
         {% endif %}
     <section class="py-4 container">

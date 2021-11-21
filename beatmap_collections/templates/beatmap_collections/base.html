@@ -94,8 +94,8 @@
                 <img id="profile-picture" src="{% static 'img/guest-profile.jpeg' %}" alt="Guest" height="48" width="48" class="rounded-circle hvr-grow">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item spacing-hover" href="{% url 'account_login' %}">Sign in</a></li>
-                <li><a class="dropdown-item spacing-hover" href="{% url 'account_signup' %}">Register</a></li>
+                <li><a class="dropdown-item spacing-hover" href="{% url 'account_login' %}" id="profile-picture-login">Sign in</a></li>
+                <li><a class="dropdown-item spacing-hover" href="{% url 'account_signup' %}" id="profile-picture-register">Register</a></li>
               </ul>
             </div>
             {% endif %}
@@ -120,11 +120,11 @@
             <div class="collapse" id="collapseProfileMenu">
               <div class="list-group border-0">
                   {% if user.is_superuser or user.is_staff %}
-                <a href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
-                <a href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
+                <a id="collapse-actions" href="{% url "actions" %}" class="list-group-item list-group-item-action mobile-header-text">Actions</a>
+                <a id="collapse-admin" href="{% url "admin:index" %}" class="list-group-item list-group-item-action mobile-header-text">Admin</a>
                   {% endif %}
-                <a href="{% url 'profile' user.id %}" class="list-group-item list-group-item-action mobile-header-text">Profile</a>
-                <a href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
+                <a id="collapse-profile" href="{% url 'profile' user.id %}" class="list-group-item list-group-item-action mobile-header-text">Profile</a>
+                <a id="collapse-settings" href="{% url 'settings' %}" class="list-group-item list-group-item-action mobile-header-text">Settings</a>
                 <a class="list-group-item list-group-item-action mobile-header-text" id="signout-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign out</a>
               </div>
             </div>
@@ -133,9 +133,9 @@
       {% else %}
           <div class="collapse fixed-top" id="navbarToggleExternalContent">
               <div class="list-group border-0">
-                <a href="{% url 'listing' %}" class="list-group-item list-group-item-action mobile-header-text">Listing</a>
-                <a href="{% url 'account_login' %}" class="list-group-item list-group-item-action mobile-header-text">Sign In</a>
-                <a href="{% url 'account_signup' %}" class="list-group-item list-group-item-action mobile-header-text">Register</a>
+                <a id="collapse-listing-not-login" href="{% url 'listing' %}" class="list-group-item list-group-item-action mobile-header-text">Listing</a>
+                <a id="collapse-sign-in" href="{% url 'account_login' %}" class="list-group-item list-group-item-action mobile-header-text">Sign In</a>
+                <a id="collapse-sign-up" href="{% url 'account_signup' %}" class="list-group-item list-group-item-action mobile-header-text">Register</a>
                 </div>
               </div>
       {% endif %}
@@ -153,7 +153,7 @@
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No,let me back!</button>
                 <form method="post" action="{% url 'account_logout' %}">
                   {% csrf_token %}
-                  <button class="btn btn-secondary btn-beattosetto hvr-sweep-to-right" type="submit">Sign Out</button>
+                  <button class="btn btn-secondary btn-beattosetto hvr-sweep-to-right" type="submit" id="confirm-logout">Sign Out</button>
               </form>
             </div>
           </div>
