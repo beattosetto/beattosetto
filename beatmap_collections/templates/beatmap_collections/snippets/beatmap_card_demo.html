@@ -52,8 +52,8 @@
             <p class="card-text beatmap-comment">&nbsp;</p>
           {% endif %}
               <p class="card-text text-muted beatmap-author"><small>Added by <a href="{% url 'profile' user.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ user.username }}</a></small></p>
-          <a class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" href="osu://b/{{ beatmap.beatmap_id }}" role="button" style="margin-top: -10px"><i class="fas fa-download color-white"></i> osu!direct</a>
-          <button type="button" class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" data-bs-toggle="modal" data-bs-target="#modal{{ beatmap.beatmap_id }}" style="margin-top: -10px">
+          <a class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" href="osu://b/{{ beatmap.beatmap_id }}" role="button"><i class="fas fa-download color-white"></i> osu!direct</a>
+          <button type="button" class="btn btn-beattosetto btn-sm hvr-bounce-to-bottom" data-bs-toggle="modal" data-bs-target="#modal{{ beatmap.beatmap_id }}">
               <i class="fas fa-info-circle"></i> Beatmap Detail
             </button>
           </div>
