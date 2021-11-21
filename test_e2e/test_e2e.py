@@ -1,13 +1,15 @@
 """Contains various end-to-end tests for desktop browsers and mobile browsers."""
-
-import unittest
+from django.contrib.auth.models import User
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
+from beatmap_collections.models import Collection
 
-class E2ETestDesktop(unittest.TestCase):
+
+class E2ETestDesktop(StaticLiveServerTestCase):
     """Tests for desktop browsers."""
 
     def setUp(self):
@@ -22,9 +24,11 @@ class E2ETestDesktop(unittest.TestCase):
         self.browser.set_window_size(1920, 1080)
 
         # Set up parameters.
-        self.url = "http://127.0.0.1:8000/"
+        self.url = self.live_server_url
         self.test_user = "test"
         self.test_password = 'peppytest45'
+        self.user = User.objects.create_user(username=self.test_user, password=self.test_password)
+        self.collection = Collection.objects.create(name="Test collection", author=self.user)
 
     def test_collection_creation(self):
         """Tests the usual steps taken in a collection creation process"""
@@ -66,7 +70,7 @@ class E2ETestDesktop(unittest.TestCase):
         list_link_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".nav-link.px-2.nav-text"
                                                                                 ".hvr-underline-from-center")
         list_link_element.click()
-        self.assertEqual(self.url + "listing", self.browser.current_url)
+        self.assertEqual(self.url + '/' + "listing", self.browser.current_url)
 
     def test_click_collection_card(self):
         """Check whether clicking on the collection card on the landing page or the listing page
@@ -85,7 +89,7 @@ class E2ETestDesktop(unittest.TestCase):
         self.assertEqual(collection_name_text, collection_page_title.text)
 
         # Click the first card on the listing page.
-        self.browser.get(self.url + "listing")
+        self.browser.get(self.url + "/listing")
         time.sleep(1)
         collection_name_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".card-title.text-primary")
         collection_name_text = collection_name_element.text
@@ -129,7 +133,7 @@ class E2ETestDesktop(unittest.TestCase):
         self.browser.quit()
 
 
-class E2ETestMobile(unittest.TestCase):
+class E2ETestMobile(StaticLiveServerTestCase):
     """Tests for mobile browsers."""
 
     def setUp(self):
@@ -144,9 +148,11 @@ class E2ETestMobile(unittest.TestCase):
         self.browser.set_window_size(480, 1000)
 
         # Set up parameters.
-        self.url = "http://127.0.0.1:8000/"
+        self.url = self.live_server_url
         self.test_user = "test"
         self.test_password = 'peppytest45'
+        self.user = User.objects.create_user(username=self.test_user, password=self.test_password)
+        self.collectin = Collection.objects.create(name="Test collection", author=self.user)
 
     def test_collection_creation(self):
         """Tests the usual steps taken in a collection creation process"""
@@ -193,7 +199,7 @@ class E2ETestMobile(unittest.TestCase):
                                                                                 ".list-group-item-action"
                                                                                 ".mobile-header-text")
         list_link_element.click()
-        self.assertEqual(self.url + "listing", self.browser.current_url)
+        self.assertEqual(self.url + "/listing", self.browser.current_url)
 
     def test_click_collection_card(self):
         """Check whether clicking on the collection card on the landing page or the listing page
@@ -212,7 +218,7 @@ class E2ETestMobile(unittest.TestCase):
         self.assertEqual(collection_name_text, collection_page_title.text)
 
         # Click the first card on the listing page.
-        self.browser.get(self.url + "listing")
+        self.browser.get(self.url + "/listing")
         time.sleep(1)
         collection_name_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".card-title.text-primary")
         collection_name_text = collection_name_element.text
