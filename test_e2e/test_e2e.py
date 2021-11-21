@@ -16,6 +16,8 @@ class E2ETestDesktop(unittest.TestCase):
         browser_option = Options()
         browser_option.driver_path = "./"
         browser_option.headless = True
+        # Due to the AOS animation, it must wait for the animation to finish.
+        browser_option.implicitly_wait = 5
         self.browser = webdriver.Chrome(options=browser_option)
         self.browser.set_window_size(1920, 1080)
 
@@ -136,6 +138,8 @@ class E2ETestMobile(unittest.TestCase):
         browser_option = Options()
         browser_option.driver_path = "./"
         browser_option.headless = True
+        # Due to the AOS animation, it must wait for the animation to finish.
+        browser_option.implicitly_wait = 5
         self.browser = webdriver.Chrome(options=browser_option)
         self.browser.set_window_size(480, 1000)
 
@@ -184,6 +188,7 @@ class E2ETestMobile(unittest.TestCase):
         # Open collapse menu to login.
         navbar_collapse = self.browser.find_element(By.CSS_SELECTOR, '.navbar-toggler')
         navbar_collapse.click()
+        time.sleep(1)
         list_link_element = self.browser.find_element(by=By.CSS_SELECTOR, value=".list-group-item"
                                                                                 ".list-group-item-action"
                                                                                 ".mobile-header-text")
