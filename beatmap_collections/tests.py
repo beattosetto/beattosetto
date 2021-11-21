@@ -671,3 +671,116 @@ class DeleteCollectionViewTest(TestCase):
         response = self.client.post(self.delete_url, {'collection-name': self.collection.name})
         self.assertRedirects(response, reverse('home'))
         self.assertTrue(self.is_test_collection_deleted())
+
+
+class DeleteCommentTest(TestCase):
+    """Test delete comment by comment owner or staff and superuser"""
+
+    def is_test_comment_deleted(self):
+        """Utility function for checking if the comment is deleted."""
+        return not Comment.objects.filter(id=self.comment.id).exists()
+
+    def setUp(self):
+        """Create a comment and user for testing."""
+        self.author = User.objects.create_user(username="test", password="test")
+        self.dummy_user = User.objects.create_user(username="peeptest", password="peep")
+        self.staff = User.objects.create_user(username="peppy", password="wangwangwang", is_staff=True)
+        self.superuser = User.objects.create_user(username="peeppy", password="morewangwangwang", is_superuser=True)
+        self.collection = create_collection("Test collection", user=self.author)
+        self.comment = Comment.objects.create(user=self.author, detail="test comment", collection=self.collection)
+        self.delete_url = reverse('delete_comment', args=[self.collection.id, self.comment.id])
+
+    def test_delete_comment_without_login(self):
+        """User cannot delete a comment without logging in."""
+        response = self.client.get(self.delete_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertFalse(self.is_test_comment_deleted())
+
+    def test_delete_comment_not_owner(self):
+        """User cannot delete a comment without being the owner or staff or superuser."""
+        self.client.login(username="peeptest", password="peep")
+        response = self.client.get(self.delete_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertFalse(self.is_test_comment_deleted())
+
+    def test_delete_comment_by_owner(self):
+        """User can delete a comment if they are the owner."""
+        self.client.login(username="test", password="test")
+        response = self.client.get(self.delete_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertTrue(self.is_test_comment_deleted())
+
+    def test_delete_comment_by_staff(self):
+        """Staff can delete a comment."""
+        self.client.login(username="peppy", password="wangwangwang")
+        response = self.client.get(self.delete_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertTrue(self.is_test_comment_deleted())
+
+    def test_delete_comment_by_superuser(self):
+        """Superuser can delete a comment too."""
+        self.client.login(username="peeppy", password="morewangwangwang")
+        response = self.client.get(self.delete_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+        self.assertTrue(self.is_test_comment_deleted())
+
+
+class EditBeatmapCommentTest(TestCase):
+    """Test access to edit beatmap comment page"""
+
+    def setUp(self):
+        """Create a beatmap and beatmap comment for testing."""
+        self.author = User.objects.create_user(username="test", password="test")
+        self.collection = create_collection("Test collection", user=self.author)
+        self.other = User.objects.create_user(username="other", password="other")
+        self.beatmap_entry = BeatmapEntry.objects.create(beatmap=create_beatmap(240093), collection=self.collection,
+                                                         author=self.author, owner_approved=False)
+        self.edit_url = reverse('edit_beatmap_comment', args=[self.collection.id, self.beatmap_entry.id])
+
+    def test_edit_beatmap_comment_without_login(self):
+        """User cannot edit a beatmap comment without logging in."""
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, '/accounts/login/?next=/collections/1/manage/1')
+
+    def test_edit_beatmap_comment_not_owner(self):
+        """User cannot edit a beatmap comment without being the owner."""
+        self.client.login(username="other", password="other")
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+
+    def test_edit_beatmap_comment_with_collection_comment_off(self):
+        """User cannot edit a beatmap comment if collection comment is off, it will redirect instead."""
+        self.collection.allow_comment = False
+        self.collection.save()
+        self.client.login(username="test", password="test")
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 302)
+
+
+class EditCommentTest(TestCase):
+    """Test access to edit comment page"""
+
+    def setUp(self):
+        """Create a collection and comment for testing."""
+        self.author = User.objects.create_user(username="test", password="test")
+        self.collection = create_collection("Test collection", user=self.author)
+        self.other = User.objects.create_user(username="other", password="other")
+        self.comment = Comment.objects.create(collection=self.collection, user=self.author, detail="morewangwangwang")
+        self.edit_url = reverse('edit_comment', args=[self.collection.id, self.comment.id])
+
+    def test_edit_comment_without_login(self):
+        """User cannot edit a comment without logging in."""
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, '/accounts/login/?next=/collections/1/edit/comment/1')
+
+    def test_edit_comment_not_owner(self):
+        """User cannot edit a comment without being the owner."""
+        self.client.login(username="other", password="other")
+        response = self.client.get(self.edit_url)
+        self.assertRedirects(response, reverse('collection', args=[self.collection.id]))
+
+    def test_edit_comment_with_owner(self):
+        """User can edit a comment if they are the owner."""
+        self.client.login(username="test", password="test")
+        response = self.client.get(self.edit_url)
+        self.assertEqual(response.status_code, 200)

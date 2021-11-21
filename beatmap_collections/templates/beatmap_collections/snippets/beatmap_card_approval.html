@@ -56,7 +56,7 @@
           {% endif %}
           {% endif %}
               <p class="card-text text-muted beatmap-author"><small>Recommend by <a href="{% url 'profile' beatmap_entry.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ beatmap_entry.author.profile.profile_picture.url }}" alt="{{ beatmap_entry.author.username }}" width="32" height="32" class="rounded-circle hvr-icon" style="transition: 0.2s"> {{ beatmap_entry.author.username }}</a></small></p>
-          <p class="card-text"><a class="btn btn-success btn-sm hvr-sweep-to-right-success" href="{% url 'approve_beatmap' collection.id beatmap_entry.id %}" role="button" style="margin-top: -10px"><i class="fas fa-check color-white"></i> Approve</a> <a class="btn btn-danger btn-sm hvr-sweep-to-right-danger" href="{% url 'deny_beatmap' collection.id beatmap_entry.id %}" role="button" style="margin-top: -10px"><i class="fas fa-times color-white"></i> Deny</a></p>
+          <p class="card-text"><a class="btn btn-success btn-sm hvr-sweep-to-right-success" href="{% url 'approve_beatmap' collection.id beatmap_entry.id %}" role="button"><i class="fas fa-check color-white"></i> Approve</a> <a class="btn btn-danger btn-sm hvr-sweep-to-right-danger" href="{% url 'deny_beatmap' collection.id beatmap_entry.id %}" role="button"><i class="fas fa-times color-white"></i> Deny</a></p>
           </div>
         </div>
       </div>
