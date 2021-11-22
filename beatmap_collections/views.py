@@ -22,7 +22,8 @@ def home(request):
     """The homepage of the website."""
     context = {
         "latest_added": Collection.objects.order_by('-create_date')[:4],
-        'hero_image': random_hero_image()
+        'hero_image': random_hero_image(),
+        'beatmap_count': Collection.objects.count()
     }
     return render(request, 'beatmap_collections/index.html', context)
 

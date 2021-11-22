@@ -61,7 +61,9 @@
             {% include "beatmap_collections/snippets/collection_card.html" %}
         {% endfor %}
         </div>
+        {% if beatmap_count > 4 %}
         <h2 class="text-center" data-aos="fade-up" data-aos-duration="750" data-aos-once="true"><a class="text-decoration-none text-center spacing-hover-short hvr-icon-bounce" href="{% url "listing" %}"><i class="fas fa-arrow-circle-right icon-menu hvr-icon"></i> See all collections</a></h2>
+        {% endif %}
     </section>
 </main>
 
