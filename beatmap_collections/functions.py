@@ -39,16 +39,21 @@ def create_beatmap(beatmap_id):
             beatmap_object.version = beatmap_json['version']
 
             if beatmap_json['mode'] == '0':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
+                print(True)
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
+                beatmap_object.save()
             elif beatmap_json['mode'] == '1':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
+                beatmap_object.save()
             elif beatmap_json['mode'] == '2':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
+                beatmap_object.save()
             elif beatmap_json['mode'] == '3':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
+                beatmap_object.save()
             else:
                 # This should never happen
-                beatmap_object.URL = "https://osu.ppy.sh/"
+                beatmap_object.url = "https://osu.ppy.sh/"
 
             # Download beatmap cover from osu! server and save it to the media storage and put the address in the model
             card_pic = requests.get(
