@@ -115,6 +115,26 @@ def update_beatmap_action_script(action: ActionLog):
                         log_two_handler(info_logger, debug_logger, logging.WARNING,
                                         f"Beatmap list picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
 
+                    action.running_text = f"Updating the URL of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
+                    log_two_handler(info_logger, debug_logger, logging.INFO,
+                                    f"Updating the URL of {beatmap.title} [{beatmap.version}]")
+
+                    if beatmap_json['mode'] == '0':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '1':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '2':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '3':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
+                        beatmap.save()
+                    else:
+                        # This should never happen
+                        beatmap.url = "https://osu.ppy.sh/"
+
                     action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                     log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
 
