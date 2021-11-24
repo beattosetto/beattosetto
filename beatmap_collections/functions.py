@@ -69,6 +69,15 @@ def create_beatmap(beatmap_id):
                 list_temp.flush()
                 beatmap_object.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
 
+            cover_pic = requests.get(
+                f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/cover.jpg")
+            # Check that beatmap cover picture is exist
+            if "Access Denied" not in str(cover_pic.content):
+                cover_temp = NamedTemporaryFile(delete=True)
+                cover_temp.write(cover_pic.content)
+                cover_temp.flush()
+                beatmap_object.beatmap_cover.save(f"{beatmap_id}.jpg", File(cover_temp), save=True)
+
             beatmap_object.count_normal = beatmap_json['count_normal']
             beatmap_object.count_slider = beatmap_json['count_slider']
             beatmap_object.count_spinner = beatmap_json['count_spinner']
