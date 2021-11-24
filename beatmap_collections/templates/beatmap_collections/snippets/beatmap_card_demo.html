@@ -77,7 +77,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Beatmap Info</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body beatmap-info-modal" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color) 140px), url(https://assets.ppy.sh/beatmaps/{{ beatmap.beatmapset_id }}/covers/cover.jpg); background-size:100%; background-repeat: no-repeat;">
         <h4 class="beatmap-title fw-bold">{{ beatmap.title }}</h4>
         <h6 class="fw-bold">{{ beatmap.artist }}</h6>
         <h6 class="fw-bold" style="color: #a5a5a5">{{ beatmap.version }}</h6>

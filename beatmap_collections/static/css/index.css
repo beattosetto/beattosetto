@@ -322,6 +322,10 @@ a.dropdown-item {
     .beatmap-stat-text {
         text-align: left!important;
     }
+
+    .beatmap-info-modal {
+        background-image: none!important;
+    }
 }
 
 .color-white {
