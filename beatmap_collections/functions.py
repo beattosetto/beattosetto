@@ -39,18 +39,13 @@ def create_beatmap(beatmap_id):
             beatmap_object.version = beatmap_json['version']
 
             if beatmap_json['mode'] == '0':
-                print(True)
                 beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
-                beatmap_object.save()
             elif beatmap_json['mode'] == '1':
                 beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
-                beatmap_object.save()
             elif beatmap_json['mode'] == '2':
                 beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
-                beatmap_object.save()
             elif beatmap_json['mode'] == '3':
                 beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
-                beatmap_object.save()
             else:
                 # This should never happen
                 beatmap_object.url = "https://osu.ppy.sh/"
