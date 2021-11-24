@@ -162,6 +162,9 @@ class Beatmap(models.Model):
     beatmap_list = models.ImageField(default='default_beatmap_thumbnail.png', upload_to='beatmap_list', validators=[
         FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
                                      null=True)
+    beatmap_cover = models.ImageField(default='default_beatmap_cover.png', upload_to='beatmap_cover', validators=[
+        FileExtensionValidator(allowed_extensions=['png', 'gif', 'jpg', 'jpeg', 'bmp', 'svg', 'webp'])], blank=True,
+                                     null=True)
 
     # New attributes starts here.
     count_normal = models.IntegerField(default=0)
