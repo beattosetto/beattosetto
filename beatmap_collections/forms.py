@@ -32,7 +32,7 @@ class AddBeatmapForm(forms.Form):
 
 class AddCommentForm(forms.Form):
     """Form for adding comment to the collection"""
-    comment = forms.CharField(required=True, label='Comment', max_length=500)
+    comment = forms.CharField(required=True, label='Comment', max_length=250)
 
     class Meta:
         """Create field that contain comment."""
