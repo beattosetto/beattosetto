@@ -143,7 +143,7 @@
         <div class="fieldWrapper">
             <h2 data-aos="fade-up" data-aos-duration="600" data-aos-once="true">Add Comment</h2>
             <p></p>
-            <textarea name="comment" cols="40" rows="5" class="form-control" id="id_comment" maxlength="250" placeholder="Post a lovely comment to collection here." data-aos="fade-up" data-aos-duration="500" data-aos-once="true"></textarea>
+            <input type="text" id="id_comment" name="comment" class="form-control" placeholder="Post a lovely comment to collection here." data-aos="fade-up" data-aos-duration="500" data-aos-once="true">
             <p class="form-error" data-aos="fade-up" data-aos-duration="600" data-aos-once="true">{{ form.comment.errors }}</p>
         </div>
         <p></p>
@@ -162,7 +162,7 @@
             </p>
         </a>
         <p class="text-muted">Commented at {{ comment_object.create_date | date:"F j, Y h:i A" }}</p>
-        <p>{{ comment_object.detail }}</p>
+        <p style="word-wrap: break-word;">{{ comment_object.detail }}</p>
         <div class="row">
             {% if user == comment_object.user %}
             <div class="col-sm-2">
