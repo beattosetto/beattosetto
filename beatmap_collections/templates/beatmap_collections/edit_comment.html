@@ -42,7 +42,7 @@
         {% csrf_token %}
         <div class="fieldWrapper">
             <div class="mb-3 col-sm-12">
-                <textarea name="detail" cols="40" rows="5" class="form-control" id="id_detail" maxlength="250" placeholder="Post a lovely comment to collection here." required>{{ form.detail.value }}</textarea>
+                <input type="text" id="id_comment" name="comment" class="form-control" placeholder="Post a lovely comment to collection here." data-aos="fade-up" data-aos-duration="500" data-aos-once="true" required value="{{ form.detail.value }}">
                 <p class="form-error">{{ form.detail.errors }}</p>
             </div>
         </div>
