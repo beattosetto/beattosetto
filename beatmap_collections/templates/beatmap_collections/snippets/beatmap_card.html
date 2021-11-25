@@ -72,7 +72,7 @@
         <h5 class="modal-title" id="staticBackdropLabel">Beatmap Info</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body beatmap-info-modal" style="background-image: linear-gradient(to bottom, transparent, var(--bg-color) 140px), url({{ beatmap_entry.beatmap.beatmap_cover.url }}); background-size:100%; background-repeat: no-repeat;">
         <h4 class="beatmap-title fw-bold">{{ beatmap_entry.beatmap.title }}</h4>
         <h6 class="fw-bold">{{ beatmap_entry.beatmap.artist }}</h6>
         <h6 class="fw-bold" style="color: #a5a5a5">{{ beatmap_entry.beatmap.version }}</h6>

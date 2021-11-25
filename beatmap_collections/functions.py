@@ -39,16 +39,16 @@ def create_beatmap(beatmap_id):
             beatmap_object.version = beatmap_json['version']
 
             if beatmap_json['mode'] == '0':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
             elif beatmap_json['mode'] == '1':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
             elif beatmap_json['mode'] == '2':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
             elif beatmap_json['mode'] == '3':
-                beatmap_object.URL = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
+                beatmap_object.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
             else:
                 # This should never happen
-                beatmap_object.URL = "https://osu.ppy.sh/"
+                beatmap_object.url = "https://osu.ppy.sh/"
 
             # Download beatmap cover from osu! server and save it to the media storage and put the address in the model
             card_pic = requests.get(
@@ -68,6 +68,15 @@ def create_beatmap(beatmap_id):
                 list_temp.write(list_pic.content)
                 list_temp.flush()
                 beatmap_object.beatmap_list.save(f"{beatmap_id}.jpg", File(list_temp), save=True)
+
+            cover_pic = requests.get(
+                f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/cover.jpg")
+            # Check that beatmap cover picture is exist
+            if "Access Denied" not in str(cover_pic.content):
+                cover_temp = NamedTemporaryFile(delete=True)
+                cover_temp.write(cover_pic.content)
+                cover_temp.flush()
+                beatmap_object.beatmap_cover.save(f"{beatmap_id}.jpg", File(cover_temp), save=True)
 
             beatmap_object.count_normal = beatmap_json['count_normal']
             beatmap_object.count_slider = beatmap_json['count_slider']

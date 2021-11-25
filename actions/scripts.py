@@ -85,6 +85,18 @@ def update_beatmap_action_script(action: ActionLog):
                         log_two_handler(info_logger, debug_logger, logging.INFO,
                                         f"{beatmap.title}[{beatmap.version}] use default beatmap list picture, pass it.")
 
+                    if beatmap.beatmap_cover != "default_beatmap_cover.png" and beatmap.beatmap_cover != "default_beatmap_cover.jpg":
+                        try:
+                            os.remove(f"media/{beatmap.beatmap_cover}")
+                            log_two_handler(info_logger, debug_logger, logging.INFO,
+                                            f"Deleted old beatmap cover picture of {beatmap.title}[{beatmap.version}]")
+                        except FileNotFoundError:
+                            log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                            f"No old beatmap cover picture of {beatmap.title}[{beatmap.version}] to delete, pass it.")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"{beatmap.title}[{beatmap.version}] use default beatmap cover picture, pass it.")
+
                     card_pic = requests.get(
                         f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/card.jpg")
                     debug_logger.info(f"Content of {beatmap.title}[{beatmap.version}] beatmap card picture :\n{str(card_pic.content)}")
@@ -114,6 +126,42 @@ def update_beatmap_action_script(action: ActionLog):
                     else:
                         log_two_handler(info_logger, debug_logger, logging.WARNING,
                                         f"Beatmap list picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
+
+                    cover_pic = requests.get(
+                        f"https://assets.ppy.sh/beatmaps/{beatmap_json['beatmapset_id']}/covers/cover.jpg")
+                    debug_logger.info(
+                        f"Content of {beatmap.title}[{beatmap.version}] beatmap cover picture : \n{str(cover_pic.content)}")
+                    if "Access Denied" not in str(cover_pic.content):
+                        cover_temp = NamedTemporaryFile(delete=True)
+                        cover_temp.write(cover_pic.content)
+                        cover_temp.flush()
+                        beatmap.beatmap_cover.save(f"{beatmap_id}.jpg", File(cover_temp), save=True)
+                        cover_temp.close()
+                        log_two_handler(info_logger, debug_logger, logging.INFO,
+                                        f"Saved new beatmap cover picture of {beatmap.title}[{beatmap.version}]")
+                    else:
+                        log_two_handler(info_logger, debug_logger, logging.WARNING,
+                                        f"Beatmap cover picture of {beatmap.title}[{beatmap.version}] not found, skipping.")
+
+                    action.running_text = f"Updating the URL of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
+                    log_two_handler(info_logger, debug_logger, logging.INFO,
+                                    f"Updating the URL of {beatmap.title} [{beatmap.version}]")
+
+                    if beatmap_json['mode'] == '0':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#osu/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '1':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#taiko/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '2':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#fruits/{beatmap_id}"
+                        beatmap.save()
+                    elif beatmap_json['mode'] == '3':
+                        beatmap.url = f"https://osu.ppy.sh/beatmapsets/{beatmap_json['beatmapset_id']}#mania/{beatmap_id}"
+                        beatmap.save()
+                    else:
+                        # This should never happen
+                        beatmap.url = "https://osu.ppy.sh/"
 
                     action.running_text = f"Updating the metadata of {beatmap.title}[{beatmap.version}] ({count}/{beatmap_count})"
                     log_two_handler(info_logger, debug_logger, logging.INFO, f"Updating the metadata of {beatmap.title} [{beatmap.version}]")
@@ -180,6 +228,8 @@ def update_beatmap_action_script(action: ActionLog):
         log_two_handler(info_logger, debug_logger, logging.INFO,
                         f"Task running successfully with {success} success and {failed} failed!")
         log_two_handler(info_logger, debug_logger, logging.INFO, "Action finished! Thanks for using beatto-chan services.")
+        log_two_handler(info_logger, debug_logger, logging.INFO,
+                        "Returning the thread to the pool...")
     except Exception as error:
         action.status = 3
         action.running_text = f"Start Action failed : {str(error)}"
