@@ -363,7 +363,7 @@ def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
 def edit_comment(request, collection_id, comment_id):
     """View for edit comment form"""
     collection = get_object_or_404(Collection, id=collection_id)
-    comment = get_object_or_404(Comment, id=comment_id)
+    comment = get_object_or_404(Comment, id=comment_id, collection=collection)
     if request.user != comment.user:
         messages.error(request, "That's your comment? NO!")
         return redirect('collection', collection_id=collection_id)
