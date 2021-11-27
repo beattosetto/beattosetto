@@ -335,7 +335,7 @@ def delete_comment(request, collection_id, comment_id):
 def edit_beatmap_comment(request, collection_id, beatmap_entry_id):
     """View for edit beatmap comment in BeatmapEntry"""
     collection = get_object_or_404(Collection, id=collection_id)
-    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id, collection=collection)
     if request.user != collection.author:
         messages.error(request, 'BAKA! You are not the author of this collection!')
         return redirect('collection', collection_id=collection_id)
