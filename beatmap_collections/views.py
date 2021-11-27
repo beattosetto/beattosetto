@@ -317,7 +317,7 @@ def delete_collection(request, collection_id):
 def delete_comment(request, collection_id, comment_id):
     """Delete comment if the staff or comment owner want to delete."""
     collection = get_object_or_404(Collection, id=collection_id)
-    comment = get_object_or_404(Comment, id=comment_id)
+    comment = get_object_or_404(Comment, id=comment_id, collection=collection)
     if not request.user.is_authenticated:
         messages.error(request, "Stop there! How dare you delete a comment without logging in?")
         return redirect('collection', collection_id=collection.id)
