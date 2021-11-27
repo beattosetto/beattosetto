@@ -35,6 +35,9 @@
             <p class="lead mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-once="true" style="color: #b5b5b5">Made by <a href="{% url "profile" collection.author.id %}" class="hvr-picture-bounce text-decoration-none spacing-hover"><img src="{{ collection.author.profile.profile_picture.url }}" alt="{{ collection.author.username }}'s profile picture" class="rounded-circle hvr-icon" width="32px" height="32px" > {{ collection.author.username }}</a></p>
           <p class="lead mb-4 text-break" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">{{ collection.description }}</p>
         </div>
+        {% for tag in collection.all_tags %}
+          <a href="{% url 'collection_by_tag' tag %}"><span class="badge rounded-pill bg-primary" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">{{ tag }}</span></a>
+          {% endfor %}
     </div>
 
   <div class="container">
