@@ -197,7 +197,7 @@ def beatmap_approval(request, collection_id):
 def approve_beatmap(request, collection_id, beatmap_entry_id):
     """View for approve BeatmapEntry to the collection by changing the owner_approved value to True"""
     collection = get_object_or_404(Collection, id=collection_id)
-    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id, collection=collection)
     if request.user != collection.author:
         messages.error(request, 'Hehehehe No! Stop there!')
         return redirect('collection', collection_id=collection_id)
@@ -218,7 +218,7 @@ def approve_beatmap(request, collection_id, beatmap_entry_id):
 def deny_beatmap(request, collection_id, beatmap_entry_id):
     """View for deny BeatmapEntry to the collection by deleting the BeatmapEntry object"""
     collection = get_object_or_404(Collection, id=collection_id)
-    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id, collection=collection)
     if request.user != collection.author:
         messages.error(request, 'Hehehehe No! Stop there!')
         return redirect('collection', collection_id=collection_id)
@@ -234,7 +234,7 @@ def deny_beatmap(request, collection_id, beatmap_entry_id):
 def delete_beatmap(request, collection_id, beatmap_entry_id):
     """View for delete beatmap entry"""
     collection = get_object_or_404(Collection, id=collection_id)
-    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id)
+    beatmap_entry = get_object_or_404(BeatmapEntry, id=beatmap_entry_id, collection=collection)
     if request.user != collection.author:
         messages.error(request, "Hey! That's nonsense")
         return redirect('collection', collection_id=collection_id)
