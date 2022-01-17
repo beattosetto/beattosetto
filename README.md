@@ -17,7 +17,11 @@ At first our team start this project as the ISP subject project and two of the o
 
 Refer to the [project wiki](https://github.com/beattosetto/beattosetto/wiki/Setting-Up-and-Developing-a-beattosetto-Project)
 
+## Contributing
 
+Feel free to submit an issues if you find some bugs or if you have some cool idea on this project feel free to submit an issues too!
+
+About pull requests feel free to send and we will review your pull requests as soon as possible.
 
 ## Licensing
 This repository is licensed under the MIT License. We recommend you to go check out [the LICENSE file itself](LICENSE), 
