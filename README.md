@@ -9,21 +9,19 @@
 
 Beatmap collection sharing website for osu!
 
-## Website link
-https://beatsets.info/  
+## About this project
 
-## Description
-A website that allows users to post their collection of osu! beatmap set and let other people vote or comment on it. Intended users are osu! players. We choose this project because there is no official website that can do the same job.
+At first our team start this project as the ISP subject project and two of the old team have a plan to continue on developing this project as the open source project.
 
-You can compare beatmap set collection to playlist and beatmap set to a song.
+## Developing beattosetto
 
-## Development plan
-- [Iteration 1](../../wiki/Iteration-1)   
-- [Iteration 2](../../wiki/Iteration-2)
-- [Iteration 3](../../wiki/Iteration-3)
-- [Iteration 4](../../wiki/Iteration-4)
-- [Iteration 5](../../wiki/Iteration-5)
-- [Iteration 6](../../wiki/Iteration-6)
+Refer to the [project wiki](https://github.com/beattosetto/beattosetto/wiki/Setting-Up-and-Developing-a-beattosetto-Project)
+
+## Contributing
+
+Feel free to submit an issues if you find some bugs or if you have some cool idea on this project feel free to submit an issues too!
+
+About pull requests feel free to send and we will review your pull requests as soon as possible.
 
 ## Licensing
 This repository is licensed under the MIT License. We recommend you to go check out [the LICENSE file itself](LICENSE), 
