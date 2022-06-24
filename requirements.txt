@@ -10,4 +10,4 @@ random-username~=1.0.2
 django-admin-interface~=0.19.1
 django-social-share~=2.2.1
 django-taggit~=3.0.0
-selenium~=4.2.0
+selenium~=4.3.0
