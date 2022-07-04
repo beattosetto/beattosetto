@@ -1,4 +1,4 @@
-Django~=4.0.5
+Django~=4.0.6
 python-decouple~=3.6
 gunicorn~=20.1.0
 psycopg2-binary~=2.9.3
